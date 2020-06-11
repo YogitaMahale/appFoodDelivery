@@ -13,6 +13,6 @@ namespace appFoodDelivery.Persistence
         {
         }
 
-        DbSet<storeowner> storeowner { get; set; }
+       public  DbSet<storeowner> storeowner { get; set; }
     }
 }

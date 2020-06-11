@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace appFoodDelivery.Services
+namespace appFoodDelivery.API
 {
     public class Class1
     {
