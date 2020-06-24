@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<appFoodDelivery.Entity.ApplicationUser> SignInManager
+ 
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,44 +11,183 @@
     <title>@ViewData["Title"] - appFoodDelivery</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/style.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">appFoodDelivery</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="container-scroller">
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo"><img src="~/images/text.gif" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <partial name="_LoginPartial" />
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+        <div class="container-fluid page-body-wrapper">
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - appFoodDelivery - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#master" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                                <span class="menu-title">Master</span>
+                                <i class="menu-arrow text-primary"></i>
+                            </a>
+                            <div class="collapse" id="master">
+                                <ul class="nav flex-column sub-menu">
+                                    @*<li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="CreateRole"> Role</a></li>*@
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="ListUsers"> Store Owner</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="DeliveryTimeMaster" asp-action="Index"> Delivery Time Master</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="RadiusMaster" asp-action="Index"> Radius Master</a></li>
+
+                                    <li class="nav-item"><a class="nav-link" asp-controller="CountryRegistration" asp-action="Index">Country </a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="StateRegistration" asp-action="Index">State</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="CityRegistration" asp-action="Index">City</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#Driver" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                                <span class="menu-title">Driver Registration</span>
+                                <i class="menu-arrow text-primary"></i>
+                            </a>
+                            <div class="collapse" id="Driver">
+                                <ul class="nav flex-column sub-menu">
+                                    @*<li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="CreateRole"> Role</a></li>*@
+                                    <li class="nav-item"><a class="nav-link" asp-controller="driverRegistration" asp-action="Create">Add New</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="driverRegistration" asp-action="Index"> Diver List</a></li>
+
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#Customer" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                                <span class="menu-title">Customer  </span>
+                                <i class="menu-arrow text-primary"></i>
+                            </a>
+                            <div class="collapse" id="Customer">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" asp-controller="CustomerRegistration" asp-action="Create"> New Registration</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="CustomerRegistration" asp-action="Index"> All Details</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Store"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#master1" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                                <span class="menu-title">Master  </span>
+                                <i class="menu-arrow text-primary"></i>
+                            </a>
+                            <div class="collapse" id="master1">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" asp-controller="productcuisine" asp-action="Index">Cuisine</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="product" asp-action="Index">Menu</a></li>
+                                    @*<li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="ownerprofile">Owner Profile Details
+        </a></li>*@
+
+                                    <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="EditStoreProfile">Edit Owner Details</a></li>
+
+                                    @*<li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Services"> Select Service</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="StoreDetails"> Store Details</a></li>
+        <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Documentation"> Documentation</a></li>*@
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#store" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                                <span class="menu-title">Store Registration Details  </span>
+                                <i class="menu-arrow text-primary"></i>
+                            </a>
+                            <div class="collapse" id="store">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="ContactPersonDetails"> Contact Person Details</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Services"> Select Service</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="StoreDetails"> Store Details</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Documentation"> Documentation</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        //productcuisine
+
+
+                    }
+                    @*<li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#store" aria-expanded="false" aria-controls="ui-basic">
+                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                <span class="menu-title">Store Owner  </span>
+                <i class="menu-arrow text-primary"></i>
+            </a>
+            <div class="collapse" id="store">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" asp-controller="StoreOwner" asp-action="Create"> New Registration</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="StoreOwner" asp-action="Index"> All Details</a></li>
+                </ul>
+            </div>
+        </li>*@
+
+                </ul>
+            </nav>
+            <div class="main-panel">
+                <partial name="_CookieConsentPartial" />
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+                <footer class="footer">
+                    <p> &copy; @DateTime.UtcNow.Year - App Food Delivery - @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@</p>
+                </footer>
+            </div>
         </div>
-    </footer>
+    </div>
+    @*<header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">appFoodDelivery</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2020 - appFoodDelivery - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+

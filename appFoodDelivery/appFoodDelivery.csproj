@@ -6,21 +6,72 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.4" />
+    <Compile Remove="Areas\**" />
+    <Content Remove="Areas\**" />
+    <EmbeddedResource Remove="Areas\**" />
+    <None Remove="Areas\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\StoreOwnerController.cs" />
+    <Compile Remove="Models\ApplicationUser.cs" />
+    <Compile Remove="Models\StoreOwnerCreateViewModel.cs" />
+    <Compile Remove="Models\StoreOwnerEditViewModel.cs" />
+    <Compile Remove="Models\StoreOwnerIndexViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\StoreOwner\Create.cshtml" />
+    <Content Remove="Views\StoreOwner\Edit.cshtml" />
+    <Content Remove="Views\StoreOwner\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Views\StoreOwner\" />
+    <Folder Include="wwwroot\uploads\driver\drivingLicence\" />
+    <Folder Include="wwwroot\uploads\driver\profilephoto\" />
+    <Folder Include="wwwroot\uploads\driver\vehicleinsurancephoto\" />
+    <Folder Include="wwwroot\uploads\licPhoto\" />
+    <Folder Include="wwwroot\uploads\customer\" />
+    <Folder Include="wwwroot\uploads\cuisine\" />
+    <Folder Include="wwwroot\uploads\product\" />
+    <Folder Include="wwwroot\uploads\storeBannerPhoto\" />
+    <Folder Include="wwwroot\uploads\storeowner\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\CityRegistration\Create.cshtml" />
+    <None Include="Views\CityRegistration\Create2.cshtml" />
+    <None Include="Views\CityRegistration\Edit - Copy.cshtml" />
+    <None Include="Views\CityRegistration\Edit new.cshtml" />
+    <None Include="Views\CityRegistration\Edit.cshtml" />
+    <None Include="Views\CityRegistration\Index.cshtml" />
+    <None Include="Views\CityRegistration\test.cshtml" />
+    <None Include="Views\CountryRegistration\Create.cshtml" />
+    <None Include="Views\CountryRegistration\Edit.cshtml" />
+    <None Include="Views\CountryRegistration\Index.cshtml" />
+    <None Include="Views\CustomerRegistration\Create.cshtml" />
+    <None Include="Views\CustomerRegistration\Edit.cshtml" />
+    <None Include="Views\CustomerRegistration\Index.cshtml" />
+    <None Include="Views\StateRegistration\Create.cshtml" />
+    <None Include="Views\StateRegistration\Edit.cshtml" />
+    <None Include="Views\StateRegistration\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\appFoodDelivery.Entity\appFoodDelivery.Entity.csproj" />
     <ProjectReference Include="..\appFoodDelivery.Persistence\appFoodDelivery.Persistence.csproj" />
     <ProjectReference Include="..\appFoodDelivery.Services\appFoodDelivery.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

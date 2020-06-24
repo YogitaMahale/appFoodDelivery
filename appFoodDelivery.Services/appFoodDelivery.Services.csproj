@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Implementation\storeownerservices.cs" />
+    <Compile Remove="Istoreownerservices.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\appFoodDelivery.Entity\appFoodDelivery.Entity.csproj" />
     <ProjectReference Include="..\appFoodDelivery.Persistence\appFoodDelivery.Persistence.csproj" />
   </ItemGroup>
