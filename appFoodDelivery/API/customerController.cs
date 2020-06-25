@@ -73,7 +73,8 @@ namespace appFoodDelivery.API
                     catch
                     { }
                     #endregion
-                    return Ok(no);
+                    string myJson = "{'otpno': "+ no + "}";
+                    return Ok(myJson);
                 }
                 else
                 {
@@ -109,6 +110,62 @@ namespace appFoodDelivery.API
             }
 
         }
+        [HttpPost]
+        [Route("CustomerInsert")]
+        public async Task<IActionResult> CustomerInsert(string name, string email,string mobileno,string password)
+        {
+            try
+            {
+                CustomerRegistration c = CustomerRegistrationservices.GetAll().Where(x => x.mobileno1 == mobileno && x.isdeleted == false).FirstOrDefault();
+                //  var categories = await _context.CustomerRegistration.ToListAsync(); 
+                if (c == null)
+                {
+
+                    //                 id, name, profilephoto, address, mobileno1, mobileno2, emailid1, latitude, longitude, password, gender, DOB,
+                    //createddate, isdeleted, isactive, deviceid
+                    CustomerRegistration obj = new CustomerRegistration();
+
+                    //obj.name = name;
+                    //obj.profilephoto = "";
+                    //obj.address = "";
+                    //obj.mobileno1 = mobileno;
+                    //obj.mobileno2 = "";
+                    //obj.emailid1 = email;
+                    //obj.latitude = "";
+                    //obj.longitude = "";
+                    //obj.password = password;
+                    //obj.gender = "";
+                    //obj.DOB = DateTime.UtcNow;
+                    //obj.createddate = DateTime.UtcNow;
+                    //obj.isdeleted = false;
+                    //obj.isactive = false;
+                    //obj.deviceid = "";
+                    obj.name = name;
+                    obj.mobileno1 = mobileno;
+                    obj.emailid1 = email;
+                    obj.password = password;
+                    obj.isdeleted = false;
+                    obj.isactive = false;
+                    obj.gender = "select";
+                    obj.createddate = DateTime.UtcNow;
+
+                    int id=  await CustomerRegistrationservices.CreateAsync(obj);
+                    CustomerRegistration obj1 = new CustomerRegistration();
+                    obj1 =  CustomerRegistrationservices.GetById(id);
+                    return Ok(obj1);
+                }
+                else
+                {
+                    return BadRequest("duplicate Mobile No");
+                }
+                 
+            }
+            catch (Exception obj)
+            {
+                return BadRequest();
+            }
+
+        }
         [HttpPut]
         [Route("updateCustomerDeviceId")]
         public async Task<IActionResult> updateCustomerDeviceId(string deviceId, int id)
@@ -135,5 +192,8 @@ namespace appFoodDelivery.API
             }
             //return BadRequest();
         }
+
+
+        
     }
 }

@@ -77,6 +77,10 @@ namespace appFoodDelivery
             services.AddScoped<IStateRegistrationService, StateRegistrationService>();
             services.AddScoped<ICountryRegistrationservices,CountryRegistrationServices>();
             services.AddScoped<ICityRegistrationservices,CityRegistrationservices>();
+
+            services.AddScoped<IordersServices,ordersServices>();
+            services.AddScoped<IorderproductServices, orderproductServices>();
+            services.AddScoped<IorderhistoryServices, orderhistoryServices>();
             //services.AddScoped<IEmailSender, EmailSender>();
 
 

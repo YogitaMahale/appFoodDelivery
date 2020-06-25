@@ -879,15 +879,6 @@ E:\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\stati
 E:\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.dll
 E:\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.pdb
 E:\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.genruntimeconfig.cache
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.csprojAssemblyReference.cache
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.csproj.CoreCompileInputs.cache
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.MvcApplicationPartsAssemblyInfo.cs
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.MvcApplicationPartsAssemblyInfo.cache
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.RazorAssemblyInfo.cache
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.RazorAssemblyInfo.cs
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.AssemblyInfoInputs.cache
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.AssemblyInfo.cs
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\appsettings.Development.json
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\appsettings.json
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -945,6 +936,7 @@ E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appF
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
@@ -1032,6 +1024,14 @@ E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appF
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\appFoodDelivery.Entity.pdb
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\appFoodDelivery.Persistence.pdb
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\bin\Debug\netcoreapp3.1\appFoodDelivery.Services.pdb
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.csprojAssemblyReference.cache
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.csproj.CoreCompileInputs.cache
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.MvcApplicationPartsAssemblyInfo.cs
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.MvcApplicationPartsAssemblyInfo.cache
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.RazorAssemblyInfo.cache
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.RazorAssemblyInfo.cs
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.AssemblyInfoInputs.cache
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.AssemblyInfo.cs
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.TagHelpers.input.cache
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.TagHelpers.output.cache
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\appFoodDelivery.RazorCoreGenerate.cache

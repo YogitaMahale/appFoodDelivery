@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PJgZNN72XRAuqXsqEoyoMHA1WPcZazD/SVKoyi/LbUQ2RIgn+ICOsVOyYYmxhui7zebKeFqoHLIHrfRR5A+U9A==",
+  "dgSpecHash": "PYyKJvHb8kl2bK+AdlWygJuRaAobBQoYvYQln+M/QyojRPqzlP1697sBPVR1vAMqnqRdig6NkQ5MpqV+coTR2g==",
   "success": true,
   "projectFilePath": "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.csproj",
   "expectedPackageFiles": [
@@ -32,7 +32,7 @@
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\3.1.4\\microsoft.aspnetcore.identity.ui.3.1.4.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\2.2.0\\microsoft.aspnetcore.jsonpatch.2.2.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.mvc.abstractions\\2.2.0\\microsoft.aspnetcore.mvc.abstractions.2.2.0.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.mvc.core\\2.2.0\\microsoft.aspnetcore.mvc.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.mvc.core\\2.2.5\\microsoft.aspnetcore.mvc.core.2.2.5.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.mvc.dataannotations\\2.2.0\\microsoft.aspnetcore.mvc.dataannotations.2.2.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.mvc.formatters.json\\2.2.0\\microsoft.aspnetcore.mvc.formatters.json.2.2.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.mvc.viewfeatures\\2.2.0\\microsoft.aspnetcore.mvc.viewfeatures.2.2.0.nupkg.sha512",

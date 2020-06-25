@@ -477,6 +477,87 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.ToTable("driverRegistration");
                 });
 
+            modelBuilder.Entity("appFoodDelivery.Entity.orderhistory", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("oid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("orderstatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("placedate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("id");
+
+                    b.ToTable("orderhistory");
+                });
+
+            modelBuilder.Entity("appFoodDelivery.Entity.orderproducts", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("isdeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("oid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("pid")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("price")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("qty")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("orderproducts");
+                });
+
+            modelBuilder.Entity("appFoodDelivery.Entity.orders", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("amount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("customerid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("deliveryboyid")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isdeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("orderstatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("paymentstatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("placedate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("id");
+
+                    b.ToTable("orders");
+                });
+
             modelBuilder.Entity("appFoodDelivery.Entity.product", b =>
                 {
                     b.Property<int>("id")

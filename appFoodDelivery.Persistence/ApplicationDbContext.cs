@@ -26,5 +26,12 @@ namespace appFoodDelivery.Persistence
         public DbSet<CountryRegistration> CountryRegistration { get; set; }
         public DbSet<StateRegistration> StateRegistration { get; set; }
         public DbSet<CityRegistration> CityRegistration { get; set; }
+
+
+
+
+        public DbSet<orders> orders { get; set; }
+        public DbSet<orderhistory> orderhistory { get; set; }
+        public DbSet<orderproducts> orderproducts { get; set; }
     }
 }
