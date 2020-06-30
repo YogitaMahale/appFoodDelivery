@@ -53,7 +53,7 @@ namespace appFoodDelivery.Entity
         public string longitude { get; set; }
 
         [ForeignKey("CityRegistration")]
-        public int cityid { get; set; }
+        public int? cityid { get; set; }
         public CityRegistration CityRegistration { get; set; }
 
 

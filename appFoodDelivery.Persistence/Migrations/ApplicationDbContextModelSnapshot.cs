@@ -671,7 +671,7 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("cityid")
+                    b.Property<int?>("cityid")
                         .HasColumnType("int");
 
                     b.Property<string>("contactno")
@@ -832,9 +832,7 @@ namespace appFoodDelivery.Persistence.Migrations
                 {
                     b.HasOne("appFoodDelivery.Entity.CityRegistration", "CityRegistration")
                         .WithMany()
-                        .HasForeignKey("cityid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("cityid");
 
                     b.HasOne("appFoodDelivery.Entity.deliverytimemaster", "deliverytimemaster")
                         .WithMany()

@@ -10,28 +10,34 @@ namespace appFoodDelivery.Models
     public class StoreDetailsViewModel
     {
         public int id { get; set; }
+        [Required]
         [Display(Name ="Store Name")]
         public string storename { get; set; }
+        [Required]
         [Display(Name = "Delivery Radius")]
         public int radiusid { get; set; }
 
         [Required]
+
         [Display(Name = "Select Country")]
         public int countryid { get; set; }
 
         [Required]
         [Display(Name = "Select State")]
         public int stateid { get; set; }
+         
         public string latitude { get; set; }
+        
         public string longitude { get; set; }
 
         [Required]
         [Display(Name = "Select City")]
         public int cityid { get; set; }
 
-
+        [Required]
         [Display(Name = "Estimated Delivery Time")]
         public int deliverytimeid { get; set; }
+        [Required]
         [Display(Name = "Order Minimum Amount")]
         public decimal orderMinAmount { get; set; }
 

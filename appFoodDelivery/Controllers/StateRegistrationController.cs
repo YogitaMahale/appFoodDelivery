@@ -64,7 +64,7 @@ namespace plathora.Controllers
             }
             else
             {
-                return View();
+                return View(model);
             }
 
         }

@@ -10,6 +10,7 @@ namespace appFoodDelivery.Models
         public int id { get; set; }
 
         public string storeid { get; set; }
+        [Required]
         [Display(Name = "Service")]
         public string fooddelivery { get; set; }
 

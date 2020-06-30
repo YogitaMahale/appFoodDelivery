@@ -12,6 +12,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using appFoodDelivery.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using appFoodDelivery.Services.Implementation;
 //using AspNetCore;
 
 namespace appFoodDelivery.Controllers
@@ -76,6 +77,7 @@ namespace appFoodDelivery.Controllers
                 model.gender = store.gender;
                 model.emailaddress = store.emailaddress;
                 model.contactno = store.contactno;
+                
             }
 
 
@@ -104,7 +106,9 @@ namespace appFoodDelivery.Controllers
                         emailaddress = model.emailaddress,
                         gender = model.gender,
                         contactno = model.contactno,
-                        isdeleted = false,
+                        isdeleted = false
+                       // cityid=0
+                        
                         // deliverytimeid = 0,
                         // radiusid = 0
 
@@ -128,7 +132,7 @@ namespace appFoodDelivery.Controllers
             }
             else
             {
-                return View();
+                return View(model);
             }
 
         }
@@ -198,7 +202,7 @@ namespace appFoodDelivery.Controllers
             }
             else
             {
-                return View();
+                return View(model);
             }
 
         }
@@ -230,8 +234,20 @@ namespace appFoodDelivery.Controllers
             {
                 //             storename, radiusid, deliverytimeid, orderMinAmount, packagingCharges, storeBannerPhoto, 
                 //address, description, storetim
-                int stateid = _CityRegistrationservices.GetById(store.cityid).stateid;
-                int countryid = _StateRegistrationService.GetById(stateid).countryid;
+                int stateid = 0;
+                int countryid = 0;
+                int cityyid = 0;
+                if (store.cityid==null)
+                {
+
+                }
+                else
+                {
+                      cityyid = Convert.ToInt32(store.cityid);
+                      stateid = _CityRegistrationservices.GetById(cityyid).stateid;
+                      countryid = _StateRegistrationService.GetById(stateid).countryid;
+                }
+                
 
                 model.id = store.id;
                 model.storename = store.storename;
@@ -253,15 +269,22 @@ namespace appFoodDelivery.Controllers
                     model.deliverytimeid = Convert.ToInt32(store.deliverytimeid.ToString());
 
                 }
-                
+
                 model.orderMinAmount = store.orderMinAmount;
                 model.packagingCharges = store.packagingCharges;
                 model.address = store.address;
                 model.description = store.description;
                 model.storetime = store.storetime;
-                model.countryid = countryid;
-                model.stateid = stateid;
-                model.cityid = store.cityid;
+                if (store.cityid == null)
+                {
+
+                }
+                else
+                {
+                    model.countryid = countryid;
+                    model.stateid = stateid;
+                    model.cityid = cityyid;
+                }
                 model.latitude = model.latitude;
                 model.longitude = store.longitude;
                 ViewBag.States = _StateRegistrationService.GetAllState(model.countryid);
@@ -361,7 +384,7 @@ namespace appFoodDelivery.Controllers
             }
             else
             {
-                return View();
+                return View(model);
             }
 
         }
@@ -447,7 +470,7 @@ namespace appFoodDelivery.Controllers
             }
             else
             {
-                return View();
+                return View(model);
             }
 
         }

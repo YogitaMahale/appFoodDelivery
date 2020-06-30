@@ -170,30 +170,70 @@ namespace appFoodDelivery.API
         [Route("updateCustomerDeviceId")]
         public async Task<IActionResult> updateCustomerDeviceId(string deviceId, int id)
         {
-            var customer = CustomerRegistrationservices.GetById(id);
-            if (customer == null)
+            try
             {
-                return NotFound();
-            }
-            else
-            {
-                customer.deviceid = deviceId;
-                await CustomerRegistrationservices.UpdateAsync(customer);
 
-                if (id < 0)
+
+                var customer = CustomerRegistrationservices.GetById(id);
+                if (customer == null)
                 {
-                    return BadRequest();
+                    return NotFound();
                 }
                 else
                 {
+                    customer.deviceid = deviceId;
+                    await CustomerRegistrationservices.UpdateAsync(customer);
 
                     return Ok(customer);
                 }
+                //return BadRequest();
             }
-            //return BadRequest();
+            catch(Exception obj)
+            {
+                return Ok(obj.Message );
+            }
         }
 
+        //[HttpPut]
+        //[Route("updateDeviceId")]
+        //public async Task<IActionResult> updateDeviceId(string deviceId, int id)
+        //{
+        //    try
+        //    {
+        //        var customer = CustomerRegistrationservices.GetById(id);
+        //        if (customer == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            customer.deviceid = deviceId;
+        //            await CustomerRegistrationservices.UpdateAsync(customer);
 
-        
+        //            if (id < 0)
+        //            {
+        //                return BadRequest();
+        //            }
+        //            else
+        //            {
+
+        //                return Ok(customer);
+        //            }
+        //        }
+        //    }
+        //    catch(Exception obj)
+        //    {
+        //        return Ok(obj.Message);
+        //    }
+        //    finally
+        //    {
+
+        //    }
+           
+        //    //return BadRequest();
+        //}
+
+
+
     }
 }
