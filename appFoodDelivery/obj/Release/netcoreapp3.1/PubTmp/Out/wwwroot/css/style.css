@@ -25566,7 +25566,7 @@ body.avgrund-active {
 .dataTables_wrapper .dataTable thead .sorting_desc:before,
 .dataTables_wrapper .dataTable thead .sorting_asc_disabled:before,
 .dataTables_wrapper .dataTable thead .sorting_desc_disabled:before {
-  content: "\F05D";
+  /*content: "\F05D";*/
   right: 1.2em;
 }
 
@@ -25575,7 +25575,7 @@ body.avgrund-active {
 .dataTables_wrapper .dataTable thead .sorting_desc:after,
 .dataTables_wrapper .dataTable thead .sorting_asc_disabled:after,
 .dataTables_wrapper .dataTable thead .sorting_desc_disabled:after {
-  content: "\F045";
+  /*content: "\F045";*/
   right: 0.2em;
 }
 

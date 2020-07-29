@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "KYSlGelqIk9bOTiJjqGJ2k5TmnnYO9rkLHXPtNL65HP0FHTvaJuMj04eXasLmH3Pzopv95Be3MlSQtEvlBiuzg==",
+  "dgSpecHash": "KyRO2IxJ6+OPndN/n5NS0qiX0HHAEzoCsNS9vGAvyug6VWawr8z9aXCwfIdMMTcJqQOYSZ5U+E+7a187J1xT9Q==",
   "success": true,
-  "projectFilePath": "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.Services\\appFoodDelivery.Services.csproj",
+  "projectFilePath": "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\6.7.20\\appFoodDelivery\\appFoodDelivery.Services\\appFoodDelivery.Services.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\dapper\\2.0.35\\dapper.2.0.35.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.3\\microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnet.identity.entityframework\\2.2.3\\microsoft.aspnet.identity.entityframework.2.2.3.nupkg.sha512",
@@ -117,7 +118,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\system.reflection.emit.lightweight\\4.7.0\\system.reflection.emit.lightweight.4.7.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.extensions\\4.3.0\\system.reflection.extensions.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.primitives\\4.3.0\\system.reflection.primitives.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.typeextensions\\4.3.0\\system.reflection.typeextensions.4.3.0.nupkg.sha512",

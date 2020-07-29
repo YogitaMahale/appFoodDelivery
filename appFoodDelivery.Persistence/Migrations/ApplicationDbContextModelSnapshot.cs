@@ -360,6 +360,36 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.ToTable("CustomerRegistration");
                 });
 
+            modelBuilder.Entity("appFoodDelivery.Entity.DeliveryboytoCustomerfeedback", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("customerid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("deliveryboyid")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isactive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isdeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("rating")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("DeliveryboytoCustomerfeedback");
+                });
+
             modelBuilder.Entity("appFoodDelivery.Entity.StateRegistration", b =>
                 {
                     b.Property<int>("id")
@@ -385,6 +415,39 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.HasIndex("countryid");
 
                     b.ToTable("StateRegistration");
+                });
+
+            modelBuilder.Entity("appFoodDelivery.Entity.customerfeedback", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("fromcustomerid")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isactive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isdeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("rating")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("toDeliveryboyid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("toStoredid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("customerfeedback");
                 });
 
             modelBuilder.Entity("appFoodDelivery.Entity.deliverytimemaster", b =>
@@ -415,6 +478,15 @@ namespace appFoodDelivery.Persistence.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("accountno")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("banklocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("bankname")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("biketype")
                         .HasColumnType("nvarchar(max)");
 
@@ -431,6 +503,9 @@ namespace appFoodDelivery.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ifsccode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isactive")
@@ -464,6 +539,9 @@ namespace appFoodDelivery.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("profilephoto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("vehicleinsurancephoto")
@@ -538,8 +616,17 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.Property<int>("customerid")
                         .HasColumnType("int");
 
+                    b.Property<string>("deliveryaddress")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("deliveryboyid")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("discount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("instructions")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isdeleted")
                         .HasColumnType("bit");
@@ -550,8 +637,20 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.Property<string>("paymentstatus")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("paymenttype")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("placedate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("promocode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("storeid")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("transactionid")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
@@ -630,14 +729,46 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("storeid")
-                        .HasColumnType("nvarchar(450)");
+                    b.HasKey("id");
+
+                    b.ToTable("productcuisinemaster");
+                });
+
+            modelBuilder.Entity("appFoodDelivery.Entity.promocodemaster", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("createddate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("discount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("discounttype")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("expirydate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isactive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isdeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("promocode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("promocodeusagelimit")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
-                    b.HasIndex("storeid");
-
-                    b.ToTable("productcuisinemaster");
+                    b.ToTable("promocodemaster");
                 });
 
             modelBuilder.Entity("appFoodDelivery.Entity.radiusmaster", b =>
@@ -661,6 +792,27 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.ToTable("radiusmaster");
                 });
 
+            modelBuilder.Entity("appFoodDelivery.Entity.slider", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("isactive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isdeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("slider");
+                });
+
             modelBuilder.Entity("appFoodDelivery.Entity.storedetails", b =>
                 {
                     b.Property<int>("id")
@@ -668,7 +820,16 @@ namespace appFoodDelivery.Persistence.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("accountno")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("banklocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("bankname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("cityid")
@@ -686,6 +847,9 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.Property<string>("description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("discount")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<string>("emailaddress")
                         .HasColumnType("nvarchar(max)");
 
@@ -693,6 +857,9 @@ namespace appFoodDelivery.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ifsccode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isdeleted")
@@ -713,8 +880,14 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.Property<decimal>("packagingCharges")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<string>("promocode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("radiusid")
                         .HasColumnType("int");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("storeBannerPhoto")
                         .HasColumnType("nvarchar(max)");
@@ -816,13 +989,6 @@ namespace appFoodDelivery.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("appFoodDelivery.Entity.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("storeid");
-                });
-
-            modelBuilder.Entity("appFoodDelivery.Entity.productcuisinemaster", b =>
-                {
                     b.HasOne("appFoodDelivery.Entity.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("storeid");

@@ -6,6 +6,7 @@ using appFoodDelivery.Entity;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Data.Entity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace appFoodDelivery.Services.Implementation
 {
@@ -50,7 +51,14 @@ namespace appFoodDelivery.Services.Implementation
             _context.SaveChanges();
 
         }
-
+        public IEnumerable<SelectListItem> GetAlldriver()
+        {
+            return GetAll().Select(emp => new SelectListItem()
+            {
+                Text = emp.name,
+                Value = emp.id.ToString()
+            });
+        }
 
     }
 }

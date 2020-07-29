@@ -14,6 +14,8 @@ using System.Security.Policy;
 using System.Net.Mail;
 using System.Text;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using appFoodDelivery.Services;
+using appFoodDelivery.pagination;
 
 namespace appFoodDelivery.Controllers
 {
@@ -23,15 +25,40 @@ namespace appFoodDelivery.Controllers
         private readonly UserManager<ApplicationUser> usermanager;
         private readonly SignInManager<ApplicationUser> signinmanager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IstoredetailsServices _storedetailsServices;
+        private readonly IRadiusMasterServices _RadiusMasterServices;
+        private readonly IDeliveryTimeMasterServices _DeliveryTimeMasterServices;
+        private readonly Iproductservices _productservices;
+        private readonly ICountryRegistrationservices _CountryRegistrationservices;
+        private readonly IStateRegistrationService _StateRegistrationService;
+        private readonly ICityRegistrationservices _cityRegistrationservices;
+        private readonly Iproductcuisinemasterservices _productcuisinemasterservices;
         public AccountController(UserManager<ApplicationUser> usermanager,
                                     SignInManager<ApplicationUser> signinmanager,
                                     RoleManager<IdentityRole> roleManager
-                                    , IWebHostEnvironment hostingEnvironment)
+                                    , IWebHostEnvironment hostingEnvironment
+                                    , IstoredetailsServices storedetailsServices
+                                    , IRadiusMasterServices RadiusMasterServices
+                                    ,IDeliveryTimeMasterServices DeliveryTimeMasterServices
+                                    , ICountryRegistrationservices CountryRegistrationservices
+                                     , IStateRegistrationService StateRegistrationService
+                                    , ICityRegistrationservices cityRegistrationservices
+                                    , Iproductservices productservices
+                                    , Iproductcuisinemasterservices productcuisinemasterservices
+            )
         {
             this.usermanager = usermanager;
             this.signinmanager = signinmanager;
             this.roleManager = roleManager;
             _hostingEnvironment = hostingEnvironment;
+            _storedetailsServices = storedetailsServices;
+            _RadiusMasterServices = RadiusMasterServices;
+            _DeliveryTimeMasterServices = DeliveryTimeMasterServices;
+            _productservices = productservices;
+            _CountryRegistrationservices  = CountryRegistrationservices;
+            _StateRegistrationService = StateRegistrationService;
+            _cityRegistrationservices  = cityRegistrationservices;
+            _productcuisinemasterservices = productcuisinemasterservices;
         }
         [HttpGet]
         public IActionResult Register()
@@ -148,10 +175,12 @@ namespace appFoodDelivery.Controllers
         }
 
         [HttpGet]
-        public IActionResult ListUsers()
+        public IActionResult ListUsers(int? PageNumber)
         {
             var users = usermanager.Users;
             return View(users);
+
+
         }
         [HttpGet]
         public async Task<IActionResult> EditListUsers(string id)
@@ -267,38 +296,36 @@ namespace appFoodDelivery.Controllers
                     var token = await usermanager.GeneratePasswordResetTokenAsync(user);
                     var passwordresetLink = Url.Action("ResetPassword", "Account",
                         new { email = model.Email, token = token }, Request.Scheme);
-                   bool send = SendConfirmationMail(model.Email, passwordresetLink);
+                    bool send = SendConfirmationMail(model.Email, passwordresetLink, token);
+
                     return View("storeForgotPasswordConfimation");
                 }
                 return View("storeForgotPasswordConfimation");
             }
             return View();
         }
-        private bool SendConfirmationMail(string email,string link)
+        private bool SendConfirmationMail(string email,string link,string token)
         {
             //----  msg--
             string oSB = string.Empty;
             oSB += "<br/>";
-           oSB += "<div>Hello ,</div>";
-            oSB += "<a href=\"'"+link+"'"+">Change Password</a>";
-            // oSB += "<table><tr><td>Login Name  </td> <td>'" +"" + "'</td> </tr> <tr> <td>Password  </td><td>'" + "" + "'</td> </tr> <tr> <td>Email  </td><td>'" + "" + "'</td> </tr> <tr> <td>Bank  </td><td>'" + "" + "'</td>  </tr> <tr><td>Branch Name  </td><td>'" + "" + "'</td> </tr> <tr> <td>Branch Code  </td><td>'" + "" + "'</td> </tr>   <tr> <td>State </td><td>'" + "" + "'</td> </tr> <tr><td>City</td><td>'" +"" + "'</td> </tr> <tr> <td>PinCode</td><td>'" + "" + "'</td>   </tr> <tr>    <td>Mobile No </td><td>'" +""+ "'</td>     </tr> <tr>       <td>Phone No </td><td>'" + "" + "'</td>  </tr> <tr>   <td>GST No </td><td>'" +"" + "'</td> </tr> <tr> <td>Zonal Admin Manager Name </td><td>'" + "" + "'</td>  </tr> <tr><td>Appartment/ Building </td><td>'" + "" + "'</td> </tr><tr> <td>Landmark </td><td>'" + "" + "'</td> </tr><tr> <td>Street / Road</td><td>'" + ""+ "'</td> </tr> <tr>  <td>Zonal Admin Manager Email </td><td>'" + "" + "'</td>  </tr></table>";
+            oSB += "<div>Forgot Password </div>";
+            oSB += "<br/>";
+            oSB += "<div>Dear Member,  </div>";
+            oSB += "<br/>";
+            oSB += "<div>As per your request, we have sent you the password reset link. Click on the following link to reset your password: </div>";
+            oSB += "<br/>";
+            oSB += "<table><tr><td>'" + link + "'</td> </tr> </table>";
 
-            //oSB += "<hr/>";
-            //  oSB += "<div>Thank you,</div>";
-            // oSB += "<div>Food Delivery- Support Team.</div>";
+            oSB += "<hr/>";
+            oSB += "<div>Thank you,</div>";
+            oSB += "<div>Food Delivery- Support Team.</div>";
             //----------------
-            // common ocommon = new common();
+           // common ocommon = new common();
             //   string oSB = string.Empty;
             bool send = false;
             MailMessage mail = new MailMessage();
-            //mail.To.Add("all4stationery@gmail.com");
-
-            //  mail.To.Add("technologiesvsys@gmail.com");
-            // mail.CC.Add("info@all-stationery.com");
-            //  mail.CC.Add("yogesh.m@gmail.com");
-           // mail.CC.Add("info4stationery@gmail.com");
-            // mail.CC.Add("manekar.yogesh1@gmail.com");
-            //mail.To.Add("ploutos.kiran@gmail.com");
+            
             if (email.ToString().Trim() == "".Trim())
             {
             }
@@ -306,15 +333,15 @@ namespace appFoodDelivery.Controllers
             {
                 mail.To.Add(new MailAddress(email.ToString().Trim()));
             }
-            
 
 
 
-            // mail.To.Add(new MailAddress("mahaleyogita233@gmail.com"));
-            //  mail.From = new MailAddress("accounts@all-stationery.com", "Stationery Order");
-            mail.From = new MailAddress("info@picindia.in", "Stationery Registration");
 
-            mail.Subject = "Forget Password";
+             
+                  mail.From = new MailAddress("support@picindia.in", "Food Delivery");
+            //mail.From = new MailAddress("info@all-stationery.com", "Stationery Registration");
+
+            mail.Subject = "Registration Done Successfully";
             mail.Body = oSB.ToString();
             //string Filepath = Server.MapPath("~\\PDF\\") + "Invoice" + count + ".pdf";
 
@@ -329,8 +356,8 @@ namespace appFoodDelivery.Controllers
             smtp.Port = 25;
             smtp.UseDefaultCredentials = false;
             //smtp.Credentials = new System.Net.NetworkCredential("accounts@all-stationery.com", "kiran@123");
-            smtp.Credentials = new System.Net.NetworkCredential("info@picindia.in", "sumit@2020");
-
+            //smtp.Credentials = new System.Net.NetworkCredential("info@all-stationery.com", "8^75uttA");
+            smtp.Credentials = new System.Net.NetworkCredential("support@picindia.in", "0crq*7I8");
             //info@all-stationery.com
             try
             {
@@ -340,51 +367,33 @@ namespace appFoodDelivery.Controllers
             catch (Exception ex)
             {
                 send = false;
-             //   ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "", "alert('" + ex.Message + "," + ex.StackTrace + "')", true);
+               // ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "", "alert('" + ex.Message + "," + ex.StackTrace + "')", true);
                 // ErrHandler.writeError(ex.Message, ex.StackTrace);
             }
             return send;
         }
-        //private bool SendMail(string email,string link)
+
+        //private bool SendConfirmationMail(string email,string link,string token)
         //{
-        //    //----  msg--
+
+        //    string CustomerName = string.Empty;
+
+
         //    string oSB = string.Empty;
-        //    oSB += "<br/>";
-        //    oSB += "<div>Hello Admin,</div>";
-        //   // oSB += "<table><tr><td>Login Name  </td> <td>'" + txtloginname.Text + "'</td> </tr> <tr> <td>Password  </td><td>'" + txtpassword.Text + "'</td> </tr> <tr> <td>Email  </td><td>'" + txtemail.Text + "'</td> </tr> <tr> <td>Bank  </td><td>'" + ddlbank.SelectedItem.ToString() + "'</td>  </tr> <tr><td>Branch Name  </td><td>'" + txtname.Text + "'</td> </tr> <tr> <td>Branch Code  </td><td>'" + txtbranchcode.Text + "'</td> </tr>   <tr> <td>State </td><td>'" + ddlState.SelectedItem + "'</td> </tr> <tr><td>City</td><td>'" + ddlCity.SelectedItem + "'</td> </tr> <tr> <td>PinCode</td><td>'" + txtpincode.Text + "'</td>   </tr> <tr>    <td>Mobile No </td><td>'" + txtmobileno.Text + "'</td>     </tr> <tr>       <td>Phone No </td><td>'" + txtphone.Text + "'</td>  </tr> <tr>   <td>GST No </td><td>'" + txtgstno.Text + "'</td> </tr> <tr> <td>Zonal Admin Manager Name </td><td>'" + txtzonalname.Text + "'</td>  </tr> <tr><td>Appartment/ Building </td><td>'" + txtapartment.Text + "'</td> </tr><tr> <td>Landmark </td><td>'" + txtroad.Text + "'</td> </tr><tr> <td>Street / Road</td><td>'" + txtaddress.Text + "'</td> </tr> <tr>  <td>Zonal Admin Manager Email </td><td>'" + txtzonalmail.Text + "'</td>  </tr></table>";
-
-        //    oSB += "<hr/>";
-        //    oSB += "<div>Thank you,</div>";
-        //    oSB += "<div>all-stationery- Support Team.</div>";
-        //    //----------------
-
         //    bool send = false;
         //    MailMessage mail = new MailMessage();
+        //    mail.To.Add(email);
 
-        //   // mail.CC.Add("info4stationery@gmail.com");
 
-        //    if (email.ToString().Trim() == "".Trim())
-        //    {
-        //    }
-        //    else
-        //    {
-        //        mail.To.Add(new MailAddress(email.ToString().Trim()));
-        //    }
-
-        //    mail.From = new MailAddress("info@picindia.in", "Stationery Registration");
-
-        //    mail.Subject = "Forget Password";
-        //    mail.Body = link.ToString();          
-
+        //    mail.From = new MailAddress("info@picindia.in", CustomerName);
+        //    mail.Subject = "Customer Generate New Order - InvoiceNo - " + email ;
+        //    mail.Body = link;
         //    mail.IsBodyHtml = true;
         //    SmtpClient smtp = new SmtpClient();
         //    smtp.Host = "103.250.184.62";
         //    smtp.Port = 25;
         //    smtp.UseDefaultCredentials = false;
-        //    //smtp.Credentials = new System.Net.NetworkCredential("accounts@all-stationery.com", "kiran@123");
         //    smtp.Credentials = new System.Net.NetworkCredential("info@picindia.in", "sumit@2020");
-
-        //    //info@all-stationery.com
         //    try
         //    {
         //        smtp.Send(mail);
@@ -393,35 +402,116 @@ namespace appFoodDelivery.Controllers
         //    catch (Exception ex)
         //    {
         //        send = false;
-        //      //  ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "", "alert('" + ex.Message + "," + ex.StackTrace + "')", true);
-        //        // ErrHandler.writeError(ex.Message, ex.StackTrace);
+        //        //ErrHandler.writeError(ex.Message, ex.StackTrace);
         //    }
         //    return send;
         //}
+
+        //private string OrderMailCreate(Int64 OrderId)
+        //{
+        //    common ocommon = new common();
+        //    string OrderLink = "http://moryaapp.moryatools.com/orderinvoice.aspx?oid=" + ocommon.Encrypt(OrderId.ToString(), true);
+        //    string oSB = string.Empty;
+        //    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["cnstring"].ConnectionString);
+        //    DataSet ds = new DataSet();
+        //    SqlDataAdapter da;
+        //    try
+        //    {
+        //        SqlCommand cmd = new SqlCommand();
+        //        //cmd.CommandText = "order_invoice";
+        //        cmd.CommandText = "Customer_order_invoice";
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.Parameters.AddWithValue("@oid", OrderId);
+        //        cmd.Connection = con;
+        //        con.Open();
+        //        da = new SqlDataAdapter(cmd);
+        //        da.Fill(ds);
+        //        oSB += "<div>Hello Admin,</div";
+        //        if (ds.Tables != null)
+        //        {
+        //            if (ds.Tables[2].Rows.Count > 0)
+        //            {
+        //                oSB += "<br/>";
+        //                oSB += "<table><tr><td><b><u>Customer Details - </u></b></td></tr><tr><td> Name - " + ds.Tables[2].Rows[0]["name"].ToString() + "</td></tr><tr><td>Phone: <span>" + ds.Tables[2].Rows[0]["phone"].ToString() + "</span></td></tr><tr><td>GST NO: <span>" + ds.Tables[2].Rows[0]["gstno"].ToString() + "</span></td></tr><tr><td>Address: <span>" + ds.Tables[2].Rows[0]["address"].ToString() + "</span></td></tr><tr><td>Email: <span>" + ds.Tables[2].Rows[0]["email"].ToString() + "</span></td></tr></table>";
+        //                oSB += "<hr/>";
+        //            }
+
+        //            if (ds.Tables[0] != null)
+        //            {
+        //                if (ds.Tables[0].Rows.Count > 0)
+        //                {
+        //                    oSB += "<br/>";
+        //                    oSB += "<table><tr><td><b><u>Order Details -</u></b></td></tr><tr><td> Invoice No - #" + ds.Tables[0].Rows[0]["oid"].ToString() + "</td></tr><tr><td>Order Date: <span>" + ds.Tables[0].Rows[0]["orderdate"].ToString() + "</span></td></tr><tr><td>Total Amount: <span>" + ds.Tables[0].Rows[0]["totalamount"].ToString() + "</span></td></tr></table>";
+        //                    oSB += "<hr/>";
+        //                }
+        //            }
+
+        //            if (ds.Tables[1].Rows.Count > 0)
+        //            {
+        //                oSB += "<br/>";
+        //                oSB += "<table><tr><td><b><u>Order Products Details - </u></b></td></tr></table>";
+        //                oSB += "<br/>";
+        //                oSB += "<table style='border: 1px solid black'><thead><tr style='border: 1px solid black'><th style='border: 1px solid black'>Product Name</th><th style='border: 1px solid black'>SKU</th><th style='text-align: center;border: 1px solid black'>Product Price</th><th style='text-align: center;border: 1px solid black'>Quantites</th><th style='text-align: center;border: 1px solid black'>GST</th><th style='text-align: center;border: 1px solid black'>Product Basic Price</th><th style='text-align: center;border: 1px solid black'>Product Total Price</th></tr></thead><tbody>";
+        //                for (int i = 0; i < ds.Tables[1].Rows.Count; i++)
+        //                {
+        //                    oSB += "<tr style='border: 1px solid black'>";
+        //                    oSB += "<td style='border: 1px solid black'><span>" + ds.Tables[1].Rows[i]["productname"].ToString() + "</span></td>";
+        //                    oSB += "<td style='text-align: center;border: 1px solid black'><span>" + ds.Tables[1].Rows[i]["sku"].ToString() + "</span></td>";
+        //                    oSB += "<td style='text-align: center;border: 1px solid black'><span>" + ds.Tables[1].Rows[i]["productprice"].ToString() + "</span></td>";
+        //                    oSB += "<td style='text-align: center;border: 1px solid black'><span>" + ds.Tables[1].Rows[i]["quantites"].ToString() + "</span></td>";
+        //                    oSB += "<td style='text-align: center;border: 1px solid black'><span>" + ds.Tables[1].Rows[i]["gst"].ToString() + "</span></td>";
+        //                    oSB += "<td style='text-align: center;border: 1px solid black'><span>" + ds.Tables[1].Rows[i]["ProductBasicPrice"].ToString() + "</span></td>";
+        //                    oSB += "<td style='text-align: center;border: 1px solid black'><span>" + ds.Tables[1].Rows[i]["producttotalprice"].ToString() + "</span></td>";
+        //                    oSB += "</tr>";
+        //                }
+        //                oSB += "</tbody></table>";
+        //                oSB += "<br/>";
+        //                oSB += "<b><u>Website Page Link -</u>  <a href=" + OrderLink + ">" + OrderLink + "</a></b>";
+        //                oSB += "<br/>";
+        //                oSB += "<br/>";
+        //                oSB += "<hr/>";
+        //                oSB += "<div>Thank you,</div>";
+        //                oSB += "<div>Morya App - Support Team.</div>";
+        //            }
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ErrHandler.writeError(ex.Message, ex.StackTrace);
+        //        return null;
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
+        //    return oSB;
+        //}
+
         [HttpGet]
-        public IActionResult ResetPassword(string token, string email) 
+        public IActionResult ResetPassword(string token, string email)
         {
-           if(token==null||email==null)
+            if (token == null || email == null)
             {
                 ModelState.AddModelError("", "Invalid Password Reset Token");
             }
-            
+
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> ResetPassword(storeResetPasswordViewmodel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = await usermanager.FindByEmailAsync(model.Email);
-                if(user!=null)
+                if (user != null)
                 {
                     var result = await usermanager.ResetPasswordAsync(user, model.Token, model.Password);
-                    if(result.Succeeded)
+                    if (result.Succeeded)
                     {
                         return View("ResetPasswordConfirmation");
                     }
-                    foreach(var error in result.Errors)
+                    foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError("", error.Description);
                     }
@@ -430,9 +520,125 @@ namespace appFoodDelivery.Controllers
                 return View("ResetPasswordConfirmation");
             }
 
-             
+
 
             return View(model);
         }
+
+        public static string base64Decode(string sData) //Decode    
+        {
+            try
+            {
+                var encoder = new System.Text.UTF8Encoding();
+                System.Text.Decoder utf8Decode = encoder.GetDecoder();
+                byte[] todecodeByte = Convert.FromBase64String(sData);
+                int charCount = utf8Decode.GetCharCount(todecodeByte, 0, todecodeByte.Length);
+                char[] decodedChar = new char[charCount];
+                utf8Decode.GetChars(todecodeByte, 0, todecodeByte.Length, decodedChar, 0);
+                string result = new String(decodedChar);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in base64Decode" + ex.Message);
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> storeDetails(string id)
+        {
+            var users = await usermanager.FindByIdAsync(id);
+            if (users == null)
+            {
+                ViewBag.ErrorMessgae = "User with id =" + id + "cannot be found";
+                return View("NotFound");
+            }
+            var model = new StoreShowDetailsViewModel()
+            {                
+
+             storeid = users.Id,
+                storeownerName = users.name ,
+                mobileno = users.mobileno ,
+                ownergender = users.gender ,
+                profilephoto = users.profilephoto,
+                Email = users.Email                
+            };
+            //byte[] decodedHashedPassword = Convert.FromBase64String(users.PasswordHash);
+            //    string pass = base64Decode(users.PasswordHash);
+            if (model.storeid!=null)
+            {
+                var storedetails = _storedetailsServices.GetAll().Where(x => x.storeid == model.storeid).FirstOrDefault();
+                
+                if (storedetails != null)
+                {
+                    model.contactpersonname = storedetails.contactpersonname;
+                    model.emailaddress = storedetails.emailaddress;
+                    model.contactno = storedetails.contactno;
+                    model.gender = storedetails.gender;
+                    model.fooddelivery = storedetails.fooddelivery;
+                    model.storename = storedetails.storename;
+                    model.radiusid = _RadiusMasterServices.GetById(Convert.ToInt32(storedetails.radiusid)).name;
+                    model.deliverytimeid = _DeliveryTimeMasterServices.GetById(Convert.ToInt32(storedetails.deliverytimeid)).name;
+                    model.orderMinAmount = storedetails.orderMinAmount;
+                    model.packagingCharges = storedetails.packagingCharges;
+                    model.storeBannerPhoto = storedetails.storeBannerPhoto;
+                    model.address = storedetails.address;
+                    model.description = storedetails.description;
+                    model.storetime = storedetails.storetime;
+                    model.licPhoto = storedetails.licPhoto;
+                    model.latitude = storedetails.latitude;
+                    model.longitude = storedetails.longitude;
+                    if(storedetails.radiusid!=null)
+                    {
+                        int cityidd = Convert.ToInt32(storedetails.radiusid);
+                        int stateid = _cityRegistrationservices.GetById(cityidd).stateid;
+                        int countryid = _StateRegistrationService.GetById(stateid).countryid;
+
+                        model.country = _CountryRegistrationservices.GetById(countryid).countryname;
+                        model.state  = _StateRegistrationService .GetById(countryid).StateName;
+                        model.cityid = _cityRegistrationservices.GetById(cityidd).cityName;
+
+                    }
+                     
+                   
+                }
+            }
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> ProductList(string id)
+        {
+            var listt = _productservices.GetAll().Where(x => x.storeid == id).Select(x => new productIndexViewModel
+            {
+                id = x.id
+                  ,
+                storeid = x.storeid
+                  ,
+                productcuisineid = x.productcuisineid
+                  ,
+                productcuisinemaster = _productcuisinemasterservices.GetById(x.productcuisineid)
+                  ,
+                name = x.name
+                  ,
+                img = x.img
+                  ,
+                foodtype = x.foodtype
+                  ,
+                amount = x.amount
+                  ,
+                description = x.description
+                  ,
+                discounttype = x.discounttype
+                  ,
+                discountamount = x.discountamount
+
+            }).ToList();
+            //  return View(storeList);
+
+
+            return View(listt);
+
+        }
     }
 }
+
+ 

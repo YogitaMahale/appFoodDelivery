@@ -12,8 +12,10 @@ namespace appFoodDelivery.Models
         public int id { get; set; }
         [Required]
         [Display(Name ="Store Name")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Use letters only please")]
         public string storename { get; set; }
         [Required]
+       
         [Display(Name = "Delivery Radius")]
         public int radiusid { get; set; }
 
@@ -55,7 +57,20 @@ namespace appFoodDelivery.Models
 
        
         public Boolean isdeleted { get; set; }
+        [Display(Name = "Promo Code")]
+        public string promocode { get; set; }
+        [Display(Name = "Discount")]
+        public decimal discount { get; set; } = 0;
+        [Display(Name = "Account No.")]
+        public string accountno { get; set; }
+        [Display(Name = "Bank Name")]
 
-
+        public string bankname { get; set; }
+        [Display(Name = "Bank Location")]
+        public string banklocation { get; set; }
+        [Display(Name = "IFSC Code")]
+        public string ifsccode { get; set; }
+        [Display(Name = "Store Status")]
+        public string status { get; set; }
     }
 }

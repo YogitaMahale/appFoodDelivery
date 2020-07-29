@@ -28,10 +28,13 @@ namespace appFoodDelivery.Persistence
         public DbSet<CityRegistration> CityRegistration { get; set; }
 
 
-
+        public DbSet<slider> slider { get; set; }
 
         public DbSet<orders> orders { get; set; }
         public DbSet<orderhistory> orderhistory { get; set; }
         public DbSet<orderproducts> orderproducts { get; set; }
+        public DbSet<customerfeedback> customerfeedback { get; set; }
+        public DbSet<promocodemaster> promocodemaster { get; set; }
+        public DbSet<DeliveryboytoCustomerfeedback> DeliveryboytoCustomerfeedback { get; set; }
     }
 }

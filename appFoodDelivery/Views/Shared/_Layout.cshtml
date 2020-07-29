@@ -1,7 +1,7 @@
 ﻿
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<appFoodDelivery.Entity.ApplicationUser> SignInManager
- 
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 </head>
 <body>
     <div class="container-scroller">
@@ -38,6 +42,7 @@
                             <div class="collapse" id="master">
                                 <ul class="nav flex-column sub-menu">
                                     @*<li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="CreateRole"> Role</a></li>*@
+                                    <li class="nav-item"><a class="nav-link" asp-controller="productcuisine" asp-action="Index">Cuisine</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="ListUsers"> Store Owner</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="DeliveryTimeMaster" asp-action="Index"> Delivery Time Master</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="RadiusMaster" asp-action="Index"> Radius Master</a></li>
@@ -45,7 +50,8 @@
                                     <li class="nav-item"><a class="nav-link" asp-controller="CountryRegistration" asp-action="Index">Country </a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="StateRegistration" asp-action="Index">State</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="CityRegistration" asp-action="Index">City</a></li>
-
+                                    <li class="nav-item"><a class="nav-link" asp-controller="slider" asp-action="Index">Slider</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Promocodes" asp-action="Index">Promo Code</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -53,14 +59,14 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#Driver" aria-expanded="false" aria-controls="ui-basic">
                                 <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
-                                <span class="menu-title">Driver Registration</span>
+                                <span class="menu-title">Deliveryboy Registration</span>
                                 <i class="menu-arrow text-primary"></i>
                             </a>
                             <div class="collapse" id="Driver">
                                 <ul class="nav flex-column sub-menu">
                                     @*<li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="CreateRole"> Role</a></li>*@
                                     <li class="nav-item"><a class="nav-link" asp-controller="driverRegistration" asp-action="Create">Add New</a></li>
-                                    <li class="nav-item"><a class="nav-link" asp-controller="driverRegistration" asp-action="Index"> Diver List</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="driverRegistration" asp-action="Index"> Deliveryboy List</a></li>
 
 
                                 </ul>
@@ -79,6 +85,20 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#order" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                                <span class="menu-title">Dispatcher  </span>
+                                <i class="menu-arrow text-primary"></i>
+                            </a>
+                            <div class="collapse" id="order">
+                                <ul class="nav flex-column sub-menu">
+                                    @*<li class="nav-item"><a class="nav-link" asp-controller="order" asp-action="index"> orders details</a></li>*@
+                                    <li class="nav-item"><a class="nav-link" asp-controller="order" asp-action="test">Details</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
                     }
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Store"))
                     {
@@ -90,16 +110,17 @@
                             </a>
                             <div class="collapse" id="master1">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" asp-controller="productcuisine" asp-action="Index">Cuisine</a></li>
+
                                     <li class="nav-item"><a class="nav-link" asp-controller="product" asp-action="Index">Menu</a></li>
                                     @*<li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="ownerprofile">Owner Profile Details
-        </a></li>*@
+                        </a></li>*@
 
                                     <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="EditStoreProfile">Edit Owner Details</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="ChangePassword">Change Password</a></li>
 
                                     @*<li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Services"> Select Service</a></li>
-        <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="StoreDetails"> Store Details</a></li>
-        <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Documentation"> Documentation</a></li>*@
+                        <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="StoreDetails"> Store Details</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Documentation"> Documentation</a></li>*@
                                 </ul>
                             </div>
                         </li>
@@ -119,10 +140,27 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#order" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                                <span class="menu-title">Dispatcher  </span>
+                                <i class="menu-arrow text-primary"></i>
+                            </a>
+                            <div class="collapse" id="order">
+                                <ul class="nav flex-column sub-menu">
+                                    @*<li class="nav-item"><a class="nav-link" asp-controller="order" asp-action="index"> orders details</a></li>*@
+                                    <li class="nav-item"><a class="nav-link" asp-controller="order" asp-action="test">Details</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
+
                         //productcuisine
 
 
                     }
+
+
                     @*<li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#store" aria-expanded="false" aria-controls="ui-basic">
                 <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
@@ -187,6 +225,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

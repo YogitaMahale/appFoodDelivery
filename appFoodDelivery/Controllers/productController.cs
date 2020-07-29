@@ -61,10 +61,10 @@ namespace appFoodDelivery.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ApplicationUser usr = await GetCurrentUserAsync();
-            var id = usr.Id;
+            //ApplicationUser usr = await GetCurrentUserAsync();
+            //var id = usr.Id;
 
-            ViewBag.productcuisine = _productcuisinemasterservices.GetAll().Where(x=>x.storeid==id).ToList();
+            ViewBag.productcuisine = _productcuisinemasterservices.GetAll().ToList();
             var model = new productCreateViewModel();
             return View(model);
         }
@@ -125,10 +125,10 @@ namespace appFoodDelivery.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            ApplicationUser usr = await GetCurrentUserAsync();
-            var id1 = usr.Id;
+            //ApplicationUser usr = await GetCurrentUserAsync();
+            //var id1 = usr.Id;
 
-            ViewBag.productcuisine = _productcuisinemasterservices.GetAll().Where(x => x.storeid == id1).ToList();
+            ViewBag.productcuisine = _productcuisinemasterservices.GetAll().ToList();
             var prod = _productservices.GetById(id);
             if (prod == null)
             {

@@ -35,9 +35,17 @@ namespace appFoodDelivery.Entity
         public string drivinglicphoto { get; set; }
         public string vehicleinsurancephoto { get; set; }
 
+        public string accountno { get; set; }
+        public string bankname { get; set; }
+        public string banklocation { get; set; }
+        public string ifsccode { get; set; }
+
         [DefaultValue("false")]
         public Boolean isdeleted { get; set; }
         [DefaultValue("false")]
         public Boolean isactive { get; set; }
+        public string status { get; set; }
+
+
     }
 }

@@ -9,9 +9,8 @@ namespace appFoodDelivery.Entity
    public  class productcuisinemaster
     {
         public int id { get; set; }
-        [ForeignKey("ApplicationUser")]
-        public string storeid { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        
+         
         public string name { get; set; }
         public string img { get; set; }
 

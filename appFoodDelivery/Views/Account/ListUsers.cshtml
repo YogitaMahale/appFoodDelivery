@@ -22,8 +22,11 @@
                             <thead>
                                 <tr>
                                     <th style="display:none;">id</th>
+                                    <th>Photo</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Gender</th>
+                                    <th>Mobile No</th>
                                     <th class="text-warning">Actions</th>
                                 </tr>
                             </thead>
@@ -34,9 +37,12 @@
                                 <tr>
                                     <td style="display:none;">
 
-                                        <a asp-action="Detail" asp-route-id="@item.Id  " id="lblid">
+                                        <a asp-action="Detail" asp-route-id="@item.Id" id="lblid">
                                             @item.Id
                                         </a>
+                                    </td>
+                                    <td>
+                                        <img alt="image" src="@Url.Content(item.profilephoto)" />
                                     </td>
                                     <td>
                                         <a asp-action="Detail" asp-route-id="@item.name">
@@ -49,6 +55,16 @@
                                         </a>
                                     </td>
                                     <td>
+
+                                        @item.gender
+
+                                    </td>
+                                    <td>
+
+                                        @item.mobileno
+
+                                    </td>
+                                    <td>
                                         <a class="text-success" asp-action="EditListUsers" asp-route-id="@item.Id">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
@@ -56,6 +72,12 @@
                                         <a class="text-danger" asp-action="deleteListUsers" asp-route-id="@item.Id">
                                             <i class="far fa-trash-alt"></i> Delete
                                         </a>
+                                        <a class="text-success" asp-action="storeDetails" asp-route-id="@item.Id">
+                                            <i class="fas fa-edit"></i> Details
+                                        </a>
+                                        @*<a class="text-success" asp-action="ProductList" asp-route-id="@item.Id">
+                                            <i class="fas fa-edit"></i> Menu
+                                        </a>*@
                                     </td>
                                 </tr>
                                 }

@@ -27,7 +27,7 @@ namespace appFoodDelivery.Controllers
         private readonly IStateRegistrationService _StateRegistrationService;
         private readonly ICountryRegistrationservices _CountryRegistrationservices;
         private readonly ICityRegistrationservices _CityRegistrationservices;
-
+        private readonly SignInManager<ApplicationUser> _signinmanager;
 
         public storedetailsController(UserManager<ApplicationUser> usermanager
                                     , IWebHostEnvironment hostingEnvironment
@@ -37,6 +37,7 @@ namespace appFoodDelivery.Controllers
                                     , IStateRegistrationService StateRegistrationService
                                     , ICountryRegistrationservices CountryRegistrationservices
                                     , ICityRegistrationservices CityRegistrationservices
+                                    , SignInManager<ApplicationUser> signinmanager
             )
         {
             this.usermanager = usermanager;
@@ -47,6 +48,7 @@ namespace appFoodDelivery.Controllers
             _StateRegistrationService = StateRegistrationService;
             _CountryRegistrationservices = CountryRegistrationservices;
             _CityRegistrationservices = CityRegistrationservices;
+            _signinmanager = signinmanager;
         }
 
 
@@ -275,6 +277,11 @@ namespace appFoodDelivery.Controllers
                 model.address = store.address;
                 model.description = store.description;
                 model.storetime = store.storetime;
+
+                model.promocode = store.promocode;
+                model.discount  = store.discount;
+
+
                 if (store.cityid == null)
                 {
 
@@ -287,6 +294,13 @@ namespace appFoodDelivery.Controllers
                 }
                 model.latitude = model.latitude;
                 model.longitude = store.longitude;
+
+
+                model.accountno = model.accountno;
+                model.bankname  = store.bankname;
+                model.banklocation = model.banklocation;
+                model.ifsccode  = store.ifsccode;
+                model.status = store.status;
                 ViewBag.States = _StateRegistrationService.GetAllState(model.countryid);
                 ViewBag.Cities = _CityRegistrationservices.GetAllCity(model.stateid);
             }
@@ -326,8 +340,15 @@ namespace appFoodDelivery.Controllers
                         storetime = model.storetime,
                         latitude=model.latitude,
                         longitude=model.longitude,
-                        cityid=model.cityid
+                        cityid=model.cityid,
+                        promocode=model.promocode,
+                        discount=model.discount,
 
+                         accountno = model.longitude,
+                        banklocation  = model.banklocation,
+                        bankname = model.bankname,
+                        ifsccode = model.ifsccode,
+                        status = model.status
                         // deliverytimeid = 0,
                         // radiusid = 0
                     };
@@ -362,7 +383,14 @@ namespace appFoodDelivery.Controllers
                     store.latitude = model.latitude;
                     store.longitude = model.longitude;
                     store.cityid = model.cityid;
+                    store.promocode = model.promocode;
+                    store.discount  = model.discount;
 
+                    store.bankname = model.bankname;
+                    store.banklocation = model.banklocation;
+                    store.accountno = model.accountno;
+                    store.ifsccode = model.ifsccode;
+                    store.status = model.status;
                     if (model.storeBannerPhoto != null && model.storeBannerPhoto.Length > 0)
                     {
                         var uploadDir = @"uploads/storeBannerPhoto";
@@ -549,7 +577,38 @@ namespace appFoodDelivery.Controllers
             }
             return View(model1);
         }
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword()
+        { 
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(StoreDetailsChangePasswordViewModel model)
+        {
+           if(ModelState.IsValid)
+            {
+               var user = await usermanager.GetUserAsync(User);
+                if(user==null)
+                {
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    var result = await usermanager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                    if(!result.Succeeded)
+                    {
+                        foreach(var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
 
+                        }
+                    }
+                    await _signinmanager.RefreshSignInAsync(user);
+                    return View("ChangePasswordConfirmationView");
+                }
+            }
+            return View(model );
+        }
     }
 }
 //Documentation

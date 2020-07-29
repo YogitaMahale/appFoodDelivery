@@ -31,9 +31,9 @@ namespace appFoodDelivery.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ApplicationUser usr = await GetCurrentUserAsync();
-            var id = usr.Id;
-            var listt = _productcuisinemasterservices.GetAll().Where(x => x.storeid == id).Select(x => new productcuisineIndexViewModel
+            //ApplicationUser usr = await GetCurrentUserAsync();
+            //var id = usr.Id;
+            var listt = _productcuisinemasterservices.GetAll().Select(x => new productcuisineIndexViewModel
             {
                 id = x.id
                 ,
@@ -60,8 +60,8 @@ namespace appFoodDelivery.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser usr = await GetCurrentUserAsync();
-                var id = usr.Id;
+                //ApplicationUser usr = await GetCurrentUserAsync();
+                //var id = usr.Id;
                 var store = new productcuisinemaster
                 {
                     id = model.id
@@ -72,8 +72,7 @@ namespace appFoodDelivery.Controllers
                     isdeleted = false
                     ,
                     isactive = false
-                    ,  
-                    storeid = id
+                     
 
                 };
                 if (model.img != null && model.img.Length > 0)

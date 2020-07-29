@@ -59,6 +59,16 @@ namespace appFoodDelivery.Entity
 
         [DefaultValue("false")]
         public Boolean isdeleted { get; set; }
-         
+
+        public string promocode { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal discount { get; set; }
+
+        public string accountno { get; set; }
+        public string bankname { get; set; }
+        public string banklocation { get; set; }
+        public string ifsccode { get; set; }
+
+        public string status { get; set; }
     }
 }

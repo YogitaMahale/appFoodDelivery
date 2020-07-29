@@ -151,7 +151,47 @@
 
             </div>
             <div class="form-row">
-               
+                <div class="form-group col-md-2">
+                    <label asp-for="accountno"></label>
+                </div>
+                <div class="form-check col-md-3">
+                    <input asp-for="accountno" id="accountno" class="form-control" placeholder="Enter Account No.." />
+                    <span asp-validation-for="accountno" class="text-danger"></span>
+                </div>
+                <div class="col-md-2">
+
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="banklocation"></label>
+                </div>
+                <div class="form-group col-md-3">
+                    <input asp-for="banklocation" class="form-control" placeholder="Enter Bank Location.." />
+                    <span asp-validation-for="banklocation" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label asp-for="bankname"></label>
+                </div>
+                <div class="form-check col-md-3">
+                    <input asp-for="bankname" id="bankname" class="form-control" placeholder="Enter Bank Name.." />
+                    <span asp-validation-for="bankname" class="text-danger"></span>
+                </div>
+                <div class="col-md-2">
+
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="ifsccode"></label>
+                </div>
+                <div class="form-group col-md-3">
+                    <input asp-for="ifsccode" class="form-control" placeholder="Enter IFSC Code.." />
+                    <span asp-validation-for="ifsccode" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+
                 <div class="form-group col-md-2">
                     <label asp-for="vehicleinsurancephoto"></label>
                 </div>
@@ -162,9 +202,26 @@
                         <span asp-validation-for="vehicleinsurancephoto" class="text-danger"></span>
                     </div>
                 </div>
+                <div class="form-group col-md-2">
+                    
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="status"></label>
+                </div>
+
+                <div class="form-group col-md-3">
+                    <select asp-for="status" class="form-control">
+
+                        <option value="Select" selected>-- Select --</option>
+                        <option value="available">Available</option>
+                        <option value="unavailable">Unavailable</option>
+
+                    </select>
+                    <span asp-validation-for="status" class="text-danger"></span>
+                </div>
             </div>
 
-
+             
             <div class="form-group">
 
                 <button type="submit" class="btn btn-rounded btn-primary float-left"><i class="fas fa-plus-square" style="margin-right:0.7em"></i>Save</button>

@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-appFoodDelivery-106FEFE3-46F1-4160-AF49-41BAA5405D6A</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Areas\**" />
     <Content Remove="Areas\**" />
@@ -13,14 +17,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\promocodeController.cs" />
     <Compile Remove="Controllers\StoreOwnerController.cs" />
     <Compile Remove="Models\ApplicationUser.cs" />
+    <Compile Remove="Models\orderassigndeliveryboy.cs" />
     <Compile Remove="Models\StoreOwnerCreateViewModel.cs" />
     <Compile Remove="Models\StoreOwnerEditViewModel.cs" />
     <Compile Remove="Models\StoreOwnerIndexViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Order\assigndeliveryboy.cshtml" />
     <Content Remove="Views\StoreOwner\Create.cshtml" />
     <Content Remove="Views\StoreOwner\Edit.cshtml" />
     <Content Remove="Views\StoreOwner\Index.cshtml" />
@@ -31,10 +38,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+    <PackageReference Include="Nancy" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +55,7 @@
     <Folder Include="wwwroot\uploads\licPhoto\" />
     <Folder Include="wwwroot\uploads\customer\" />
     <Folder Include="wwwroot\uploads\cuisine\" />
+    <Folder Include="wwwroot\uploads\slider\" />
     <Folder Include="wwwroot\uploads\product\" />
     <Folder Include="wwwroot\uploads\storeBannerPhoto\" />
     <Folder Include="wwwroot\uploads\storeowner\" />

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "86xP1i0CBCGfAzjRe1/uy61V/9ZBNhOJDqkm5Cb+Vf7sXHko7/vevuhjoT5g8S/xGh+Nfy4tLZPRhEiYno51RQ==",
+  "dgSpecHash": "gaz6nvzSRFgPwZOwnXOSfVnAIP/Vl3VtY8yftZWxleHQf6eCZaJm0rwSiPgHBdgObhK0FVLnA+XE80giMzvk+Q==",
   "success": true,
-  "projectFilePath": "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.Persistence\\appFoodDelivery.Persistence.csproj",
+  "projectFilePath": "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\6.7.20\\appFoodDelivery\\appFoodDelivery.Persistence\\appFoodDelivery.Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.3\\microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",

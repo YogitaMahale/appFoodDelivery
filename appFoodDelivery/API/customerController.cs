@@ -11,11 +11,15 @@ using Microsoft.AspNetCore.Mvc;
 using appFoodDelivery.Entity;
 //using appFoodDelivery.Models.Dtos;
 using appFoodDelivery.Services;
-using HttpDeleteAttribute = Microsoft.AspNetCore.Mvc.HttpDeleteAttribute;
-using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
-using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
-using HttpPutAttribute = Microsoft.AspNetCore.Mvc.HttpPutAttribute;
-using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
+using System.Net.Mail;
+using Dapper;
+using Nancy.Json;
+using System.Text;
+//using HttpDeleteAttribute = Microsoft.AspNetCore.Mvc.HttpDeleteAttribute;
+//using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
+//using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
+//using HttpPutAttribute = Microsoft.AspNetCore.Mvc.HttpPutAttribute;
+//using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace appFoodDelivery.API
 {
@@ -24,10 +28,18 @@ namespace appFoodDelivery.API
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly ICustomerRegistrationservices CustomerRegistrationservices;
-        public customerController(ICustomerRegistrationservices _CustomerRegistrationservices, IWebHostEnvironment hostingEnvironment)
+        private readonly IsliderServices _sliderServices;
+        private readonly ISP_Call _ISP_Call;
+        private readonly IordersServices _ordersServices;
+        private readonly IcustomerfeedbackServices _customerfeedbackServices;
+        public customerController(ICustomerRegistrationservices _CustomerRegistrationservices, IWebHostEnvironment hostingEnvironment, IsliderServices sliderServices, ISP_Call ISP_Call, IordersServices ordersServices, IcustomerfeedbackServices customerfeedbackServices)
         {
             CustomerRegistrationservices = _CustomerRegistrationservices;
+            _sliderServices=sliderServices;
             _hostingEnvironment = hostingEnvironment;
+            _ISP_Call = ISP_Call;
+            _ordersServices = ordersServices;
+            _customerfeedbackServices = customerfeedbackServices;
         }
         [HttpGet]
         [Route("getOTPNo")]
@@ -78,7 +90,7 @@ namespace appFoodDelivery.API
                 }
                 else
                 {
-                    return BadRequest("Duplicate Mobile No");
+                    return Ok(obj);
                 }
 
 
@@ -194,46 +206,402 @@ namespace appFoodDelivery.API
             }
         }
 
-        //[HttpPut]
-        //[Route("updateDeviceId")]
-        //public async Task<IActionResult> updateDeviceId(string deviceId, int id)
-        //{
-        //    try
-        //    {
-        //        var customer = CustomerRegistrationservices.GetById(id);
-        //        if (customer == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            customer.deviceid = deviceId;
-        //            await CustomerRegistrationservices.UpdateAsync(customer);
+        [HttpPut]
+        [Route("updateDeviceId")]
+        public async Task<IActionResult> updateDeviceId(string deviceId, int id)
+        {
+            try
+            {
+                var customer = CustomerRegistrationservices.GetById(id);
+                if (customer == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    customer.deviceid = deviceId;
+                    await CustomerRegistrationservices.UpdateAsync(customer);
 
-        //            if (id < 0)
-        //            {
-        //                return BadRequest();
-        //            }
-        //            else
-        //            {
+                    if (id < 0)
+                    {
+                        return BadRequest();
+                    }
+                    else
+                    {
 
-        //                return Ok(customer);
-        //            }
-        //        }
-        //    }
-        //    catch(Exception obj)
-        //    {
-        //        return Ok(obj.Message);
-        //    }
-        //    finally
-        //    {
+                        return Ok(customer);
+                    }
+                }
+            }
+            catch (Exception obj)
+            {
+                return Ok(obj.Message);
+            }
+            finally
+            {
 
-        //    }
-           
-        //    //return BadRequest();
-        //}
+            }
+
+            //return BadRequest();
+        }
+
+        [HttpPut]
+        [Route("updateCustomerProfile")]
+        public async Task<IActionResult> updateCustomerProfile(string name,string email, int id)
+        {
+            try
+            {
+
+
+                var customer = CustomerRegistrationservices.GetById(id);
+                if (customer == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    customer.name = name;
+                    customer.emailid1=email;
+                    await CustomerRegistrationservices.UpdateAsync(customer);
+
+                    return Ok(customer);
+                }
+                //return BadRequest();
+            }
+            catch (Exception obj)
+            {
+                return Ok(obj.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("updateLocation")]
+        public async Task<IActionResult> updateLocation(string address,string latitude,string longitude, int id)
+        {
+            try
+            {
+
+
+                var customer = CustomerRegistrationservices.GetById(id);
+                if (customer == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    customer.address  = address ;
+                    customer.longitude = longitude;
+                    customer.latitude  = latitude;
+                    await CustomerRegistrationservices.UpdateAsync(customer);
+
+                    return Ok(customer);
+                }
+                //return BadRequest();
+            }
+            catch (Exception obj)
+            {
+                return Ok(obj.Message);
+            }
+        }
+        [HttpGet]
+        [Route("sliderselectall")]
+        public async Task<IActionResult> sliderselectall()
+        {
+            try
+            {
+                var sliderlist = _sliderServices.GetAll().Where( x=>x.isdeleted == false).FirstOrDefault();
+                //  var categories = await _context.CustomerRegistration.ToListAsync(); 
+                if (sliderlist == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(sliderlist);
+            }
+            catch (Exception obj)
+            {
+                return BadRequest();
+            }
+
+        }
+
+        [HttpGet]
+        [Route("forgetpassword")]
+        public async Task<IActionResult> forgetpassword(string mobileno)
+        {
+            try
+            {               
+                
+                CustomerRegistration obj = CustomerRegistrationservices.GetAll().Where(x => x.mobileno1 == mobileno && x.isdeleted == false).FirstOrDefault();
+                //  var categories = await _context.CustomerRegistration.ToListAsync(); 
+                if (obj == null)
+                {
+                     
+                    return NotFound();
+                }
+                else
+                {
+                    bool flg = SendConfirmationMail(obj.emailid1, obj.password,mobileno);
+                    return Ok("Password sent Your Register Email Id");
+                }
+
+
+            }
+            catch (Exception obj)
+            {
+                return BadRequest();
+            }
+
+        }
+        private bool SendConfirmationMail(string email, string password,string mobileno)
+        {
+            //----  msg--
+            string oSB = string.Empty;
+            //oSB += "<br/>";
+            //oSB += "<div>Forgot Password </div>";
+            oSB += "<br/>";
+            oSB += "<div>Dear Member,  </div>";
+            oSB += "<br/>";
+         //  oSB += "<div>As per your request, we have sent you the password reset link. Click on the following link to reset your password: </div>";
+           // oSB += "<br/>";
+            oSB += "<table><tr><td>Mobile No : </td><td>'" + mobileno + "'</td> </tr> <tr><td>Password : </td><td>'" + password + "'</td> </tr> </table>";
+
+            oSB += "<hr/>";
+            oSB += "<div>Thank you,</div>";
+            oSB += "<div>Food Delivery- Support Team.</div>";
+            //----------------
+            // common ocommon = new common();
+            //   string oSB = string.Empty;
+            bool send = false;
+            MailMessage mail = new MailMessage();
+
+            if (email.ToString().Trim() == "".Trim())
+            {
+            }
+            else
+            {
+                mail.To.Add(new MailAddress(email.ToString().Trim()));
+            }
 
 
 
+
+            // mail.To.Add(new MailAddress("mahaleyogita233@gmail.com"));
+            //  mail.From = new MailAddress("accounts@all-stationery.com", "Stationery Order");
+            mail.From = new MailAddress("support@picindia.in", "Food Delivery");
+
+            mail.Subject = "Password Sent Successfully";
+            mail.Body = oSB.ToString();
+            //string Filepath = Server.MapPath("~\\PDF\\") + "Invoice" + count + ".pdf";
+
+            //string PdfFile = Request.PhysicalApplicationPath + "1.pdf";
+            //System.Net.Mail.Attachment attachment;
+            //attachment = new System.Net.Mail.Attachment(Filepath);
+            //mail.Attachments.Add(attachment);
+
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "103.250.184.62";
+            smtp.Port = 25;
+            smtp.UseDefaultCredentials = false;
+            //smtp.Credentials = new System.Net.NetworkCredential("accounts@all-stationery.com", "kiran@123");
+            smtp.Credentials = new System.Net.NetworkCredential("support@picindia.in", "0crq*7I8");
+
+            //info@all-stationery.com
+            try
+            {
+                smtp.Send(mail);
+                send = true;
+            }
+            catch (Exception ex)
+            {
+                send = false;
+                // ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "", "alert('" + ex.Message + "," + ex.StackTrace + "')", true);
+                // ErrHandler.writeError(ex.Message, ex.StackTrace);
+            }
+            return send;
+        }
+        [HttpPost]
+        [Route("insertfeedbacktodeliveryboy")]
+        public async Task<IActionResult> insertfeedbacktodeliveryboy(int deliveryboyid,int customerid,string comment,string rating)
+        {
+            //var paramter = new DynamicParameters();
+            //paramter.Add("@customerid", customerid);
+            //paramter.Add("@deliveryboyid", deliveryboyid);
+            //paramter.Add("@comment", comment);
+            //paramter.Add("@rating", rating );
+
+            // _ISP_Call.Execute("insertfeedback", paramter);
+            customerfeedback obj = new customerfeedback();
+            obj.id = 0;
+            obj.fromcustomerid = customerid;
+            obj.toDeliveryboyid = deliveryboyid;
+            obj.toStoredid = null;
+            obj.comment = comment;
+            obj.rating = rating;
+            obj.isdeleted = false;
+            obj.isactive = false;
+           int id= await _customerfeedbackServices.CreateAsync(obj);
+            if (id == null)
+            {
+                string myJson = "{\"Message\": " + "\"NotFound\"" + "}";
+                return NotFound(myJson);
+            }
+            else
+            {
+                string myJson = "{\"Message\": " + "\"Feedback Insert Successfully\"" + "}";
+                return Ok(myJson);
+                
+            }
+            //return BadRequest();
+        }
+
+
+        [HttpPost]
+        [Route("insertfeedbacktoStore")]
+        public async Task<IActionResult> insertfeedbacktoStore(int storeid, int customerid, string comment, string rating)
+        {
+            //var paramter = new DynamicParameters();
+            //paramter.Add("@customerid", customerid);
+            //paramter.Add("@deliveryboyid", deliveryboyid);
+            //paramter.Add("@comment", comment);
+            //paramter.Add("@rating", rating );
+
+            // _ISP_Call.Execute("insertfeedback", paramter);
+            customerfeedback obj = new customerfeedback();
+            obj.id = 0;
+            obj.fromcustomerid = customerid;
+            obj.toDeliveryboyid = null ;
+            obj.toStoredid = storeid;
+            obj.comment = comment;
+            obj.rating = rating;
+            obj.isdeleted = false;
+            obj.isactive = false;
+            int id = await _customerfeedbackServices.CreateAsync(obj);
+            if (id == null)
+            {
+                string myJson = "{\"Message\": " + "\"NotFound\"" + "}";
+                return NotFound(myJson);
+            }
+            else
+            {
+                string myJson = "{\"Message\": " + "\"Feedback Insert Successfully\"" + "}";
+                return Ok(myJson);
+
+            }
+            //return BadRequest();
+        }
+
+        [HttpGet]
+        [Route("StoreSendTestNotification")]
+        public async Task<IActionResult> StoreSendTestNotification(string DeviceId, string Message)
+        {
+            //string DeviceId = "c2K_w_3gKIk:APA91bHbTA_mPYHR4B7E7tq8Jo3rbeJXoN8eLD6pHelbfgsIB2QvURW4OPwQW2oxY_wVXkOk6sSdsAesE40pCkP7iU9gFBWm0Pm-XtJ45qEJRj3kY9kjZnl69uthcA0BMIw0wY-ZbTjK";
+
+            /*Manikant*/
+            //string DeviceId = "eAs8LlODtwQ:APA91bFWRCNZ6lYhkTo8QHINoiHM6_ld08WQOqhkF9q1WSZ7RD6C8R-HE9alGblpriq8G7sfGAGvn99U8DKVL8xuG764qwdYYIrEJT7-cshuFL_CnWnSKE-PZUtHFxPyF-jHRroqa_s9";
+
+            //msg = "hello";
+            string sResponseFromServer = string.Empty, finalResult = string.Empty;
+            try
+            {
+//                Server key: AAAAxJW0hf8: APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH - UCLsbsqVxuZsoBPvw - AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz - Epk3p04lujWk1c - enH5o3CLq_ejPVqr4
+//Sender ID : 844325225983
+
+                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                tRequest.Method = "post";
+                //serverKey - Key from Firebase cloud messaging server   customer
+                //tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                //store
+                tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAr0cwgUE:APA91bEs5PB48LpheJuGQOJi8jENylDdtBgGA5tcHFY2Kbz4-FwNLocAN8z7X7c4ADuP6vA7MSE3M6hx5OHp12iFt0yb7zfHO16c7mlgnppsEOFY8J4WRfpOUI-RkbXBLBwMqYwwDyYX"));
+                //Sender Id - From firebase project setting  
+                tRequest.Headers.Add(string.Format("Sender: id={0}", "752813637953"));
+                tRequest.ContentType = "application/json";
+                var payload = new
+                {
+                    to = DeviceId,
+                    priority = "high",
+                    content_available = true,
+                    notification = new
+                    {
+                        body = "Test",
+                        title = "Test",
+                        badge = 1
+                    },
+                    data = new
+                    {
+                        key1 = "value1",
+                        key2 = "value2"
+                    }
+
+                };
+
+                //string postbody = JsonConvert.SerializeObject(payload).ToString();
+
+                var serializer = new JavaScriptSerializer();
+                var postbody = serializer.Serialize(payload);
+                Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
+                tRequest.ContentLength = byteArray.Length;
+                using (Stream dataStream = tRequest.GetRequestStream())
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                    using (WebResponse tResponse = tRequest.GetResponse())
+                    {
+                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                        {
+                            if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                                {
+                                    sResponseFromServer = tReader.ReadToEnd();
+                                    //result.Response = sResponseFromServer;
+                                }
+                        }
+                    }
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Ok(sResponseFromServer);
+            //Context.Response.Clear();
+            //Context.Response.ContentType = "application/json";
+            //Context.Response.Flush();
+            //Context.Response.Write(sResponseFromServer);
+            //Context.Response.End();
+        }
+
+        [HttpGet]
+        [Route("getOrderStatus")]
+        public async Task<IActionResult> getOrderStatus(int orderid)
+        {
+            try
+            {
+
+                var obj = _ordersServices.GetById(orderid);
+                //  var categories = await _context.CustomerRegistration.ToListAsync(); 
+                if (obj == null)
+                {
+
+                    string myJson = "{\"Message\": " + "\"Not Found\"" + "}";
+                    return NotFound(myJson);
+                }
+                else
+                {
+                    
+                    return Ok(obj);
+                }
+
+
+            }
+            catch (Exception obj)
+            {
+                string myJson = "{\"Message\": " + "\"Bad Request\"" + "}";
+                return BadRequest(myJson);
+                
+            }
+
+        }
     }
-}
+} 

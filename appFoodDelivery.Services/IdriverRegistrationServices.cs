@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using appFoodDelivery.Entity;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace appFoodDelivery.Services
 {
  public  interface IdriverRegistrationServices
@@ -13,7 +15,7 @@ namespace appFoodDelivery.Services
         Task UpdateAsync(driverRegistration obj);
         void Updatestatus(driverRegistration obj);
         Task Delete(int id);
-
+        IEnumerable<SelectListItem> GetAlldriver();
         IEnumerable<driverRegistration> GetAll();
     }
 }

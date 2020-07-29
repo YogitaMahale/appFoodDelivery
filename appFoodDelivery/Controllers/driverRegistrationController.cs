@@ -107,6 +107,12 @@ namespace appFoodDelivery.Controllers
                     modelname = model.modelname,
                     modelyear = model.modelyear,
                     vehicleplateno = model.vehicleplateno,
+
+                    accountno=model.accountno,
+                    banklocation=model.banklocation,
+                    bankname=model.bankname,
+                    ifsccode=model.ifsccode,
+                    status=model.status
                     //drivinglicphoto = model.drivinglicphoto,
                     //vehicleinsurancephoto = model.vehicleinsurancephoto,
                   
@@ -183,7 +189,11 @@ namespace appFoodDelivery.Controllers
                 modelyear = storeowner.modelyear,
                 vehicleplateno = storeowner.vehicleplateno,
                
-
+                accountno =  storeowner.accountno,
+                bankname =   storeowner.bankname,
+                banklocation =   storeowner.banklocation,
+                ifsccode  =  storeowner.ifsccode,
+                status=storeowner.status
             };
             return View(model);
         }
@@ -218,6 +228,13 @@ namespace appFoodDelivery.Controllers
                     storeobj.modelname = model.modelname;
                     storeobj.modelyear = model.modelyear;
                     storeobj.vehicleplateno = model.vehicleplateno;
+
+
+                    storeobj.accountno = model.accountno;
+                    storeobj.banklocation = model.banklocation;
+                    storeobj.bankname = model.bankname;
+                    storeobj.ifsccode = model.ifsccode;
+                    storeobj.status = model.status;
 
                     if (model.profilephoto != null && model.profilephoto.Length > 0)
                     {
