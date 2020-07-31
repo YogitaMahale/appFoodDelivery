@@ -85,6 +85,7 @@ namespace appFoodDelivery
             services.AddScoped<IpromocodeServices, promocodeServices>();
             services.AddScoped<IcustomerfeedbackServices,customerfeedbackServices>();
             services.AddScoped<IDeliveryboytoCustomerfeedbackSerivces, DeliveryboytoCustomerfeedbackSerivces>();
+            services.AddScoped<IdistanceServices, distanceServices>();
             //services.AddScoped<IEmailSender, EmailSender>();
 
 

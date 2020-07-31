@@ -362,8 +362,10 @@ namespace appFoodDelivery.API
                 var result = await _usermanager.ChangePasswordAsync(user, currentpasswod, newpassword);
                 if (!result.Succeeded)
                 {
-                    string myJson1 = "{'message': " + "Password Not Change" + "}";
+                    string  myJson1 = "{\"Message\": " + "\"Password Not Change\"" + "}";
                     return BadRequest(myJson1);
+
+                    
                 }
                 string myJson = "{'message': " + "Password Updated Successfully" + "}";
                 return Ok(myJson);
@@ -413,8 +415,10 @@ namespace appFoodDelivery.API
                 var users = await _usermanager.FindByIdAsync(storeid);
                 if (users == null)
                 {
-                    myJson = "{\"message\": " + "Not Found" + "}";
+                      myJson = "{\"Message\": " + "\"Not Found\"" + "}";
                     return NotFound(myJson);
+
+                  
 
                 }
                 else
@@ -431,12 +435,15 @@ namespace appFoodDelivery.API
                     }
                     else
                     {
-                        myJson = "{\"message\": " + "Bad Request" + "}";
+                        myJson = "{\"Message\": " + "\"Bad Request\"" + "}";
+                        
                         return BadRequest(myJson);
 
                     }
                 }
-                myJson = "{\"message\": " + "Bad Request" + "}";
+                myJson = "{\"Message\": " + "\"Bad Request\"" + "}";
+
+                
                 return BadRequest(myJson);
 
 

@@ -15,6 +15,7 @@ using System.Net.Mail;
 using Dapper;
 using Nancy.Json;
 using System.Text;
+using appFoodDelivery.Models;
 //using HttpDeleteAttribute = Microsoft.AspNetCore.Mvc.HttpDeleteAttribute;
 //using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 //using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
@@ -189,14 +190,16 @@ namespace appFoodDelivery.API
                 var customer = CustomerRegistrationservices.GetById(id);
                 if (customer == null)
                 {
-                    return NotFound();
+                    string myJson = "{\"Message\": " + "\"Not Found\"" + "}";
+                    return NotFound(myJson);
+                  
                 }
                 else
                 {
                     customer.deviceid = deviceId;
                     await CustomerRegistrationservices.UpdateAsync(customer);
 
-                    return Ok(customer);
+                   return Ok(customer);
                 }
                 //return BadRequest();
             }
@@ -285,7 +288,8 @@ namespace appFoodDelivery.API
                 var customer = CustomerRegistrationservices.GetById(id);
                 if (customer == null)
                 {
-                    return NotFound();
+                    string myJson = "{\"Message\": " + "\"Not Found\"" + "}";
+                    return NotFound(myJson);
                 }
                 else
                 {
@@ -579,7 +583,11 @@ namespace appFoodDelivery.API
             try
             {
 
-                var obj = _ordersServices.GetById(orderid);
+                //var obj = _ordersServices.GetById(orderid);
+
+                var parameter = new DynamicParameters();
+                parameter.Add("@oid", orderid);
+                var obj = _ISP_Call.List<getOrderStatusInfo>("getOrderStatusInfo", parameter);
                 //  var categories = await _context.CustomerRegistration.ToListAsync(); 
                 if (obj == null)
                 {

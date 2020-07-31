@@ -16,6 +16,9 @@ using appFoodDelivery.Services.Implementation;
 using Dapper;
 using appFoodDelivery.pagination;
 using System.Security.Cryptography.Xml;
+using System.Net;
+using Nancy.Json;
+using System.Text;
 //using AspNetCore;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,8 +32,9 @@ namespace appFoodDelivery.Controllers
         private readonly ICustomerRegistrationservices _CustomerRegistrationservices;
         private readonly ISP_Call _ISP_Call;
         private readonly IdriverRegistrationServices _driverRegistrationServices;
-
-        public OrderController(UserManager<ApplicationUser> usermanager, ISP_Call ispcall, IordersServices ordersServices, ICustomerRegistrationservices CustomerRegistrationservices, ISP_Call ISP_Call, IdriverRegistrationServices driverRegistrationServices)
+        private readonly IstoredetailsServices _storedetailsServices;
+        private readonly IdistanceServices _distanceServices;
+        public OrderController(UserManager<ApplicationUser> usermanager, ISP_Call ispcall, IordersServices ordersServices, ICustomerRegistrationservices CustomerRegistrationservices, ISP_Call ISP_Call, IdriverRegistrationServices driverRegistrationServices, IstoredetailsServices storedetailsServices, IdistanceServices distanceServices)
         {
             this._usermanager = usermanager;
             _ISP_Call = ispcall;
@@ -38,6 +42,8 @@ namespace appFoodDelivery.Controllers
             _ordersServices = ordersServices;
             _CustomerRegistrationservices = CustomerRegistrationservices;
             _driverRegistrationServices = driverRegistrationServices;
+            _storedetailsServices = storedetailsServices;
+            _distanceServices = distanceServices;
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _usermanager.GetUserAsync(HttpContext.User);
 
@@ -222,15 +228,189 @@ namespace appFoodDelivery.Controllers
             //orders obj = _ordersServices.GetById(id);
             //obj.orderstatus = status;
             //_ordersServices.UpdateAsync(obj);
-
             var paramter = new DynamicParameters();
             paramter.Add("@id", id);
             paramter.Add("@orderstatus", status);
-
-
             //storedetailsListViewmodel
             _ISP_Call.Execute("orderStatus_Update", paramter);
+            var orders = _ordersServices.GetById(id);
+            int customerid = orders.customerid;
+            int deliveryboyid = 0;
+            string deliveryboyDeviceId = "";
+            string storeid = _ordersServices.GetById(id).storeid;
+            var store = _storedetailsServices.GetAll().Where(x => x.storeid == storeid).FirstOrDefault();
+            string storeLatitude = store.latitude;
+            string storelongitude = store.longitude;
+            if (orders.deliveryboyid==null)
+            {
+                //deliveryboyid = (int)orders.deliveryboyid;
+            }
+            else
+            {
+                deliveryboyid = (int)orders.deliveryboyid;
+              //  deliveryboyDeviceId = _driverRegistrationServices.GetById(deliveryboyid).deviceid;
+            }
+           
 
+            string customerDeviceId = _CustomerRegistrationservices.GetById(customerid).deviceid;
+             
+            if(status== "approved")
+
+            {
+                #region "customer"
+                
+                try
+                {
+                    string sResponseFromServer = string.Empty, finalResult = string.Empty;
+                    WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                    tRequest.Method = "post";
+                    //serverKey - Key from Firebase cloud messaging server   customer
+                    //tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                    //store
+                    tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                    //Sender Id - From firebase project setting  
+                    tRequest.Headers.Add(string.Format("Sender: id={0}", "844325225983"));
+                    tRequest.ContentType = "application/json";
+                    var payload = new
+                    {
+                        to = customerDeviceId,
+                        priority = "high",
+                        content_available = true,
+                        notification = new
+                        {
+                            body = "New Order No. - " + id + " Approved by Admin",
+                            title = "Order Approved",
+                            badge = 1
+                        },
+                        data = new
+                        {
+                            key1 = "value1",
+                            key2 = "value2"
+                        }
+
+                    };
+
+                    //string postbody = JsonConvert.SerializeObject(payload).ToString();
+
+                    var serializer = new JavaScriptSerializer();
+                    var postbody = serializer.Serialize(payload);
+                    Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
+                    tRequest.ContentLength = byteArray.Length;
+                    using (Stream dataStream = tRequest.GetRequestStream())
+                    {
+                        dataStream.Write(byteArray, 0, byteArray.Length);
+                        using (WebResponse tResponse = tRequest.GetResponse())
+                        {
+                            using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                            {
+                                if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                                    {
+                                        sResponseFromServer = tReader.ReadToEnd();
+                                        //result.Response = sResponseFromServer;
+                                    }
+                            }
+                        }
+                    }
+
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                // return Ok(sResponseFromServer);
+
+                #endregion
+                #region "Deliveryboy"
+               
+                    try
+                    {
+                        var distancedt = _distanceServices.GetById(1);
+                        var distance = distancedt.range;
+
+                        var paramter1 = new DynamicParameters();
+                        paramter1.Add("@Latitude", storeLatitude);
+                        paramter1.Add("@Longitude", storelongitude);
+                        paramter1.Add("@distance", distance);
+                        var dt = _ISP_Call.List<getNeareDeliveryboybyLocation>("getNeareDeliveryboybyLocationNew", paramter1);
+
+                        foreach (var item in dt)
+                        {
+                            string deviceid = item.deviceid;
+                             
+                            if(deviceid.Trim()=="")
+                            {
+
+                            }
+                            else
+                            {
+                                string sResponseFromServer = string.Empty, finalResult = string.Empty;
+                                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                                tRequest.Method = "post";
+                                //serverKey - Key from Firebase cloud messaging server   customer
+                                //tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                                //store
+                                tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAHKQA0Wk:APA91bHedRwkl8yVXSbwWC9dQY76Iw-pbxPofgap1wkZX4kAvMvGK826iFlaP6M-27qB9P3UKgwZ1we-B19YmJmbhZCnqULRVGLxfjOumkSo9R-OiQVh5eEN3qc1zo2WRxbFByvdDYO8"));
+                                //Sender Id - From firebase project setting  
+                                tRequest.Headers.Add(string.Format("Sender: id={0}", "123010601321"));
+                                tRequest.ContentType = "application/json";
+                                var payload = new
+                                {
+                                    to = deviceid,
+                                    priority = "high",
+                                    content_available = true,
+                                    notification = new
+                                    {
+                                        body = "New Order No. - " + id + " Approved by Admin",
+                                        title = "Order Approved",
+                                        badge = 1
+                                    },
+                                    data = new
+                                    {
+                                        key1 = "value1",
+                                        key2 = "value2"
+                                    }
+
+                                };
+
+                                //string postbody = JsonConvert.SerializeObject(payload).ToString();
+
+                                var serializer = new JavaScriptSerializer();
+                                var postbody = serializer.Serialize(payload);
+                                Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
+                                tRequest.ContentLength = byteArray.Length;
+                                using (Stream dataStream = tRequest.GetRequestStream())
+                                {
+                                    dataStream.Write(byteArray, 0, byteArray.Length);
+                                    using (WebResponse tResponse = tRequest.GetResponse())
+                                    {
+                                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                                        {
+                                            if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                                                {
+                                                    sResponseFromServer = tReader.ReadToEnd();
+                                                    //result.Response = sResponseFromServer;
+                                                }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        
+
+                    }
+
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                 
+               
+                // return Ok(sResponseFromServer);
+
+                #endregion
+            }
             return RedirectToAction("test");
         }
 
@@ -326,6 +506,157 @@ namespace appFoodDelivery.Controllers
 
                 //storedetailsListViewmodel
                 _ISP_Call.Execute("orderdeliveryboy_Update", paramter);
+
+                #region "Notification"
+                var deliveryboydetails = _driverRegistrationServices.GetById(model.deliveryboyid);
+                string deliveryboyName = deliveryboydetails.name;
+                string deliveryboyDeviceId = deliveryboydetails.deviceid;
+
+
+                int customerid = _ordersServices.GetById(model.id).customerid;
+                string customerDeviceId = _CustomerRegistrationservices.GetById(customerid).deviceid;
+
+                if (customerDeviceId.Trim() == "")
+                {
+
+                }
+                else
+                {
+
+
+                    try
+                    {
+                        string sResponseFromServer = string.Empty, finalResult = string.Empty;
+                        WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                        tRequest.Method = "post";
+                        //serverKey - Key from Firebase cloud messaging server   customer
+                        //tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                        //store
+                        tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                        //Sender Id - From firebase project setting  
+                        tRequest.Headers.Add(string.Format("Sender: id={0}", "844325225983"));
+                        tRequest.ContentType = "application/json";
+                        var payload = new
+                        {
+                            to = customerDeviceId,
+                            priority = "high",
+                            content_available = true,
+                            notification = new
+                            {
+                                body = "Your Order No. - " + model.id + " assignt to this " + deliveryboyName,
+                                title = "Assign Deliveryboy",
+                                badge = 1
+                            },
+                            data = new
+                            {
+                                key1 = "value1",
+                                key2 = "value2"
+                            }
+
+                        };
+
+                        //string postbody = JsonConvert.SerializeObject(payload).ToString();
+
+                        var serializer = new JavaScriptSerializer();
+                        var postbody = serializer.Serialize(payload);
+                        Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
+                        tRequest.ContentLength = byteArray.Length;
+                        using (Stream dataStream = tRequest.GetRequestStream())
+                        {
+                            dataStream.Write(byteArray, 0, byteArray.Length);
+                            using (WebResponse tResponse = tRequest.GetResponse())
+                            {
+                                using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                                {
+                                    if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                                        {
+                                            sResponseFromServer = tReader.ReadToEnd();
+                                            //result.Response = sResponseFromServer;
+                                        }
+                                }
+                            }
+                        }
+
+                    }
+
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+                if(deliveryboyDeviceId.Trim()=="")
+                {
+
+                }
+                else
+                {
+                    
+                        
+                             
+                                string sResponseFromServer = string.Empty, finalResult = string.Empty;
+                                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                                tRequest.Method = "post";
+                                //serverKey - Key from Firebase cloud messaging server   customer
+                                //tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                                //store
+                                tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAHKQA0Wk:APA91bHedRwkl8yVXSbwWC9dQY76Iw-pbxPofgap1wkZX4kAvMvGK826iFlaP6M-27qB9P3UKgwZ1we-B19YmJmbhZCnqULRVGLxfjOumkSo9R-OiQVh5eEN3qc1zo2WRxbFByvdDYO8"));
+                                //Sender Id - From firebase project setting  
+                                tRequest.Headers.Add(string.Format("Sender: id={0}", "123010601321"));
+                                tRequest.ContentType = "application/json";
+                                var payload = new
+                                {
+                                    to = deliveryboyDeviceId,
+                                    priority = "high",
+                                    content_available = true,
+                                    notification = new
+                                    {
+                                        body = "You have assign this Order Id - " + model.id +"by Admin",
+                                        title = "Assign Order",
+                                        badge = 1
+                                    },
+                                    data = new
+                                    {
+                                        key1 = "value1",
+                                        key2 = "value2"
+                                    }
+
+                                };
+
+                                //string postbody = JsonConvert.SerializeObject(payload).ToString();
+
+                                var serializer = new JavaScriptSerializer();
+                                var postbody = serializer.Serialize(payload);
+                                Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
+                                tRequest.ContentLength = byteArray.Length;
+                                using (Stream dataStream = tRequest.GetRequestStream())
+                                {
+                                    dataStream.Write(byteArray, 0, byteArray.Length);
+                                    using (WebResponse tResponse = tRequest.GetResponse())
+                                    {
+                                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                                        {
+                                            if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                                                {
+                                                    sResponseFromServer = tReader.ReadToEnd();
+                                                    //result.Response = sResponseFromServer;
+                                                }
+                                        }
+                                    }
+                                }
+                            
+                        
+
+
+
+                    
+
+                }
+                // return Ok(sResponseFromServer);
+
+
+                #endregion
+
 
             }
             return RedirectToAction("test");

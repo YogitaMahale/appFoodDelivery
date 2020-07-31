@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
 using appFoodDelivery.Services;
 using Dapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Nancy.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,13 +21,16 @@ namespace appFoodDelivery.API
     [Route("deliveryboy")]
     public class deliveryboyController : Controller
     {
+        private readonly UserManager<ApplicationUser> _usermanager;
         private readonly IWebHostEnvironment _hostingEnvironment;
         public readonly IdriverRegistrationServices _driverRegistrationServices;
         public readonly IordersServices _ordersServices;
         public readonly IorderhistoryServices _orderhistoryServices;
         public readonly ISP_Call _ISP_Call;
         public readonly IDeliveryboytoCustomerfeedbackSerivces _DeliveryboytoCustomerfeedbackSerivces;
-        public deliveryboyController(IdriverRegistrationServices driverRegistrationServices, IWebHostEnvironment hostingEnvironment, IordersServices ordersServices, ISP_Call ISP_Call, IorderhistoryServices orderhistoryServices, IDeliveryboytoCustomerfeedbackSerivces DeliveryboytoCustomerfeedbackSerivces)
+        public readonly ICustomerRegistrationservices _CustomerRegistrationservices;
+
+        public deliveryboyController(IdriverRegistrationServices driverRegistrationServices, IWebHostEnvironment hostingEnvironment, IordersServices ordersServices, ISP_Call ISP_Call, IorderhistoryServices orderhistoryServices, IDeliveryboytoCustomerfeedbackSerivces DeliveryboytoCustomerfeedbackSerivces, ICustomerRegistrationservices CustomerRegistrationservices, UserManager<ApplicationUser> usermanager)
         {
             _driverRegistrationServices = driverRegistrationServices;
             _hostingEnvironment = hostingEnvironment;
@@ -32,6 +38,8 @@ namespace appFoodDelivery.API
             _ISP_Call = ISP_Call;
             _orderhistoryServices = orderhistoryServices;
             _DeliveryboytoCustomerfeedbackSerivces = DeliveryboytoCustomerfeedbackSerivces;
+            _CustomerRegistrationservices = CustomerRegistrationservices;
+            _usermanager = usermanager;
         }
         [HttpGet]
         [Route("deliveryboyLogin")]
@@ -269,7 +277,7 @@ namespace appFoodDelivery.API
             orders obj = _ordersServices.GetById(orderid);// await _usermanager.GetUserAsync(User); 
             if (obj == null)
             {
-                string myJson = "{'message': " + "Record Not Found" + "}";
+                string myJson = "{\"message\": " + "\"Record Not Found\"" + "}";
                 return NotFound(myJson);
             }
             else
@@ -284,8 +292,152 @@ namespace appFoodDelivery.API
                 objorderhistory.orderstatus = driverdetails.name + " accept order. OrderID  :" + orderid;
                 await _orderhistoryServices.CreateAsync(objorderhistory);
 
-                string myJson = "{'message': " + "Order Accept Successfully" + "}";
-                return NotFound(myJson);
+                #region "Notification customer and store"
+                int customerid = obj.customerid;
+                string customerDeviceId = _CustomerRegistrationservices.GetById(customerid).deviceid;
+
+                var storeDeviceId = _usermanager.Users.Where(x => x.Id == obj.storeid).FirstOrDefault().deviceid;
+                if (customerDeviceId.Trim() == "")
+                {
+
+                }
+                else
+                {
+
+
+                    try
+                    {
+                        string sResponseFromServer = string.Empty, finalResult = string.Empty;
+                        WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                        tRequest.Method = "post";
+                        //serverKey - Key from Firebase cloud messaging server   customer
+                        //tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                        //store
+                        tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                        //Sender Id - From firebase project setting  
+                        tRequest.Headers.Add(string.Format("Sender: id={0}", "844325225983"));
+                        tRequest.ContentType = "application/json";
+                        var payload = new
+                        {
+                            to = customerDeviceId,
+                            priority = "high",
+                            content_available = true,
+                            notification = new
+                            {
+                                body = "Your Order No. - " + orderid + " Accept by " + driverdetails.name + " delivery person",
+                                title = "Accept Order by Deliveryboy",
+                                badge = 1
+                            },
+                            data = new
+                            {
+                                key1 = "value1",
+                                key2 = "value2"
+                            }
+
+                        };
+
+                        //string postbody = JsonConvert.SerializeObject(payload).ToString();
+
+                        var serializer = new JavaScriptSerializer();
+                        var postbody = serializer.Serialize(payload);
+                        Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
+                        tRequest.ContentLength = byteArray.Length;
+                        using (Stream dataStream = tRequest.GetRequestStream())
+                        {
+                            dataStream.Write(byteArray, 0, byteArray.Length);
+                            using (WebResponse tResponse = tRequest.GetResponse())
+                            {
+                                using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                                {
+                                    if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                                        {
+                                            sResponseFromServer = tReader.ReadToEnd();
+                                            //result.Response = sResponseFromServer;
+                                        }
+                                }
+                            }
+                        }
+
+                    }
+
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                if (storeDeviceId.Trim() == "")
+                {
+
+                }
+                else
+                {
+
+
+                    try
+                    {
+                        string sResponseFromServer = string.Empty, finalResult = string.Empty;
+                        WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                        tRequest.Method = "post";
+                        //serverKey - Key from Firebase cloud messaging server   customer
+                        //tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                        //store
+                        tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAr0cwgUE:APA91bEs5PB48LpheJuGQOJi8jENylDdtBgGA5tcHFY2Kbz4-FwNLocAN8z7X7c4ADuP6vA7MSE3M6hx5OHp12iFt0yb7zfHO16c7mlgnppsEOFY8J4WRfpOUI-RkbXBLBwMqYwwDyYX"));
+                        //Sender Id - From firebase project setting  
+                        tRequest.Headers.Add(string.Format("Sender: id={0}", "752813637953"));
+                        tRequest.ContentType = "application/json";
+                        var payload = new
+                        {
+                            to = storeDeviceId,
+                            priority = "high",
+                            content_available = true,
+                            notification = new
+                            {
+                                body = "Order No. - " + orderid + " Accept by " + driverdetails.name + " delivery person",
+                                title = "Accept Order by Deliveryboy",
+                                badge = 1
+                            },
+                            data = new
+                            {
+                                key1 = "value1",
+                                key2 = "value2"
+                            }
+
+                        };
+
+                        //string postbody = JsonConvert.SerializeObject(payload).ToString();
+
+                        var serializer = new JavaScriptSerializer();
+                        var postbody = serializer.Serialize(payload);
+                        Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
+                        tRequest.ContentLength = byteArray.Length;
+                        using (Stream dataStream = tRequest.GetRequestStream())
+                        {
+                            dataStream.Write(byteArray, 0, byteArray.Length);
+                            using (WebResponse tResponse = tRequest.GetResponse())
+                            {
+                                using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                                {
+                                    if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                                        {
+                                            sResponseFromServer = tReader.ReadToEnd();
+                                            //result.Response = sResponseFromServer;
+                                        }
+                                }
+                            }
+                        }
+
+                    }
+
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                #endregion
+
+
+                string myJson = "{\"message\": " + "\"Order Accept Successfully\"" + "}";
+                return Ok(obj);
             }
 
         }
@@ -371,7 +523,7 @@ namespace appFoodDelivery.API
             //{
             if (orderid.ToString() == "" || deliveryboyid.ToString() == "")
             {
-                string myJson = "{'message': " + "Please sent inputparameter values" + "}";
+                string myJson = "{\"message\": " + "\"Please sent inputparameter values\"" + "}";
                 return NotFound(myJson);
 
             }
@@ -384,14 +536,89 @@ namespace appFoodDelivery.API
                 objorderhistory.placedate = DateTime.UtcNow;
                 objorderhistory.orderstatus = driverdetails.name + " reach to Hotel for accepting  order id :" + orderid;
                 await _orderhistoryServices.CreateAsync(objorderhistory);
-                string myJson = "{'message': " + "Status updated Successfully" + "}";
+                string myJson = "{\"message\": " + "\"Status updated Successfully\"" + "}";
+
                 return Ok(myJson);
 
             }
-           
+
 
 
             //}
+
+        }
+
+        public void customerNotification(string deviceid,string message,string img,string title)
+        {
+           
+            if (deviceid.Trim() == "")
+            {
+
+            }
+            else
+            {
+
+
+                try
+                {
+                    string sResponseFromServer = string.Empty, finalResult = string.Empty;
+                    WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                    tRequest.Method = "post";
+                    //serverKey - Key from Firebase cloud messaging server   customer
+                    //tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                    //store
+                    tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
+                    //Sender Id - From firebase project setting  
+                    tRequest.Headers.Add(string.Format("Sender: id={0}", "844325225983"));
+                    tRequest.ContentType = "application/json";
+                    var payload = new
+                    {
+                        to = deviceid,
+                        priority = "high",
+                        content_available = true,
+                        notification = new
+                        {
+                            body = message,
+                            title = title,
+                            badge = 1
+                        },
+                        data = new
+                        {
+                            key1 = "value1",
+                            key2 = "value2"
+                        }
+
+                    };
+
+                    //string postbody = JsonConvert.SerializeObject(payload).ToString();
+
+                    var serializer = new JavaScriptSerializer();
+                    var postbody = serializer.Serialize(payload);
+                    Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
+                    tRequest.ContentLength = byteArray.Length;
+                    using (Stream dataStream = tRequest.GetRequestStream())
+                    {
+                        dataStream.Write(byteArray, 0, byteArray.Length);
+                        using (WebResponse tResponse = tRequest.GetResponse())
+                        {
+                            using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                            {
+                                if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                                    {
+                                        sResponseFromServer = tReader.ReadToEnd();
+                                        //result.Response = sResponseFromServer;
+                                    }
+                            }
+                        }
+                    }
+
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
 
         }
         [HttpPut]
@@ -400,20 +627,70 @@ namespace appFoodDelivery.API
         {
             var paramter = new DynamicParameters();
             paramter.Add("@id", orderid);
-            paramter.Add("@orderstatus", status);            
+            paramter.Add("@orderstatus", status);
             _ISP_Call.Execute("orderStatus_Update", paramter);
 
             //---------------
-            
+
             orderhistory objorderhistory = new orderhistory();
             objorderhistory.oid = orderid;
             objorderhistory.placedate = DateTime.UtcNow;
-            objorderhistory.orderstatus = "Order No :" + orderid + ","+status+" status updated Successfully";
+            objorderhistory.orderstatus = "Order No :" + orderid + "," + status + " status updated Successfully";
             await _orderhistoryServices.CreateAsync(objorderhistory);
             //---
+            int customerid = _ordersServices.GetById(orderid).customerid;
+            string customerDeviceId = _CustomerRegistrationservices.GetById(customerid).deviceid;
+
+            #region "Notification"
+            if (status.ToString().ToLower().Trim() == "processorders".ToString().ToLower().Trim())
+            {
+                //customer
+              
+              
+                string message = "Your Order No. - " + orderid + " in  process";
+                string title = "Assign Deliveryboy";
+                customerNotification(customerDeviceId, message,"", title);
+
+
+
+            }
+            else if (status.ToString().ToLower().Trim() == "ongoingorders".ToString().ToLower().Trim())
+            {
+                string message = "Your Order No. - " + orderid + " in Shipped";
+                string title = "Shipped Orders";
+                customerNotification(customerDeviceId, message, "", title);
+
+              
+
+            }
+            else if (status.ToString().ToLower().Trim() == "completedorders".ToString().ToLower().Trim())
+            {
+                string message = "Your Order No. - " + orderid + " in Completed";
+                string title = "Complete Orders";
+                customerNotification(customerDeviceId, message, "", title);
+
+
+            }
+            else if (status.ToString().ToLower().Trim() == "cancelledorders".ToString().ToLower().Trim())
+            {
+                string message = "Your Order No. - " + orderid + " in Cancel";
+                string title = "Cancel Orders";
+                customerNotification(customerDeviceId, message, "", title);
+
+            }
+
+
+            #endregion
+
+
+
+
+
+
+
             string myJson = "{\"Message\": " + "\"Order Status Updated Successfully\"" + "}";
             return Ok(myJson);
-            
+
 
         }
 
@@ -425,14 +702,14 @@ namespace appFoodDelivery.API
             driverRegistration user = _driverRegistrationServices.GetById(id);// await _usermanager.GetUserAsync(User); 
             if (user == null)
             {
-                  myJson = "{'message': " + "Not Found" + "}";
+                myJson = "{'message': " + "Not Found" + "}";
                 return NotFound(myJson);
                 // return NotFound("Not Found");
             }
             else
             {
                 user.deviceid = deviceid;
-                 
+
                 await _driverRegistrationServices.UpdateAsync(user);
                 return Ok(user);
             }
@@ -443,12 +720,12 @@ namespace appFoodDelivery.API
         [Route("insertCustomerFeedback")]
         public async Task<IActionResult> insertCustomerFeedback(int deliveryboyid, int customerid, string comment, string rating)
         {
-             
+
             DeliveryboytoCustomerfeedback obj = new DeliveryboytoCustomerfeedback();
             obj.id = 0;
             obj.deliveryboyid = deliveryboyid;
-            obj.customerid  = customerid;
-          
+            obj.customerid = customerid;
+
             obj.comment = comment;
             obj.rating = rating;
             obj.isdeleted = false;
@@ -471,7 +748,7 @@ namespace appFoodDelivery.API
 
         [HttpPut]
         [Route("insertbankdetails")]
-        public async Task<IActionResult> insertbankdetails(int id, string  accountno, string banklocation, string bankname, string ifsccode)
+        public async Task<IActionResult> insertbankdetails(int id, string accountno, string banklocation, string bankname, string ifsccode)
         {
             driverRegistration obj = _driverRegistrationServices.GetById(id);// await _usermanager.GetUserAsync(User); 
             if (obj == null)
@@ -488,11 +765,64 @@ namespace appFoodDelivery.API
                 obj.ifsccode = ifsccode;
 
                 //  user.mobileno = mobileno;
-                 
+
                 await _driverRegistrationServices.UpdateAsync(obj);
                 return Ok(obj);
             }
 
         }
+        [HttpPut]
+        [Route("updateLocation")]
+        public async Task<IActionResult> updateLocation(int id, string latitude, string longitude)
+        {
+            driverRegistration obj = _driverRegistrationServices.GetById(id);// await _usermanager.GetUserAsync(User); 
+            if (obj == null)
+            {
+                string myJson = "{'message': " + "Not Found" + "}";
+                return Ok(myJson);
+                // return NotFound("Not Found");
+            }
+            else
+            {
+                obj.latitude = latitude;
+                obj.longitude = longitude;
+
+                //  user.mobileno = mobileno;
+
+                await _driverRegistrationServices.UpdateAsync(obj);
+                return Ok(obj);
+            }
+
+        }
+
+        //var paramter = new DynamicParameters();
+        //paramter.Add("@Latitude", Latitude);
+        //    paramter.Add("@Longitude", Longitude);
+        //    paramter.Add("@distance", 5);
+        //    //storedetailsListViewmodel
+        //    var storeList = _ISP_Call.List<storedetailsListViewmodel>("getNearestStoredbyLocationNew", paramter);
+        [HttpGet]
+        [Route("getdeliveryboynearestorder")]
+        public async Task<IActionResult> getdeliveryboynearestorder(int deliveryboyid)
+        {
+            var orderheaderList1 = _ISP_Call.List<orderselectallViewModel>("orderSelectAllPending", null);
+            orderheaderList1 = orderheaderList1.Where(x => x.placedate.ToString() == DateTime.Today.ToString("dd/MM/yyyy").Replace("-", "/"));
+
+
+            var paramter = new DynamicParameters();
+            paramter.Add("@deliveryboyid", deliveryboyid);
+            var orderlist = _ISP_Call.List<orderselectallViewModel>("getdeliveryboynearestorder", paramter);
+            if (orderlist == null)
+            {
+                string myJson = "{\"message\": " + "\"Record Not Found\"" + "}";
+                return NotFound(myJson);
+            }
+            else
+            {
+                return Ok(orderlist);
+            }
+            //return BadRequest();
+        }
+
     }
 }

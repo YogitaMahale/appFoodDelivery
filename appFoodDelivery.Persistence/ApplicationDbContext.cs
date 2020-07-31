@@ -36,5 +36,6 @@ namespace appFoodDelivery.Persistence
         public DbSet<customerfeedback> customerfeedback { get; set; }
         public DbSet<promocodemaster> promocodemaster { get; set; }
         public DbSet<DeliveryboytoCustomerfeedback> DeliveryboytoCustomerfeedback { get; set; }
+        public DbSet<distance> distance { get; set; }
     }
 }

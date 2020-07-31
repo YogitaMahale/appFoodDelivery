@@ -592,7 +592,14 @@ E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appF
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Release\netcoreapp3.1\appFoodDelivery.genruntimeconfig.cache
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Release\netcoreapp3.1\Razor\Views\Account\storeDetails.cshtml.g.cs
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\appFoodDelivery\appFoodDelivery\appFoodDelivery\obj\Release\netcoreapp3.1\Razor\Views\Account\ProductList.cshtml.g.cs
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\appsettings.Development.json
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\appsettings.json
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Properties\launchSettings.json
@@ -889,7 +896,6 @@ E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelive
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.CodeAnalysis.dll
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.CodeAnalysis.Razor.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.CodeAnalysis.Workspaces.dll
@@ -919,15 +925,12 @@ E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelive
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.Identity.Client.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\dotnet-aspnet-codegenerator-design.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Nancy.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Newtonsoft.Json.dll
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\NuGet.Frameworks.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\System.Collections.Immutable.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\System.Composition.AttributedModel.dll
@@ -936,7 +939,6 @@ E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelive
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\System.Composition.Runtime.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\System.Composition.TypedParts.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\System.Runtime.Caching.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\cs\Microsoft.CodeAnalysis.resources.dll
@@ -952,7 +954,6 @@ E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelive
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\tr\Microsoft.CodeAnalysis.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.resources.dll
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\de\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\es\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
@@ -967,7 +968,6 @@ E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelive
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
@@ -985,12 +985,12 @@ E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelive
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
 E:\yogita 6.8.19\asp.net core\updated 18.6.20\food delivery\6.7.20\appFoodDelivery\appFoodDelivery\bin\Release\netcoreapp3.1\runtimes\win-x64\native\sni.dll
