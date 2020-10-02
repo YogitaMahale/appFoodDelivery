@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
 using plathora.Services.Implementation;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace appFoodDelivery
 {
@@ -62,10 +63,23 @@ namespace appFoodDelivery
 
             //.AddDefaultUI(UIFrameworkAttribute.boot)
 
-
+            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+                //options.LoginPath = $"/Account/Login";
+                //options.LogoutPath = $"/Account/logout";
+                //options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
+
             //services.AddScoped<Istoreownerservices, storeownerservices>();
             services.AddScoped<IstoredetailsServices, storedetailsServices>();
             services.AddScoped<IRadiusMasterServices, RadiusMasterServices>();
@@ -86,6 +100,9 @@ namespace appFoodDelivery
             services.AddScoped<IcustomerfeedbackServices,customerfeedbackServices>();
             services.AddScoped<IDeliveryboytoCustomerfeedbackSerivces, DeliveryboytoCustomerfeedbackSerivces>();
             services.AddScoped<IdistanceServices, distanceServices>();
+            services.AddScoped<Imenumasterservices, menumasterservices>();
+            services.AddScoped<IchargesServices, chargesServices>();
+            services.AddScoped<IdenyOrdersServices, denyOrdersServices>();
             //services.AddScoped<IEmailSender, EmailSender>();
 
 

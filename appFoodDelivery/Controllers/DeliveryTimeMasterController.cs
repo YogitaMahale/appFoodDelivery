@@ -15,7 +15,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace appFoodDelivery.Controllers
 {
-   // [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = SD.Role_Admin )]
     public class DeliveryTimeMasterController : Controller
     {
         private readonly IDeliveryTimeMasterServices _DeliveryTimeMasterServices;

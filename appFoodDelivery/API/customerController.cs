@@ -21,7 +21,7 @@ using appFoodDelivery.Models;
 //using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
 //using HttpPutAttribute = Microsoft.AspNetCore.Mvc.HttpPutAttribute;
 //using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
-
+using appFoodDelivery.Notification;
 namespace appFoodDelivery.API
 {
     [Route("customer")]
@@ -48,53 +48,101 @@ namespace appFoodDelivery.API
         {
             try
             {
+
+                String no = null;
+                Random random = new Random();
+                for (int i = 0; i < 1; i++)
+                {
+                    int n = random.Next(0, 999);
+                    no += n.ToString("D4") + "";
+                }
+                #region "sms"
+                try
+                {
+
+                    string Msg = "OTP :" + no + ".  Please Use this OTP.This is usable once and expire in 10 minutes";
+
+                    string OPTINS = "STRLIT";
+
+                    string type = "3";
+                    string strUrl = "https://www.bulksmsgateway.in/sendmessage.php?user=ezacus&password=" + "ezacus@2020" + "&message=" + Msg.ToString() + "&sender=" + OPTINS + "&mobile=" + mobileno + "&type=" + 3;
+
+                    ServicePointManager.Expect100Continue = true;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    System.Net.WebRequest request = System.Net.WebRequest.Create(strUrl);
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                    Stream s = (Stream)response.GetResponseStream();
+                    StreamReader readStream = new StreamReader(s);
+                    string dataString = readStream.ReadToEnd();
+                    response.Close();
+                    s.Close();
+                    readStream.Close();
+                    //    Response.Write("Sent");
+                }
+
+                catch
+                { }
+                #endregion
+
+                CustomerRegistrationOTPViewModel objCustomerRegistrationOTPViewModel = new CustomerRegistrationOTPViewModel();
                 CustomerRegistration obj = CustomerRegistrationservices.GetAll().Where(x => x.mobileno1 == mobileno && x.isdeleted == false).FirstOrDefault();
                 //  var categories = await _context.CustomerRegistration.ToListAsync(); 
                 if (obj == null)
                 {
-                    String no = null;
-                    Random random = new Random();
-                    for (int i = 0; i < 1; i++)
-                    {
-                        int n = random.Next(0, 999);
-                        no += n.ToString("D4") + "";
-                    }
-                    #region "sms"
-                    try
-                    {
 
-                        string Msg = "OTP :" + no + ".  Please Use this OTP.This is usable once and expire in 10 minutes";
+                    //string myJson = "{'otpno': "+ no + "}";
+                    //return Ok(myJson);
+                //    objCustomerRegistrationOTPViewModel.id = obj.id;
+                    //objCustomerRegistrationOTPViewModel.name = "";
+                    //objCustomerRegistrationOTPViewModel.profilephoto = ""; 
+                    //objCustomerRegistrationOTPViewModel.address = ""; 
+                    //objCustomerRegistrationOTPViewModel.mobileno1 = "";
+                    //objCustomerRegistrationOTPViewModel.mobileno2 = "";
+                    //objCustomerRegistrationOTPViewModel.emailid1 = "";
+                    //objCustomerRegistrationOTPViewModel.latitude = "";
+                    //objCustomerRegistrationOTPViewModel.longitude = "";
+                    //objCustomerRegistrationOTPViewModel.password = "";
+                    //objCustomerRegistrationOTPViewModel.mobileno2 = "";
+                    //objCustomerRegistrationOTPViewModel.gender = "";
+                 //   objCustomerRegistrationOTPViewModel.DOB = obj.DOB;
+                  //  objCustomerRegistrationOTPViewModel.createddate = obj.createddate;
 
-                        string OPTINS = "STRLIT";
 
-                        string type = "3";
-                        string strUrl = "https://www.bulksmsgateway.in/sendmessage.php?user=ezacus&password=" + "ezacus@2020" + "&message=" + Msg.ToString() + "&sender=" + OPTINS + "&mobile=" + mobileno + "&type=" + 3;
-
-                        ServicePointManager.Expect100Continue = true;
-                        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                        System.Net.WebRequest request = System.Net.WebRequest.Create(strUrl);
-                        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                        Stream s = (Stream)response.GetResponseStream();
-                        StreamReader readStream = new StreamReader(s);
-                        string dataString = readStream.ReadToEnd();
-                        response.Close();
-                        s.Close();
-                        readStream.Close();
-                        //    Response.Write("Sent");
-                    }
-
-                    catch
-                    { }
-                    #endregion
-                    string myJson = "{'otpno': "+ no + "}";
-                    return Ok(myJson);
+                   // objCustomerRegistrationOTPViewModel.isdeleted = obj.isdeleted;
+                  //  objCustomerRegistrationOTPViewModel.isactive = obj.isactive;
+                    objCustomerRegistrationOTPViewModel.otpno = no;
+                    return Ok(objCustomerRegistrationOTPViewModel);
                 }
                 else
                 {
-                    return Ok(obj);
+                    
+                    objCustomerRegistrationOTPViewModel.id = obj.id;
+                    objCustomerRegistrationOTPViewModel.name = obj.name;
+                    objCustomerRegistrationOTPViewModel.profilephoto = obj.profilephoto;
+                    objCustomerRegistrationOTPViewModel.address = obj.address;
+                    objCustomerRegistrationOTPViewModel.mobileno1 = obj.mobileno1;
+                    objCustomerRegistrationOTPViewModel.mobileno2 = obj.mobileno2;
+                    objCustomerRegistrationOTPViewModel.emailid1 = obj.emailid1;
+                    objCustomerRegistrationOTPViewModel.latitude = obj.latitude;
+                    objCustomerRegistrationOTPViewModel.longitude = obj.longitude;
+                    objCustomerRegistrationOTPViewModel.password = obj.password;
+                    objCustomerRegistrationOTPViewModel.mobileno2 = obj.mobileno2;
+                    objCustomerRegistrationOTPViewModel.gender = obj.gender;
+                    objCustomerRegistrationOTPViewModel.DOB = obj.DOB;
+                    objCustomerRegistrationOTPViewModel.createddate = obj.createddate;
+
+
+                    objCustomerRegistrationOTPViewModel.isdeleted = obj.isdeleted;
+                    objCustomerRegistrationOTPViewModel.isactive = obj.isactive;
+                    objCustomerRegistrationOTPViewModel.otpno = no;
+
+                                       
+
+         
+                    return Ok(objCustomerRegistrationOTPViewModel);
                 }
 
-
+                
             }
             catch (Exception obj)
             {
@@ -497,83 +545,44 @@ namespace appFoodDelivery.API
         }
 
         [HttpGet]
-        [Route("StoreSendTestNotification")]
-        public async Task<IActionResult> StoreSendTestNotification(string DeviceId, string Message)
+        [Route("storeSendTestNotification")]
+        public async Task<IActionResult> storeSendTestNotification(string DeviceId, string Message)
         {
-            //string DeviceId = "c2K_w_3gKIk:APA91bHbTA_mPYHR4B7E7tq8Jo3rbeJXoN8eLD6pHelbfgsIB2QvURW4OPwQW2oxY_wVXkOk6sSdsAesE40pCkP7iU9gFBWm0Pm-XtJ45qEJRj3kY9kjZnl69uthcA0BMIw0wY-ZbTjK";
+            fcmNotification objfcmNotification = new fcmNotification();
+            objfcmNotification.storeNotification(DeviceId, Message,"","test");
+            string myJson = "{\"Message\": " + "\"Notification Sent Successfully\"" + "}";
+            return Ok(myJson);           
+             
+        }
+        [HttpGet]
+        [Route("customerSendTestNotification")]
+        public async Task<IActionResult> customerSendTestNotification(string DeviceId, string Message)
+        {
+            fcmNotification objfcmNotification = new fcmNotification();
+            objfcmNotification.customerNotification(DeviceId, Message, "", "test");
+            string myJson = "{\"Message\": " + "\"Notification Sent Successfully\"" + "}";
+            return Ok(myJson);
 
-            /*Manikant*/
-            //string DeviceId = "eAs8LlODtwQ:APA91bFWRCNZ6lYhkTo8QHINoiHM6_ld08WQOqhkF9q1WSZ7RD6C8R-HE9alGblpriq8G7sfGAGvn99U8DKVL8xuG764qwdYYIrEJT7-cshuFL_CnWnSKE-PZUtHFxPyF-jHRroqa_s9";
+        }
+        [HttpGet]
+        [Route("deliveryboySendTestNotification1")]
+        public async Task<IActionResult> deliveryboySendTestNotification1(string DeviceId, string Message)
+        {
+            fcmNotification objfcmNotification = new fcmNotification();
+            objfcmNotification.deliveryboyNotification(DeviceId, Message, "", "test");
+            string myJson = "{\"Message\": " + "\"Notification Sent Successfully\"" + "}";
+            return Ok(myJson);
 
-            //msg = "hello";
-            string sResponseFromServer = string.Empty, finalResult = string.Empty;
-            try
-            {
-//                Server key: AAAAxJW0hf8: APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH - UCLsbsqVxuZsoBPvw - AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz - Epk3p04lujWk1c - enH5o3CLq_ejPVqr4
-//Sender ID : 844325225983
+        }
+        [HttpGet]
+        [Route("deliveryboySendTestNotificationnew")]
+        public async Task<IActionResult> deliveryboySendTestNotificationnew(string DeviceId, string Message)
+        {
+            fcmNotification objfcmNotification = new fcmNotification();
+            objfcmNotification.testdeliveryboyNotification(DeviceId, Message, "", "test");
+            string myJson = "{\"Message\": " + "\"Notification Sent Successfully\"" + "}";
+            return Ok(myJson);
 
-                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
-                tRequest.Method = "post";
-                //serverKey - Key from Firebase cloud messaging server   customer
-                //tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAxJW0hf8:APA91bG1ipIsec--9KYV5bv6kagmly4PfFHH-UCLsbsqVxuZsoBPvw-AuRy_DhBa0sT2raF5D0DJhbx8G59lKV2fg6WbUDMzvWsyqxlQLjz-Epk3p04lujWk1c-enH5o3CLq_ejPVqr4"));
-                //store
-                tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAr0cwgUE:APA91bEs5PB48LpheJuGQOJi8jENylDdtBgGA5tcHFY2Kbz4-FwNLocAN8z7X7c4ADuP6vA7MSE3M6hx5OHp12iFt0yb7zfHO16c7mlgnppsEOFY8J4WRfpOUI-RkbXBLBwMqYwwDyYX"));
-                //Sender Id - From firebase project setting  
-                tRequest.Headers.Add(string.Format("Sender: id={0}", "752813637953"));
-                tRequest.ContentType = "application/json";
-                var payload = new
-                {
-                    to = DeviceId,
-                    priority = "high",
-                    content_available = true,
-                    notification = new
-                    {
-                        body = "Test",
-                        title = "Test",
-                        badge = 1
-                    },
-                    data = new
-                    {
-                        key1 = "value1",
-                        key2 = "value2"
-                    }
-
-                };
-
-                //string postbody = JsonConvert.SerializeObject(payload).ToString();
-
-                var serializer = new JavaScriptSerializer();
-                var postbody = serializer.Serialize(payload);
-                Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
-                tRequest.ContentLength = byteArray.Length;
-                using (Stream dataStream = tRequest.GetRequestStream())
-                {
-                    dataStream.Write(byteArray, 0, byteArray.Length);
-                    using (WebResponse tResponse = tRequest.GetResponse())
-                    {
-                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
-                        {
-                            if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
-                                {
-                                    sResponseFromServer = tReader.ReadToEnd();
-                                    //result.Response = sResponseFromServer;
-                                }
-                        }
-                    }
-                }
-
-            }
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return Ok(sResponseFromServer);
-            //Context.Response.Clear();
-            //Context.Response.ContentType = "application/json";
-            //Context.Response.Flush();
-            //Context.Response.Write(sResponseFromServer);
-            //Context.Response.End();
         }
 
         [HttpGet]
@@ -608,6 +617,84 @@ namespace appFoodDelivery.API
                 string myJson = "{\"Message\": " + "\"Bad Request\"" + "}";
                 return BadRequest(myJson);
                 
+            }
+
+        }
+
+
+
+        [HttpGet]
+        [Route("customerdeliveryCharges")]
+        public async Task<IActionResult> customerdeliveryCharges(string storedid, decimal latitude, decimal lognitude)
+        {
+            try
+            {
+
+                //var obj = _ordersServices.GetById(orderid);
+
+                var parameter = new DynamicParameters();
+                parameter.Add("@storedid", storedid);
+                parameter.Add("@customerLatitude", latitude);
+                parameter.Add("@customerLongitude", lognitude);
+                var obj = _ISP_Call.List<customerdeliverycharges>("customerOrderDeliveryCharges", parameter);
+                //  var categories = await _context.CustomerRegistration.ToListAsync(); 
+                if (obj == null)
+                {
+
+                    string myJson = "{\"Message\": " + "\"Not Found\"" + "}";
+                    return NotFound(myJson);
+                }
+                else
+                {
+
+                    return Ok(obj);
+                }
+
+
+            }
+            catch (Exception obj)
+            {
+                string myJson = "{\"Message\": " + "\"Bad Request\"" + "}";
+                return BadRequest(myJson);
+
+            }
+
+        }
+
+
+        [HttpGet]
+        [Route("orderhistorybyCustomerId")]
+        public async Task<IActionResult> orderhistorybyCustomerId(int customerid )
+        {
+            try
+            {
+
+                //var obj = _ordersServices.GetById(orderid);
+
+                var parameter = new DynamicParameters();
+                parameter.Add("@customerid", customerid);
+                
+                var obj = _ISP_Call.List<orderselectallViewModel>("orderhistorybyCustomerId", parameter);
+                //  var categories = await _context.CustomerRegistration.ToListAsync(); 
+                if (obj == null)
+                {
+
+                    string myJson = "{\"Message\": " + "\"Not Found\"" + "}";
+                    return NotFound(myJson);
+                }
+                else
+                {
+
+                    return Ok(obj);
+                }
+
+
+            }
+            catch (Exception obj)
+            {
+                string myJson = "{\"Message\": " + "\"Bad Request\"" + "}";
+                return BadRequest(myJson);
+
             }
 
         }

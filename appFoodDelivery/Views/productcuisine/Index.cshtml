@@ -7,6 +7,7 @@
 <div class="row">
     <div class="col-md-12 grid-margin">
         <div class="card">
+
             <div class="card-body">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -15,6 +16,8 @@
                     </ol>
                 </nav><br /><br />
                 <div class="row">
+
+
                     <div class="col-md-12 table-responsive-md">
                         <a class="btn btn-xs btn-outline-success float-md-right" asp-action="Create"> Add New Cuisine</a>
 
@@ -31,40 +34,43 @@
                                 @foreach (var item in Model)
                                 {
 
-                                <tr>
-                                    <td style="display:none;">
+                                    <tr>
+                                        <td style="display:none;">
 
-                                        <a asp-action="Detail" asp-route-id="@item.id" id="lblid">
-                                            @item.id
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a asp-action="Detail" asp-route-id="@item.id">
-                                            @item.name
-                                        </a>
-                                    </td>
-                                    <td>
-                                        @if (item.img == null || item.img.Trim() == "")
-                                        {
-                                            // <img alt="image" src="~/images/not-found.png" />
-                                        }
-                                        else
-                                        {<img alt="image" src="@Url.Content(item.img)" />
+                                            <a asp-action="Detail" asp-route-id="@item.id" id="lblid">
+                                                @item.id
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a asp-action="Detail" asp-route-id="@item.id">
+                                                @item.name
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @if (item.img == null || item.img.Trim() == "")
+                                            {
+                                                // <img alt="image" src="~/images/not-found.png" />
+                                            }
+                                            else
+                                            {<img alt="image" src="@Url.Content(item.img)" />
 
 
-                                        }
+                                            }
 
-                                    </td>
-                                    <td>
-                                        <a class="text-success" asp-action="Edit" asp-route-id="@item.id">
-                                            <i class="fas fa-edit"></i> Edit
-                                        </a>
-
-                                        <a class="text-danger" asp-action="Delete" asp-route-id="@item.id">
-                                            <i class="far fa-trash-alt"></i> Delete
-                                        </a>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <a class="text-success" asp-action="Edit" asp-route-id="@item.id">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <a class="text-danger" onclick="Delete(@item.id)">
+                                                <i class="far fa-trash-alt"></i> Delete
+                                            </a>
+                                            @*<a class="text-danger" asp-action="Delete"   asp-route-id="@item.id"
+                                                   >
+                                                    <i class="far fa-trash-alt"></i> Delete
+                                                </a>*@
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table><br />
@@ -77,3 +83,30 @@
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+     
+    function Delete(id) {
+        swal({
+            title: "Are you sure",
+            text: "Once deleted",
+            icon: "warning",
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "Delete",
+                    url="~/productcuisine/Delete?id=" + id,
+                    success: function (data) {
+                        if (data.success) {
+                            toastr.success(message);
+                            dataTable.ajax.reload();
+                        }
+                        else {
+                            toastr.error(message);
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>

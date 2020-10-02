@@ -24,6 +24,7 @@
     <Compile Remove="Models\StoreOwnerCreateViewModel.cs" />
     <Compile Remove="Models\StoreOwnerEditViewModel.cs" />
     <Compile Remove="Models\StoreOwnerIndexViewModel.cs" />
+    <Compile Remove="Notification\fcmNotification - Copy.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +32,10 @@
     <Content Remove="Views\StoreOwner\Create.cshtml" />
     <Content Remove="Views\StoreOwner\Edit.cshtml" />
     <Content Remove="Views\StoreOwner\Index.cshtml" />
+    <Content Remove="wwwroot\pages\AboutUs.html" />
+    <Content Remove="wwwroot\pages\Privacypolicy.html" />
+    <Content Remove="wwwroot\pages\RefundandCancellation.html" />
+    <Content Remove="wwwroot\pages\TermsandConditions.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +84,12 @@
     <None Include="Views\StateRegistration\Create.cshtml" />
     <None Include="Views\StateRegistration\Edit.cshtml" />
     <None Include="Views\StateRegistration\Index.cshtml" />
+    <None Include="wwwroot\pages\AboutUs.html" />
+    <None Include="wwwroot\pages\RefundandCancellation.html" />
+    <None Include="wwwroot\pages\Privacypolicy.html" />
+    <None Include="wwwroot\pages\TermsandConditions.html" />
+    <None Include="wwwroot\timepicker\bootstrap-timepicker.js" />
+    <None Include="wwwroot\timepicker\bootstrap-timepicker.min.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,5 +97,7 @@
     <ProjectReference Include="..\appFoodDelivery.Persistence\appFoodDelivery.Persistence.csproj" />
     <ProjectReference Include="..\appFoodDelivery.Services\appFoodDelivery.Services.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/backportrc" /></VisualStudio></ProjectExtensions>
 
 </Project>

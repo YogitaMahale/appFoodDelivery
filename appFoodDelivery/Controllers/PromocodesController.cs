@@ -6,10 +6,12 @@ using appFoodDelivery.Services;
 using Microsoft.AspNetCore.Mvc;
 using appFoodDelivery.Models;
 using appFoodDelivery.Entity;
+using Microsoft.AspNetCore.Authorization;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace appFoodDelivery.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class PromocodesController : Controller
     {
         private readonly IpromocodeServices _promocodeServices;
@@ -82,6 +84,7 @@ namespace appFoodDelivery.Controllers
                 };
 
                 await _promocodeServices.CreateAsync(obj);
+                TempData["success"] = "Record Saved successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -141,6 +144,7 @@ namespace appFoodDelivery.Controllers
 
                 
                 await _promocodeServices.UpdateAsync(customerobj);
+                TempData["success"] = "Record Updated successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -157,6 +161,7 @@ namespace appFoodDelivery.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _promocodeServices.Delete(id);
+            TempData["success"] = "Record Delete successfully";
             return RedirectToAction(nameof(Index));
 
 

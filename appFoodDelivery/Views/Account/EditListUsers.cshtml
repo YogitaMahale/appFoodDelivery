@@ -31,12 +31,25 @@
 
                     </div>
                     <div class="form-group col-md-2">
-                            <label asp-for="Id"></label>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <input asp-for="Id" class="form-control" disabled />
-                            
-                        </div>
+                        <label asp-for="gender"></label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        @*<select asp-for="gender" class="form-control" asp-items="Html.GetEnumSelectList<plathora.Entity.Gender>()">*@
+                        <select asp-for="gender" class="form-control">
+
+                            <option value="Select" selected>-- Select --</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <span asp-validation-for="gender" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2" style="display:none;">
+                        <label asp-for="Id"></label>
+                    </div>
+                    <div class="form-group col-md-3" style="display:none;">
+                        <input asp-for="Id" class="form-control" disabled />
+
+                    </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-2">
@@ -82,23 +95,7 @@
 
 
 
-                <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <label asp-for="gender"></label>
-                    </div>
-                    <div class="form-group col-md-3">
-                        @*<select asp-for="gender" class="form-control" asp-items="Html.GetEnumSelectList<plathora.Entity.Gender>()">*@
-                        <select asp-for="gender" class="form-control">
-
-                            <option value="Select" selected>-- Select --</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                        <span asp-validation-for="gender" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-2"></div>
-
-                </div>
+                
 
 
 
@@ -108,7 +105,7 @@
                     <button type="submit" class="btn btn-rounded btn-primary float-left"><i class="fas fa-plus-square" style="margin-right:0.7em"></i>Update</button>
 
 
-                    <a asp-action="ListUsers" class="btn btn-rounded btn-success float-right"><i class="fas fa-caret-square-left" style="margin-right:0.7em"></i>Back</a>
+                    <a asp-action="StoreListDetails" class="btn btn-rounded btn-success float-right"><i class="fas fa-caret-square-left" style="margin-right:0.7em"></i>Back</a>
                     <label id="divMessage"></label>
                     <br />
                     <br />

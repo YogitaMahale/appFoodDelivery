@@ -132,7 +132,7 @@ function loadDataTable(url) {
                         }
                         else if (row['orderstatus'] == "processorders") {
                             return `<div class="text-center">
-                                   <a href="/Order/changeorderStatus?id=${row['id']}&status=ongoingorders" class='btn btn-success text-white btn-lg' style='cursor:pointer; width:70px;'>Shipped</a>
+                                   <a href="/Order/changeorderStatus?id=${row['id']}&status=ongoingorders" class='btn btn-success text-white btn-lg' style='cursor:pointer; width:70px;display:none;'>Shipped</a>
                                   
                                   <a href="/Order/Details?id=${row['id']}" class='btn btn-warning text-white btn-lg'  style='cursor:pointer; width:70px;'>
                                       Details
@@ -142,7 +142,7 @@ function loadDataTable(url) {
                         }
                         else if (row['orderstatus'] == "ongoingorders") {
                             return `<div class="text-center">
-                                   <a href="/Order/changeorderStatus?id=${row['id']}&status=completedorders" class='btn btn-success text-white btn-lg' style='cursor:pointer; width:70px;'>Complete</a>
+                                   <a href="/Order/changeorderStatus?id=${row['id']}&status=completedorders" class='btn btn-success text-white btn-lg' style='cursor:pointer; width:70px;display:none;'>Complete</a>
                                   
                                   <a href="/Order/Details?id=${row['id']}" class='btn btn-warning text-white btn-lg'  style='cursor:pointer; width:70px;'>
                                       Details

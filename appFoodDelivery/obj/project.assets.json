@@ -10079,11 +10079,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\6.7.20\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.csproj",
+      "projectUniqueName": "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.csproj",
       "projectName": "appFoodDelivery",
-      "projectPath": "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\6.7.20\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.csproj",
+      "projectPath": "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\6.7.20\\appFoodDelivery\\appFoodDelivery\\obj\\",
+      "outputPath": "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -10102,14 +10102,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\6.7.20\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj": {
-              "projectPath": "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\6.7.20\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj"
+            "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj": {
+              "projectPath": "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj"
             },
-            "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\6.7.20\\appFoodDelivery\\appFoodDelivery.Persistence\\appFoodDelivery.Persistence.csproj": {
-              "projectPath": "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\6.7.20\\appFoodDelivery\\appFoodDelivery.Persistence\\appFoodDelivery.Persistence.csproj"
+            "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.Persistence\\appFoodDelivery.Persistence.csproj": {
+              "projectPath": "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.Persistence\\appFoodDelivery.Persistence.csproj"
             },
-            "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\6.7.20\\appFoodDelivery\\appFoodDelivery.Services\\appFoodDelivery.Services.csproj": {
-              "projectPath": "E:\\yogita 6.8.19\\asp.net core\\updated 18.6.20\\food delivery\\6.7.20\\appFoodDelivery\\appFoodDelivery.Services\\appFoodDelivery.Services.csproj"
+            "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.Services\\appFoodDelivery.Services.csproj": {
+              "projectPath": "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.Services\\appFoodDelivery.Services.csproj"
             }
           }
         }

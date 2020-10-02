@@ -11,9 +11,11 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using appFoodDelivery.Services;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace appFoodDelivery.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
     public class productcuisineController : Controller
     {
 
@@ -88,7 +90,7 @@ namespace appFoodDelivery.Controllers
 
                 }
                 await _productcuisinemasterservices.CreateAsync(store);
-
+                TempData["success"] = "Record Save successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -123,6 +125,7 @@ namespace appFoodDelivery.Controllers
                 var storeobj = _productcuisinemasterservices.GetById(model.id);
                 if (storeobj == null)
                 {
+                    TempData["error"] = "Record Not Found";
                     return NotFound();
                 }
                 storeobj.id = model.id;
@@ -140,6 +143,7 @@ namespace appFoodDelivery.Controllers
 
                 }
                 await _productcuisinemasterservices.UpdateAsync(storeobj);
+                TempData["success"] = "Record Update successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -149,11 +153,30 @@ namespace appFoodDelivery.Controllers
 
         }
 
-        [HttpGet]
+        //[HttpGet]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+
+        //    await _productcuisinemasterservices.Delete(id);
+        //    TempData["success"] = "Product Cusine Deleted Successfully";
+        //    return RedirectToAction(nameof(Index));
+
+
+
+        //}
+
+        [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
+            var obj = _productcuisinemasterservices.GetById(id);
+            if(obj==null)
+            {
+                return Json( new {success=false,message="Error while Deleting"});
+
+            }
             await _productcuisinemasterservices.Delete(id);
-            return RedirectToAction(nameof(Index));
+             
+            return Json(new { success = false, message = "Delete Successfuklly" });
 
 
 

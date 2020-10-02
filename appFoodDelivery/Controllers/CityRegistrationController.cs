@@ -7,10 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace appFoodDelivery.Controllers
 {
+    //[Authorize(Roles = SD.Role_Admin)]
     public class CityRegistrationController : Controller
     {
         private readonly IStateRegistrationService _StateRegistrationService;
@@ -25,7 +26,7 @@ namespace appFoodDelivery.Controllers
 
         }
 
-
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult index()
         {
             var citydetails = _CityRegistrationservices.GetAll().Select(x => new CityIndexViewModel
@@ -43,6 +44,7 @@ namespace appFoodDelivery.Controllers
 
 
         }
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult test()
         {
             ViewBag.Countrieslist = _CountryRegistrationservices.GetAll().ToList();
@@ -65,7 +67,9 @@ namespace appFoodDelivery.Controllers
             ViewBag.States = _StateRegistrationService.GetAllState(Convert.ToInt16(countryid));
             return View("Create");
         }
+
         [HttpGet]
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult Create()
         {
             // ViewBag.Countries = _CountryRegistrationservices.GetAllCountry();
@@ -76,6 +80,7 @@ namespace appFoodDelivery.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> Create(CityCreateViewModel model)
         {
 
@@ -92,6 +97,7 @@ namespace appFoodDelivery.Controllers
                 };
 
                 await _CityRegistrationservices.CreateAsync(objcountry);
+                TempData["success"] = "Record Saved successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -127,6 +133,7 @@ namespace appFoodDelivery.Controllers
 
         //}
         [HttpGet]
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult Edit(int id)
         {
             ViewBag.Countries = _CountryRegistrationservices.GetAllCountry();
@@ -157,6 +164,7 @@ namespace appFoodDelivery.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> Edit(CityEditViewModel model)
         {
             if (ModelState.IsValid)
@@ -172,6 +180,7 @@ namespace appFoodDelivery.Controllers
 
 
                 await _CityRegistrationservices.UpdateAsync(objcountry);
+                TempData["success"] = "Record Updated successfully";
                 return RedirectToAction(nameof(index));
             }
             else
@@ -183,9 +192,11 @@ namespace appFoodDelivery.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> Delete(int id)
         {
             await _CityRegistrationservices.Delete(id);
+            TempData["success"] = "Record Delete successfully";
             return RedirectToAction(nameof(Index));
         }
 

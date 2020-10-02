@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace appFoodDelivery.Models
 {
     public class RegisterViewModel
@@ -44,7 +46,8 @@ namespace appFoodDelivery.Models
         public Boolean isdeleted { get; set; } = false;
 
         public Boolean isactive { get; set; } = false;
+        public string Role { get; set; }
 
-
+        public IEnumerable<SelectListItem> roleList { get; set; }
     }
 }

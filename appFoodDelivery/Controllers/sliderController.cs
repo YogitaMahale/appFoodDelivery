@@ -10,11 +10,13 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using appFoodDelivery.Services;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace appFoodDelivery.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
     public class sliderController : Controller
     {
         
@@ -87,7 +89,7 @@ namespace appFoodDelivery.Controllers
 
                 }
                 await _sliderServices .CreateAsync(store);
-
+                TempData["success"] = "Record Saved successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -145,6 +147,7 @@ namespace appFoodDelivery.Controllers
                 }
 
                 await _sliderServices.UpdateAsync(storeobj);
+                TempData["success"] = "Record Updated successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -158,6 +161,7 @@ namespace appFoodDelivery.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _sliderServices .Delete(id);
+            TempData["success"] = "Record Delete successfully";
             return RedirectToAction(nameof(Index));
 
 

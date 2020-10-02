@@ -12,9 +12,12 @@ using appFoodDelivery.pagination;
 using appFoodDelivery.Models;
 using appFoodDelivery.Entity;
 using appFoodDelivery.Services;
+using Microsoft.AspNetCore.Authorization;
+using appFoodDelivery;
 
 namespace plathora.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin )]
     public class CountryRegistrationController : Controller
     {
         
@@ -61,6 +64,7 @@ namespace plathora.Controllers
                 };
  
                 await _CountryRegistrationservices.CreateAsync(objcountry);
+                TempData["success"] = "Record Saved successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -103,6 +107,7 @@ namespace plathora.Controllers
                 
                  
                 await _CountryRegistrationservices .UpdateAsync(objcountry);
+                TempData["success"] = "Record Updated successfully";
                 return RedirectToAction(nameof(Index));
             }
             else

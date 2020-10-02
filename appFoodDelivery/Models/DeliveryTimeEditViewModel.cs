@@ -9,6 +9,11 @@ namespace appFoodDelivery.Models
     public class DeliveryTimeEditViewModel
     {
         public int id { get; set; }
+
+        [Required]
+        [Display(Name = "Select Cusine")]
+        public int productcuisineid { get; set; }
+
         [Required]
         [Display(Name = "Estimated Delivery Time")]
         public string name { get; set; }

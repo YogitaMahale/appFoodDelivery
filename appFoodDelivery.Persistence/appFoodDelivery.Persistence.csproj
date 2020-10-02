@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200614174743_Extend migration.cs" />
     <Compile Remove="Migrations\20200614174743_Extend migration.Designer.cs" />
+    <Compile Remove="Migrations\20200827084926_add menuid column in product.cs" />
+    <Compile Remove="Migrations\20200827084926_add menuid column in product.Designer.cs" />
+    <Compile Remove="Migrations\20200827091004_add menu id in product table.cs" />
+    <Compile Remove="Migrations\20200827091004_add menu id in product table.Designer.cs" />
+    <Compile Remove="Migrations\20200827091818_add menu id in product table.cs" />
+    <Compile Remove="Migrations\20200827091818_add menu id in product table.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,52 +6,57 @@
         //ongoingorders
         //completedorders
         //cancelledorders*@
-Layout = "~/Views/Shared/_Layout.cshtml";
-var status = Context.Request.Query["status"];
-var pending = "text-primary";
-var approved = "text-primary";
-var processorders = "text-primary";
-var ongoingorders = "text-primary";
-var completedorders = "text-primary";
-var cancelledorders = "text-primary";
-var all = "text-primary";
-switch (status)
-{
-    //case "pending":
-    //    pending = "active text-primary";
-    //    break;
-    case "approved":
-        approved = "active text-primary";
-        break;
-    case "processorders":
-        processorders = "active text-primary";
-        break;
-    case "ongoingorders":
-        ongoingorders = "active text-primary";
-        break;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var status = Context.Request.Query["status"];
+    var pending = "text-primary";
+    var approved = "text-primary";
+    var processorders = "text-primary";
+    var ongoingorders = "text-primary";
+    var completedorders = "text-primary";
+    var cancelledorders = "text-primary";
+    var all = "text-primary";
+    switch (status)
+    {
+        //case "pending":
+        //    pending = "active text-primary";
+        //    break;
+        case "approved":
+            approved = "active text-primary";
+            break;
+        case "processorders":
+            processorders = "active text-primary";
+            break;
+        case "ongoingorders":
+            ongoingorders = "active text-primary";
+            break;
 
-    case "completedorders":
-        completedorders = "active text-primary";
-        break;
-    case "cancelledorders":
-        cancelledorders = "active text-primary";
-        break;
+        case "completedorders":
+            completedorders = "active text-primary";
+            break;
+        case "cancelledorders":
+            cancelledorders = "active text-primary";
+            break;
 
-    default:
-        pending = "active text-primary";
-        break;
-}
+        default:
+            pending = "active text-primary";
+            break;
+    }
 
 }
 
 <br />
 <div class="border p-3 bg-white">
     <h2 class="text-primary">Order's List</h2>
+
+     
+
+
+
     <div class="d-flex justify-content-between ">
         @*<div class="p-2">
                 <h2 class="text-primary">Order's List</h2>
             </div>*@
-        <div class="p-12" >
+        <div class="p-12">
             <ul class="list-group list-group-horizontal-lg" style="text-align:right;">
                 @*//pending
                     //approved
@@ -117,3 +122,11 @@ switch (status)
     <script src="~/js/order.js"></script>
 
 }
+@*@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+}*@

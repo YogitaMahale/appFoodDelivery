@@ -15,13 +15,16 @@ namespace appFoodDelivery.Models
 
         [Display(Name = "Select Cuisine")]
         public int productcuisineid { get; set; }
+        [Display(Name = "Select Menu")]
+        public int fkmenuid { get; set; }
 
         [Required(ErrorMessage = "Name is Required")]
         [Display(Name = "Menu Name")]
         public string name { get; set; }
         [Display(Name = "Photo")]
         public IFormFile img { get; set; }
-        [Display(Name = "Food Type")]
+        [Display(Name = "Select Veg/Nonveg")]
+
 
         public string foodtype { get; set; }
         [Required]
@@ -32,9 +35,10 @@ namespace appFoodDelivery.Models
         [Display(Name = "Discount Type")]
         public string discounttype { get; set; }
         [Required]
-        [Display(Name = "Discount Amount")]
+        [Display(Name = "Discount( % )")]
         public decimal discountamount { get; set; }
-        
+
+        public string status { get; set; }
 
     }
 }

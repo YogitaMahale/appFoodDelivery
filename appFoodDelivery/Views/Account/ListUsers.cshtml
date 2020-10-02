@@ -1,4 +1,5 @@
-﻿@model IEnumerable<appFoodDelivery.Entity.ApplicationUser>
+﻿@*@model IEnumerable<appFoodDelivery.Entity.ApplicationUser>*@
+@model IEnumerable<appFoodDelivery.Models.dtos.storedetailsList>
 @{
     ViewBag.Title = "All Users";
 }
@@ -22,11 +23,12 @@
                             <thead>
                                 <tr>
                                     <th style="display:none;">id</th>
-                                    <th>Photo</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Gender</th>
-                                    <th>Mobile No</th>
+                                    <th>Store Banner</th>
+                                    <th>Owner Name</th>
+                                    <th>Store Name</th>
+                                    <th>Status</th>
+                                    <th>Tax Type</th>
+                                    <th>Tax( % )</th>
                                     <th class="text-warning">Actions</th>
                                 </tr>
                             </thead>
@@ -42,26 +44,31 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <img alt="image" src="@Url.Content(item.profilephoto)" />
-                                    </td>
-                                    <td>
-                                        <a asp-action="Detail" asp-route-id="@item.name">
-                                            @item.name
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a asp-action="Detail" asp-route-id="@item.Email ">
-                                            @item.Email
-                                        </a>
+                                        <img alt="image" src="@Url.Content(item.storeBannerPhoto)" />
                                     </td>
                                     <td>
 
-                                        @item.gender
+                                        @item.ownername
 
                                     </td>
                                     <td>
 
-                                        @item.mobileno
+                                        @item.storeName
+
+                                    </td>
+                                    <td>
+
+                                        @item.storestatus
+
+                                    </td>
+                                    <td>
+
+                                        @item.taxstatus
+
+                                    </td>
+                                    <td>
+
+                                        @item.taxstatusPer
 
                                     </td>
                                     <td>
@@ -76,8 +83,8 @@
                                             <i class="fas fa-edit"></i> Details
                                         </a>
                                         @*<a class="text-success" asp-action="ProductList" asp-route-id="@item.Id">
-                                            <i class="fas fa-edit"></i> Menu
-                                        </a>*@
+                <i class="fas fa-edit"></i> Menu
+            </a>*@
                                     </td>
                                 </tr>
                                 }

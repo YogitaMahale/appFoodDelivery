@@ -63,5 +63,9 @@ namespace appFoodDelivery.Models
         public Boolean isdeleted { get; set; }
         [DefaultValue("false")]
         public Boolean isactive { get; set; }
+
+
+        [Display(Name = "Blood Group")]
+        public string bloodgroup { get; set; }
     }
 }

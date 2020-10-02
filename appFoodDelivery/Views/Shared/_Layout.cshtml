@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.css" />*@
+
+    <link href="~/timepicker/bootstrap-timepicker.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container-scroller">
@@ -30,7 +33,27 @@
         <div class="container-fluid page-body-wrapper">
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    @*@if (User.IsInRole(SD.Role_Admin) && User.IsInRole(SD.Role_Employee))*@
+                    @if (User.IsInRole(SD.Role_Employee))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#master" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                                <span class="menu-title">Master</span>
+                                <i class="menu-arrow text-primary"></i>
+                            </a>
+                            <div class="collapse" id="master">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" asp-controller="productcuisine" asp-action="Index">Cuisine</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="menumaster" asp-action="test">Menu Master</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="slider" asp-action="Index">Slider</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
+
+
+                    @if (User.IsInRole(SD.Role_Admin))
                     {
 
                         <li class="nav-item">
@@ -43,7 +66,11 @@
                                 <ul class="nav flex-column sub-menu">
                                     @*<li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="CreateRole"> Role</a></li>*@
                                     <li class="nav-item"><a class="nav-link" asp-controller="productcuisine" asp-action="Index">Cuisine</a></li>
-                                    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="ListUsers"> Store Owner</a></li>
+                                    @*<li class="nav-item"><a class="nav-link" asp-controller="menumaster" asp-action="Index">Menu Master</a></li>*@
+                                    <li class="nav-item"><a class="nav-link" asp-controller="menumaster" asp-action="test">Menu Master</a></li>
+
+
+                                    @*<li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="ListUsers"> Store Owner</a></li>*@
                                     <li class="nav-item"><a class="nav-link" asp-controller="DeliveryTimeMaster" asp-action="Index"> Delivery Time Master</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="RadiusMaster" asp-action="Index"> Radius Master</a></li>
 
@@ -52,10 +79,25 @@
                                     <li class="nav-item"><a class="nav-link" asp-controller="CityRegistration" asp-action="Index">City</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="slider" asp-action="Index">Slider</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="Promocodes" asp-action="Index">Promo Code</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="charges" asp-action="Edit">Charges</a></li>
+
+
                                 </ul>
                             </div>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#Customer" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                                <span class="menu-title">Restaurants  </span>
+                                <i class="menu-arrow text-primary"></i>
+                            </a>
+                            <div class="collapse" id="Customer">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Register"> New Registration</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="StoreListDetails"> All Details</a></li>
+                                </ul>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#Driver" aria-expanded="false" aria-controls="ui-basic">
                                 <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
@@ -100,7 +142,9 @@
                             </div>
                         </li>
                     }
-                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Store"))
+                    @*@if (SignInManager.IsSignedIn(User) && User.IsInRole("Store"))*@
+                    @*@if (User.IsInRole(SD.Role_Admin)&& User.IsInRole(SD.Role_Store))*@
+                    @if (User.IsInRole(SD.Role_Store))
                     {
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#master1" aria-expanded="false" aria-controls="ui-basic">
@@ -134,7 +178,7 @@
                             <div class="collapse" id="store">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="ContactPersonDetails"> Contact Person Details</a></li>
-                                    <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Services"> Select Service</a></li>
+                                    @*<li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Services"> Select Service</a></li>*@
                                     <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="StoreDetails"> Store Details</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Documentation"> Documentation</a></li>
                                 </ul>
@@ -180,10 +224,11 @@
             <div class="main-panel">
                 <partial name="_CookieConsentPartial" />
                 <div class="content-wrapper">
+                    <partial name="_Notification" />
                     @RenderBody()
                 </div>
                 <footer class="footer">
-                    <p> &copy; @DateTime.UtcNow.Year - App Food Delivery - @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@</p>
+                    <p>Food Delivery @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@</p>
                 </footer>
             </div>
         </div>
@@ -229,6 +274,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/timepicker/bootstrap-timepicker.js"></script>
+
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

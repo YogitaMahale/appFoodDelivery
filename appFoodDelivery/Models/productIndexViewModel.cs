@@ -20,8 +20,8 @@ namespace appFoodDelivery.Models
         public productcuisinemaster productcuisinemaster { get; set; }
 
 
-        
-         
+        public int fkmenuid { get; set; }
+
         public string name { get; set; }
         
         public string img { get; set; }

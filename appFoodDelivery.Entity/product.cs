@@ -18,6 +18,14 @@ namespace appFoodDelivery.Entity
         public int productcuisineid { get; set; }
         public productcuisinemaster productcuisinemaster { get; set; }
 
+
+        // [ForeignKey("menumaster")]
+        public int fkmenuid { get; set; }
+       // public menumaster menumaster { get; set; }
+
+
+
+
         [Required(ErrorMessage = "Name is Required")]
         [Display(Name = "Name")]
         public string name { get; set; }
@@ -40,6 +48,7 @@ namespace appFoodDelivery.Entity
         public Boolean isdeleted { get; set; }
 
         public Boolean isactive { get; set; }
+        public string status { get; set; }
 
     }
 }

@@ -9,8 +9,11 @@ using appFoodDelivery.Entity;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using appFoodDelivery.pagination;
+using Microsoft.AspNetCore.Authorization;
+
 namespace appFoodDelivery.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class CustomerRegistrationController : Controller
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -36,7 +39,7 @@ namespace appFoodDelivery.Controllers
 
             }).ToList();
             // return View(affilatemaster);
-            int PageSize = 4;
+            int PageSize = 10;
             return View(CustomerRegPagination<CustomerRegistrationIndexViewModel>.Create(customer, PageNumber ?? 1, PageSize));
         }
         [HttpGet]
@@ -252,6 +255,11 @@ namespace appFoodDelivery.Controllers
 
            
         }
-        
+        [HttpPost]
+        public IActionResult Index1(string selectedDate)
+        {
+            ViewBag.Message = "Selected Date: " + selectedDate;
+            return View();
+        }
     }
 }

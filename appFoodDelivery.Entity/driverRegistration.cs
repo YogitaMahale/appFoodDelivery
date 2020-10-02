@@ -46,6 +46,6 @@ namespace appFoodDelivery.Entity
         public Boolean isactive { get; set; }
         public string status { get; set; }
 
-
+        public string bloodgroup { get; set; }
     }
 }

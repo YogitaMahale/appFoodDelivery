@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace appFoodDelivery.Controllers
 {
-   // [Authorize(Roles ="Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class RadiusMasterController : Controller
     {
        
@@ -67,7 +67,7 @@ namespace appFoodDelivery.Controllers
                 };
                
                 await _RadiusMasterServices .CreateAsync(store);
-
+                TempData["success"] = "Record Saved successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -108,6 +108,7 @@ namespace appFoodDelivery.Controllers
                 storeobj.name = model.name;
                 
                 await _RadiusMasterServices .UpdateAsync(storeobj);
+                TempData["success"] = "Record Updated successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -121,6 +122,7 @@ namespace appFoodDelivery.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _RadiusMasterServices .Delete(id);
+            TempData["success"] = "Record Delete successfully";
             return RedirectToAction(nameof(Index));
 
 

@@ -7,9 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using appFoodDelivery.Services;
+using Microsoft.AspNetCore.Authorization;
+using appFoodDelivery;
 
 namespace plathora.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class StateRegistrationController : Controller
     {
 

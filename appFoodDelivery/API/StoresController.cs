@@ -26,12 +26,16 @@ namespace appFoodDelivery.API
         private readonly UserManager<ApplicationUser> _usermanager;
         private readonly SignInManager<ApplicationUser> _signinmanager;
         private readonly ISP_Call _ISP_Call;
+        private readonly Iproductservices _productservices;
+        private readonly IstoredetailsServices _storedetailsServices;
 
-        public StoresController(UserManager<ApplicationUser> usermanager, SignInManager<ApplicationUser> signinmanager, ISP_Call ISP_Call)
+        public StoresController(UserManager<ApplicationUser> usermanager, SignInManager<ApplicationUser> signinmanager, ISP_Call ISP_Call, Iproductservices productservices, IstoredetailsServices storedetailsServices)
         {
             _usermanager = usermanager;
             _signinmanager = signinmanager;
             _ISP_Call = ISP_Call;
+            _productservices = productservices;
+            _storedetailsServices = storedetailsServices;
         }
         [HttpPost]
         [Route("storeInsert")]
@@ -445,6 +449,183 @@ namespace appFoodDelivery.API
 
                 
                 return BadRequest(myJson);
+
+
+            }
+            catch (Exception obj)
+            {
+                return Ok(obj.Message);
+            }
+        }
+
+
+        [HttpPut]
+        [Route("updateProductAvailableStatus")]
+        public async Task<IActionResult> updateProductAvailableStatus( int id, string status)
+        {
+            try
+            {
+
+
+                var product = _productservices.GetById(id);
+                if (product == null)
+                {
+                    string myJson = "{'message': " + "Not Found" + "}";
+                    return NotFound(myJson);
+                    // return NotFound();
+                }
+                else
+                {
+                    product.status = status ;                 
+                    await _productservices.UpdateAsync(product);
+
+                    return Ok(product);
+                }
+                //return BadRequest();
+            }
+            catch (Exception obj)
+            {
+                return Ok(obj.Message);
+            }
+        }
+        [HttpPut]
+        [Route("updateStoreStatus")]
+        public async Task<IActionResult> updateStoreStatus(string storeId, string status)
+        {
+            try
+            {                
+
+                try
+                {
+                    var store = _storedetailsServices.GetAll().Where(x => x.storeid == storeId).FirstOrDefault();
+                    if (store == null)
+                    {
+                        var details = new storedetails
+                        {
+                            storeid = storeId,
+                            status = status
+
+                        };
+
+                      int id=  await _storedetailsServices.CreateAsync(details);
+                        var store1 = _storedetailsServices.GetById(id);
+                        return Ok(store1);
+                    }
+                    else
+                    {
+                        //var store1 = _storedetailsServices.GetAll().Where(x => x.storeid == storeId).FirstOrDefault();
+                        if(store==null)
+                        { }
+                        else
+                        {
+                            store.status = status;
+
+                            await _storedetailsServices.UpdateAsync(store);
+                            return Ok(store);
+                        }
+                      
+                        
+
+                    }
+                }
+                catch(Exception obj)
+                {
+                    //var details = new storedetails
+                    //{
+                    //    storeid = storeId,
+                    //    storename = "",
+                    //    contactpersonname = "",
+                    //    // id = model.id,
+                    //    radiusid = 0,
+                    //    deliverytimeid = 0,
+                    //    orderMinAmount =0,
+                    //    packagingCharges =0,
+                    //    isdeleted = false,
+                    //    address ="",
+                    //    description = "",
+                    //    //storetime = model.storetime,
+                    //    storetime = "",
+                    //    latitude = "",
+                    //    longitude = "",
+                    //    cityid = 0,
+                    //    promocode = "",
+                    //    discount =0,
+
+                    //    accountno = "",
+                    //    banklocation = "",
+                    //    bankname = "",
+                    //    ifsccode = "",
+                    //    status = status,
+                    //    adminCommissionPer =0,
+                    //    taxstatus = "",
+                    //    taxstatusPer = 0
+
+                       
+
+                    //};
+
+                    //await _storedetailsServices.CreateAsync(details);
+                    //var store = _storedetailsServices.GetAll().Where(x => x.storeid == storeId).FirstOrDefault();
+                    //return Ok(store);
+                }
+                finally
+                {
+
+                }
+
+
+              //  IEnumerable<storedetails> store = _storedetailsServices.GetAll().Where(x => x.storeid == storeId);
+                
+                return BadRequest();
+                //if (store == null)
+                //{
+
+                //    var details = new storedetails
+                //    {
+                //        storeid = storesId,
+                //        status=status 
+                //        //storename = "",
+                //        //contactpersonname = "",
+
+                //        //radiusid = model.radiusid,
+                //        //deliverytimeid = model.deliverytimeid,
+                //        //orderMinAmount = model.orderMinAmount,
+                //        //packagingCharges = model.packagingCharges,
+                //        //isdeleted = false,
+                //        //address = model.address,
+                //        //description = model.description,
+                //        ////storetime = model.storetime,
+                //        //storetime = model.FromTime + " - " + model.ToTime,
+                //        //latitude = model.latitude,
+                //        //longitude = model.longitude,
+                //        //cityid = model.cityid,
+                //        //promocode = model.promocode,
+                //        //discount = model.discount,
+
+                //        //accountno = model.longitude,
+                //        //banklocation = model.banklocation,
+                //        //bankname = model.bankname,
+                //        //ifsccode = model.ifsccode,
+                //        //status = model.status,
+                //        //adminCommissionPer = model.adminCommissionPer,
+                //        //taxstatus = model.taxstatus,
+                //        //taxstatusPer = model.taxstatusPer
+
+                //    };
+
+                //    await _storedetailsServices.CreateAsync(details);
+                //    return Ok(store);
+                //}
+                //else
+                //{
+
+
+                //    store.status = status;
+
+                //    await _storedetailsServices.UpdateAsync(store);
+                //    return Ok(store);
+                //}
+
 
 
             }

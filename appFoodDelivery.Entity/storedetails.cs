@@ -70,5 +70,15 @@ namespace appFoodDelivery.Entity
         public string ifsccode { get; set; }
 
         public string status { get; set; }
+
+
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal adminCommissionPer { get; set; } = 0;
+
+
+        public string taxstatus { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal taxstatusPer { get; set; } = 0;
     }
 }

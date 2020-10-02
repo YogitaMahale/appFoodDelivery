@@ -72,5 +72,18 @@ namespace appFoodDelivery.Models
         public string ifsccode { get; set; }
         [Display(Name = "Store Status")]
         public string status { get; set; }
+
+        [Display(Name = "Commission( % ) ")]
+
+        public decimal adminCommissionPer { get; set; }
+
+        [Display(Name = "Tax Status")]
+        public string taxstatus { get; set; }
+        [Display(Name = "Tax Percentage")]
+        public decimal taxstatusPer { get; set; } = 0;
+
+
+        public string FromTime { get; set; }
+        public string ToTime { get; set; }
     }
 }

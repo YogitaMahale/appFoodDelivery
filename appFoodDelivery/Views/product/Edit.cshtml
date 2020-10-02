@@ -25,7 +25,7 @@
                         <label asp-for="productcuisineid" style="text-align:right;"></label>
                     </div>
                     <div class="form-group col-md-3">
-                        <select name="productcuisineid" id="productcuisineid" asp-for="productcuisineid" class="form-control"
+                        <select name="productcuisineid" id="productcuisineid" asp-for="productcuisineid" class="form-control"    onchange="DoPostBack();"
                                 asp-items="@(new SelectList(ViewBag.productcuisine,"id","name"))">
 
 
@@ -38,9 +38,23 @@
 
                     </div>
                     <div class="form-group col-md-2">
-                        <label asp-for="name"></label>
+                        <label asp-for="fkmenuid"></label>
                     </div>
                     <div class="form-group col-md-3">
+                        <select name="fkmenuid" id="fkmenuid" asp-for="fkmenuid" class="form-control"
+                                asp-items="@ViewBag.Menus">
+
+
+                            <option>--- Select  ---</option>
+                        </select>
+
+
+                        <span asp-validation-for="fkmenuid" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2" style="display:none;">
+                        <label asp-for="name"></label>
+                    </div>
+                    <div class="form-group col-md-3" style="display:none;">
                         <input asp-for="name" class="form-control" placeholder="Enter Menu Name.." />
                         <span asp-validation-for="name" class="text-danger"></span>
                     </div>
@@ -48,9 +62,22 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-2">
-                        <label asp-for="img"></label>
+                        <label asp-for="status"></label>
                     </div>
                     <div class="form-group col-md-3">
+                        <select asp-for="status" class="form-control">
+
+                            <option value="Select" selected>-- Select --</option>
+                            <option value="available">Available</option>
+                            <option value="unavailable">Unavailable</option>
+
+                        </select>
+                        <span asp-validation-for="status" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2" style="display:none;">
+                        <label asp-for="img"></label>
+                    </div>
+                    <div class="form-group col-md-3" style="display:none;">
                         <div class="btn btn-primary btn-icon-text">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <input asp-for="img" type="file" value="Upload" />
@@ -123,7 +150,7 @@
                 <div class="form-group">
 
                     <button type="submit" class="btn btn-rounded btn-primary float-left"><i class="fas fa-plus-square" style="margin-right:0.7em"></i>Save</button>
-                    <a asp-action="index" asp-controller="Home" class="btn btn-rounded btn-success float-right"><i class="fas fa-caret-square-left" style="margin-right:0.7em"></i>Back</a>
+                    <a asp-action="index" class="btn btn-rounded btn-success float-right"><i class="fas fa-caret-square-left" style="margin-right:0.7em"></i>Back</a>
                     <br />
                     <br />
                     <br />
@@ -138,3 +165,30 @@
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 <script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+<script type="text/javascript">
+    $(function() {
+        $("#productcuisineid").change(function () {
+
+            var url = '@Url.Content("~/")' + 'product/GetMenuList';
+            var ddlsource = "#productcuisineid";
+            $.getJSON(url,
+                { id: $(ddlsource).val() },
+                function (data) {
+                //   console.log(data);
+                    var item = '';
+                    $("#fkmenuid").empty();
+                    $.each(data, function (i, row) {
+
+                        item += "<option value='" + row.value + "'>" + row.text + "  </option > ";
+                       // alert(row);
+                    });
+                    $("#fkmenuid").html(item);
+                }
+            )
+        });
+    });
+
+
+</script>

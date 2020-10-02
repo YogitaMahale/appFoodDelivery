@@ -21,5 +21,7 @@ namespace appFoodDelivery.Entity
         public decimal price { get; set; }
         [DefaultValue("false")]
         public Boolean isdeleted { get; set; }
+       
+
     }
 }

@@ -27,7 +27,7 @@ namespace appFoodDelivery.Persistence
         public DbSet<StateRegistration> StateRegistration { get; set; }
         public DbSet<CityRegistration> CityRegistration { get; set; }
 
-
+        public DbSet<charges> charges { get; set; }
         public DbSet<slider> slider { get; set; }
 
         public DbSet<orders> orders { get; set; }
@@ -37,5 +37,7 @@ namespace appFoodDelivery.Persistence
         public DbSet<promocodemaster> promocodemaster { get; set; }
         public DbSet<DeliveryboytoCustomerfeedback> DeliveryboytoCustomerfeedback { get; set; }
         public DbSet<distance> distance { get; set; }
+        public DbSet<menumaster> menumasters { get; set; }
+        public DbSet<denyOrders> denyOrders { get; set; }
     }
 }

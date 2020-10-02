@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace appFoodDelivery.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class driverRegistrationController : Controller
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -43,7 +44,7 @@ namespace appFoodDelivery.Controllers
             }).ToList();
             //  return View(storeList);
 
-            int PageSize = 4;
+            int PageSize = 10;
             return View(DriverPagination<DriverIndexViewModel>.Create(storeList, PageNumber ?? 1, PageSize));
 
         }
@@ -112,7 +113,8 @@ namespace appFoodDelivery.Controllers
                     banklocation=model.banklocation,
                     bankname=model.bankname,
                     ifsccode=model.ifsccode,
-                    status=model.status
+                    status=model.status,
+                    bloodgroup=model.bloodgroup
                     //drivinglicphoto = model.drivinglicphoto,
                     //vehicleinsurancephoto = model.vehicleinsurancephoto,
                   
@@ -154,7 +156,7 @@ namespace appFoodDelivery.Controllers
 
                 }
                 await _driverRegistrationServices.CreateAsync(store);
-
+                TempData["success"] = "Record Save successfully";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -193,7 +195,9 @@ namespace appFoodDelivery.Controllers
                 bankname =   storeowner.bankname,
                 banklocation =   storeowner.banklocation,
                 ifsccode  =  storeowner.ifsccode,
-                status=storeowner.status
+                status=storeowner.status,
+                bloodgroup=storeowner.bloodgroup
+
             };
             return View(model);
         }
@@ -235,7 +239,7 @@ namespace appFoodDelivery.Controllers
                     storeobj.bankname = model.bankname;
                     storeobj.ifsccode = model.ifsccode;
                     storeobj.status = model.status;
-
+                    storeobj.bloodgroup = model.bloodgroup;
                     if (model.profilephoto != null && model.profilephoto.Length > 0)
                     {
                         var uploadDir = @"uploads/driver/profilephoto";
@@ -273,6 +277,7 @@ namespace appFoodDelivery.Controllers
 
                     }
                     await _driverRegistrationServices.UpdateAsync(storeobj);
+                    TempData["success"] = "Record Updated successfully";
                     return RedirectToAction(nameof(Index));
                 }
                
@@ -288,6 +293,7 @@ namespace appFoodDelivery.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _driverRegistrationServices.Delete(id);
+            TempData["success"] = "Record Delete successfully";
             return RedirectToAction(nameof(Index));
 
 

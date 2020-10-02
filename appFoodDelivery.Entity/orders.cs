@@ -41,8 +41,23 @@ namespace appFoodDelivery.Entity
         public string instructions { get; set; }
         [DefaultValue("false")]
         public Boolean isdeleted { get; set; }
-       //[DefaultValue("false")]
-      //  public Boolean isactive { get; set; }
 
+
+        public string customerdeliverylatitude { get; set; }
+
+        public string customerdeliverylongitude { get; set; }
+
+        public string deliveryboylatitude { get; set; }
+
+        public string deliveryboylongitude { get; set; }
+        public string storelatitude { get; set; }
+
+        public string storelongitude { get; set; }
+
+
+        //[DefaultValue("false")]
+        //  public Boolean isactive { get; set; }
+        public string  deliveryboyCheckStaus { get; set; } 
+        public string storeCheckStaus { get; set; } 
     }
 }

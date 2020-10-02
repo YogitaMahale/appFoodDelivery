@@ -17,5 +17,6 @@ namespace appFoodDelivery.Services
         Task Delete(int id);
 
         IEnumerable<productcuisinemaster> GetAll();
+        
     }
 }

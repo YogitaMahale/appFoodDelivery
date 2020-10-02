@@ -13,5 +13,8 @@ namespace appFoodDelivery.Entity
         public int oid { get; set; }
         public DateTime placedate { get; set; }
         public string orderstatus { get; set; }
+
+      
+        public string reason { get; set; }
     }
 }

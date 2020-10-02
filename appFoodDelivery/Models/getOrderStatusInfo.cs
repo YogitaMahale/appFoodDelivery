@@ -45,6 +45,9 @@ namespace appFoodDelivery.Models
         public string deliveryboylongitude { get; set; }
         public string deliveryboymobileno { get; set; }
         public string deliveryboyprofilephoto { get; set; }
+        public string storelatitude { get; set; }
 
+        public string storelongitude { get; set; }
+        
     }
 }

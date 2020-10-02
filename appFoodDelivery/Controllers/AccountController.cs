@@ -16,9 +16,13 @@ using System.Text;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using appFoodDelivery.Services;
 using appFoodDelivery.pagination;
+using appFoodDelivery.Models.dtos;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace appFoodDelivery.Controllers
 {
+   
     public class AccountController : Controller
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -33,6 +37,12 @@ namespace appFoodDelivery.Controllers
         private readonly IStateRegistrationService _StateRegistrationService;
         private readonly ICityRegistrationservices _cityRegistrationservices;
         private readonly Iproductcuisinemasterservices _productcuisinemasterservices;
+        private readonly ISP_Call _sP_Call;
+
+
+    
+
+
         public AccountController(UserManager<ApplicationUser> usermanager,
                                     SignInManager<ApplicationUser> signinmanager,
                                     RoleManager<IdentityRole> roleManager
@@ -45,6 +55,7 @@ namespace appFoodDelivery.Controllers
                                     , ICityRegistrationservices cityRegistrationservices
                                     , Iproductservices productservices
                                     , Iproductcuisinemasterservices productcuisinemasterservices
+                                    , ISP_Call sP_Call
             )
         {
             this.usermanager = usermanager;
@@ -59,11 +70,18 @@ namespace appFoodDelivery.Controllers
             _StateRegistrationService = StateRegistrationService;
             _cityRegistrationservices  = cityRegistrationservices;
             _productcuisinemasterservices = productcuisinemasterservices;
+            _sP_Call = sP_Call;
         }
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            var RegisterViewModelobj = new RegisterViewModel();
+            RegisterViewModelobj.roleList = roleManager.Roles.Where(u => u.Name != SD.Role_Admin).Select(x => x.Name).Select(i => new SelectListItem
+            {
+                Text = i,
+                Value = i
+            });
+            return View(RegisterViewModelobj);
         }
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -75,12 +93,37 @@ namespace appFoodDelivery.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     name = model.name,
-                    mobileno = model.mobileno
+                    mobileno = model.mobileno                    
                 };
                 var result = await usermanager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    usermanager.AddToRoleAsync(user, "Store").Wait();
+                    //-------------------------------------
+
+                    if (!await roleManager.RoleExistsAsync(SD.Role_Admin))
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(SD.Role_Admin));
+                    }
+
+                    if (!await roleManager.RoleExistsAsync(SD.Role_Employee))
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(SD.Role_Employee));
+                    }
+                    if (!await roleManager.RoleExistsAsync(SD.Role_Store))
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(SD.Role_Store));
+                    }
+                    //----------------------------------
+                    //  usermanager.AddToRoleAsync(user, "Store").Wait();
+                    if (model.Role == null)
+                    {
+                        await usermanager.AddToRoleAsync(user, SD.Role_Store);
+                    }
+                    else
+                    {
+                       
+                        await usermanager.AddToRoleAsync(user, model.Role);
+                    }
 
                     if (signinmanager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
@@ -142,11 +185,13 @@ namespace appFoodDelivery.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult CreateRole()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> CreateRole(CreateRoleViewmodel model)
         {
             if (ModelState.IsValid)
@@ -175,14 +220,37 @@ namespace appFoodDelivery.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult ListUsers(int? PageNumber)
         {
-            var users = usermanager.Users;
-            return View(users);
+            var storeDetails = _sP_Call.List<storedetailsList>("selectallstoreDetails", null);
+            //var users = usermanager.Users;
+            return View(storeDetails);
 
 
         }
+
+        #region StoreList Paging
+        public IActionResult StoreListDetails()
+        {
+            return View();
+        }
+
+
         [HttpGet]
+
+        public IActionResult GetStoreListDetails()
+        {
+            var storeDetails = _sP_Call.List<storedetailsList>("selectallstoreDetails", null);
+            return Json(new { data = storeDetails });
+        }
+
+
+        #endregion
+
+
+        [HttpGet]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> EditListUsers(string id)
         {
             var users = await usermanager.FindByIdAsync(id);
@@ -204,6 +272,7 @@ namespace appFoodDelivery.Controllers
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> EditListUsers(EditRegisterViewModel model1)
         {
             var users = await usermanager.FindByIdAsync(model1.Id);
@@ -234,7 +303,8 @@ namespace appFoodDelivery.Controllers
                 var res = await usermanager.UpdateAsync(users);
                 if (res.Succeeded)
                 {
-                    return RedirectToAction("ListUsers");
+                    //return RedirectToAction("ListUsers");
+                    return RedirectToAction(nameof(StoreListDetails));
                 }
                 foreach (var error in res.Errors)
                 {
@@ -260,7 +330,8 @@ namespace appFoodDelivery.Controllers
                 var result = await usermanager.DeleteAsync(users);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("ListUsers");
+                    // return RedirectToAction("ListUsers");
+                    return RedirectToAction(nameof(StoreListDetails));
                 }
                 foreach (var error in result.Errors)
                 {
@@ -272,12 +343,14 @@ namespace appFoodDelivery.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult forgetpassword()
         {
             var model = new storeForgetPasswordViewModel();
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> forgetpassword(storeForgetPasswordViewModel model)
         {
             if (ModelState.IsValid)
@@ -489,6 +562,7 @@ namespace appFoodDelivery.Controllers
         //}
 
         [HttpGet]
+        [Authorize(Roles = SD.Role_Admin)]
         public IActionResult ResetPassword(string token, string email)
         {
             if (token == null || email == null)
@@ -499,6 +573,7 @@ namespace appFoodDelivery.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> ResetPassword(storeResetPasswordViewmodel model)
         {
             if (ModelState.IsValid)
@@ -544,6 +619,7 @@ namespace appFoodDelivery.Controllers
             }
         }
         [HttpGet]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> storeDetails(string id)
         {
             var users = await usermanager.FindByIdAsync(id);
@@ -605,6 +681,7 @@ namespace appFoodDelivery.Controllers
             return View(model);
         }
         [HttpGet]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> ProductList(string id)
         {
             var listt = _productservices.GetAll().Where(x => x.storeid == id).Select(x => new productIndexViewModel
@@ -638,6 +715,9 @@ namespace appFoodDelivery.Controllers
             return View(listt);
 
         }
+
+
+    
     }
 }
 
