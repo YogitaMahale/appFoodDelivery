@@ -11,19 +11,19 @@ namespace appFoodDelivery.Models
         public int id { get; set; }
 
         [Required]
-        [Display(Name ="Customer 1 Km Amount")]
+        [Display(Name = "Customer Delivery Charge per 1 km")]
         public decimal customer1Km { get; set; } = 0;
         [Required]
-        [Display(Name = "Customer 2 Km Amount")]
+        [Display(Name = "Customer Delivery Charge  for 2km ")]
 
         public decimal customer2K { get; set; } = 0;
         [Required]
-        [Display(Name = "Delivery Boy 1 Km Amount")]
+        [Display(Name = "Delivery Boy Delivery Charge per 1 km")]
 
         public decimal deliveryboy1Km { get; set; } = 0;
 
         [Required]
-        [Display(Name = "Delivery Boy 2 Km Amount")]
+        [Display(Name = "Delivery Boy Delivery Charge for 2km")]
         public decimal deliveryboy2Km { get; set; } = 0;
     }
 }

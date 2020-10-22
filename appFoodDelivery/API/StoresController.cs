@@ -28,14 +28,15 @@ namespace appFoodDelivery.API
         private readonly ISP_Call _ISP_Call;
         private readonly Iproductservices _productservices;
         private readonly IstoredetailsServices _storedetailsServices;
-
-        public StoresController(UserManager<ApplicationUser> usermanager, SignInManager<ApplicationUser> signinmanager, ISP_Call ISP_Call, Iproductservices productservices, IstoredetailsServices storedetailsServices)
+        private readonly IversionsServices _versionsServices;
+        public StoresController(UserManager<ApplicationUser> usermanager, SignInManager<ApplicationUser> signinmanager, ISP_Call ISP_Call, Iproductservices productservices, IstoredetailsServices storedetailsServices, IversionsServices versionsServices)
         {
             _usermanager = usermanager;
             _signinmanager = signinmanager;
             _ISP_Call = ISP_Call;
             _productservices = productservices;
             _storedetailsServices = storedetailsServices;
+            _versionsServices = versionsServices;
         }
         [HttpPost]
         [Route("storeInsert")]
@@ -634,8 +635,25 @@ namespace appFoodDelivery.API
                 return Ok(obj.Message);
             }
         }
+        [HttpGet]
+        [Route("getversion")]
+        public async Task<IActionResult> getversion()
+        {
 
+
+            var customer = _versionsServices.GetById(1);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(customer);
+            }
+            //return BadRequest();
+        }
     }
 
 }
- 
+
+//getversion

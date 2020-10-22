@@ -2346,11 +2346,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj",
+      "projectUniqueName": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj",
       "projectName": "appFoodDelivery.Entity",
-      "projectPath": "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj",
+      "projectPath": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "E:\\yogita 6.8.19\\asp.net core\\backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.Entity\\obj\\",
+      "outputPath": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Entity\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -39,5 +39,6 @@ namespace appFoodDelivery.Persistence
         public DbSet<distance> distance { get; set; }
         public DbSet<menumaster> menumasters { get; set; }
         public DbSet<denyOrders> denyOrders { get; set; }
+        public DbSet<versions> versions { get; set; }
     }
 }

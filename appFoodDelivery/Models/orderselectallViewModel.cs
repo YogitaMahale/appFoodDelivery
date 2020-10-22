@@ -57,7 +57,9 @@ namespace appFoodDelivery.Models
 
         public string customerdeliverylatitude { get; set; }
         public string customerdeliverylongitude { get; set; }
-
+        public decimal deliveryboycharges { get; set; }
+        public decimal productCost { get; set; }
+        public decimal deliverycharges { get; set; }
     }
 }
   //"id": 749,

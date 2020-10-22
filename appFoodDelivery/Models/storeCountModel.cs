@@ -15,6 +15,10 @@ namespace appFoodDelivery.Models
         public string totalOngoingOrder { get; set; }
         public string totalCompleteOrder { get; set; }
         public string totalCancelOrder { get; set; }
+        public string storeAmountWithoutDeliveryboyCost { get; set; }
+
+        public string deliveryboycharges { get; set; }
+
 
     }
 }

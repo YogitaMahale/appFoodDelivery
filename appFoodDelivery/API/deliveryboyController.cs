@@ -137,7 +137,10 @@ namespace appFoodDelivery.API
                     string OPTINS = "STRLIT";
 
                     string type = "3";
-                    string strUrl = "https://www.bulksmsgateway.in/sendmessage.php?user=ezacus&password=" + "ezacus@2020" + "&message=" + Msg.ToString() + "&sender=" + OPTINS + "&mobile=" + mobileno + "&type=" + 3;
+                    //  string Password = "9359848251";
+                    string Password = "959595";
+                    string strUrl = "http://bulksms.co/sendmessage.php?user=Aveebroiler&password=" + Password + "&message=" + Msg + "&sender=" + OPTINS + "&mobile=" + mobileno + "&type=" + 3;
+                    //  string strUrl = "https://www.bulksmsgateway.in/sendmessage.php?user=ezacus&password=" + "ezacus@2020" + "&message=" + Msg.ToString() + "&sender=" + OPTINS + "&mobile=" + mobileno + "&type=" + 3;
 
                     ServicePointManager.Expect100Continue = true;
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -504,7 +507,7 @@ namespace appFoodDelivery.API
         [Route("deliveryboyorderCount")]
         public async Task<IActionResult> deliveryboyorderCount(int deliveryboyid)
         {
-            var paramter = new DynamicParameters();
+            DynamicParameters paramter = new DynamicParameters();
             paramter.Add("@deliveryboyid", deliveryboyid);
             //  paramter.Add("@status", "Placed");
             var orderheaderList1 = _ISP_Call.List<storeCountModel>("SP_deliveryboyorderCount", paramter);

@@ -164,22 +164,31 @@ namespace appFoodDelivery.Controllers
 
 
         //}
-
-        [HttpDelete]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var obj = _productcuisinemasterservices.GetById(id);
-            if(obj==null)
-            {
-                return Json( new {success=false,message="Error while Deleting"});
-
-            }
             await _productcuisinemasterservices.Delete(id);
-             
-            return Json(new { success = false, message = "Delete Successfuklly" });
+            TempData["success"] = "Record Delete successfully";
+            return RedirectToAction(nameof(Index));
 
 
 
         }
+        //[HttpDelete]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var obj = _productcuisinemasterservices.GetById(id);
+        //    if(obj==null)
+        //    {
+        //        return Json( new {success=false,message="Error while Deleting"});
+
+        //    }
+        //    await _productcuisinemasterservices.Delete(id);
+
+        //    return Json(new { success = false, message = "Delete Successfuklly" });
+
+
+
+        //}
     }
 }

@@ -103,6 +103,7 @@ namespace appFoodDelivery
             services.AddScoped<Imenumasterservices, menumasterservices>();
             services.AddScoped<IchargesServices, chargesServices>();
             services.AddScoped<IdenyOrdersServices, denyOrdersServices>();
+            services.AddScoped<IversionsServices, versionsServices>();
             //services.AddScoped<IEmailSender, EmailSender>();
 
 

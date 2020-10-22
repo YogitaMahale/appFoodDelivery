@@ -2,6 +2,8 @@
 
 $(document).ready(function () {
     var url = window.location.search;
+
+
     // alert(url);
     if (url.includes("pending")) {
         loadDataTable("GetOrderList?status=Placed");
@@ -100,7 +102,7 @@ function loadDataTable(url) {
                         return `<div class="text-center">                           
                                   
                                   <a href="/Order/Details?id=${row['id']}" class='btn btn-warning text-white btn-lg btn-block ' style='cursor:pointer; width:70px;'>Details</a>
-                                   
+                                    <a href="/Order/changeorderStatus?id=${row['id']}&status=completedorders" class='btn btn-success text-white btn-lg' style='cursor:pointer; width:80px;'>Complete</a>
                                      
                             `;
                     }

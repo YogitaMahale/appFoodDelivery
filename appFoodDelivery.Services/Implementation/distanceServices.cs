@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace appFoodDelivery.Services.Implementation
 {
@@ -40,11 +41,11 @@ namespace appFoodDelivery.Services.Implementation
         //}
 
 
-        //public async Task UpdateAsync(CityRegistration obj)
-        //{
-        //    _context.CityRegistration.Update(obj);
-        //    await _context.SaveChangesAsync();
-        //}
+        public async Task UpdateAsync(distance obj)
+        {
+            _context.distance.Update(obj);
+            await _context.SaveChangesAsync();
+        }
         //public IEnumerable<SelectListItem> GetAllCity(int stateid)
         //{
         //    return GetAll().Where(x => x.stateid == stateid).Select(emp => new SelectListItem()

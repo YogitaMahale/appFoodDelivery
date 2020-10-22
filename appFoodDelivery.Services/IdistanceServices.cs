@@ -11,7 +11,7 @@ namespace appFoodDelivery.Services
     {
         //Task CreateAsync(CityRegistration obj);
         distance GetById(int id);
-        //Task UpdateAsync(CityRegistration obj);
+        Task UpdateAsync(distance obj);
         //Task Delete(int countryid);
         //IEnumerable<SelectListItem> GetAllCity(int stateid);
         //IEnumerable<CityRegistration> GetAll();

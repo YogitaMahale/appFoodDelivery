@@ -63,10 +63,15 @@ namespace appFoodDelivery.API
                     string Msg = "OTP :" + no + ".  Please Use this OTP.This is usable once and expire in 10 minutes";
 
                     string OPTINS = "STRLIT";
-
+                    //  string Password = "9359848251";
+                    string Password = "959595";
+                    
                     string type = "3";
-                    string strUrl = "https://www.bulksmsgateway.in/sendmessage.php?user=ezacus&password=" + "ezacus@2020" + "&message=" + Msg.ToString() + "&sender=" + OPTINS + "&mobile=" + mobileno + "&type=" + 3;
+                    // string strUrl = "https://www.bulksmsgateway.in/sendmessage.php?user=ezacus&password=" + "ezacus@2020" + "&message=" + Msg.ToString() + "&sender=" + OPTINS + "&mobile=" + mobileno + "&type=" + 3;
+                    //string strUrl = "https://www.bulksmsgateway.in/sendmessage.php?user=ezacus&password=" + "ezacus@2020" + "&message=" + Msg.ToString() + "&sender=" + OPTINS + "&mobile=" + mobileno + "&type=" + 3;
 
+
+                    string strUrl = "http://bulksms.co/sendmessage.php?user=Aveebroiler&password=" + Password + "&message=" + Msg + "&sender=" + OPTINS + "&mobile=" + mobileno + "&type=" + 3;
                     ServicePointManager.Expect100Continue = true;
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                     System.Net.WebRequest request = System.Net.WebRequest.Create(strUrl);
@@ -361,7 +366,7 @@ namespace appFoodDelivery.API
         {
             try
             {
-                var sliderlist = _sliderServices.GetAll().Where( x=>x.isdeleted == false).FirstOrDefault();
+                var sliderlist = _sliderServices.GetAll().Where( x=>x.isdeleted == false).ToList();
                 //  var categories = await _context.CustomerRegistration.ToListAsync(); 
                 if (sliderlist == null)
                 {

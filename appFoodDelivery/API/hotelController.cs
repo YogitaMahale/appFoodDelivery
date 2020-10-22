@@ -218,12 +218,13 @@ namespace appFoodDelivery.API
             paramter.Add("@customerid", customerid);
             var orderlist = _ISP_Call.List<orderselectallViewModel>("checkCustomerOrderComplete", paramter);
 
-            bool flg = false;
+            bool flg = true;
+            
             foreach(var item in orderlist)
             {
                 if(item.orderstatus== "completedorders"||item.orderstatus== "cancelledorders")
                 {
-                    flg = true;
+                     
                 }
                 else
                 {
