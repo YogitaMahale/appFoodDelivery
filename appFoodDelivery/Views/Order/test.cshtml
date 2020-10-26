@@ -48,7 +48,7 @@
 <div class="border p-3 bg-white">
     <h2 class="text-primary">Order's List</h2>
 
-
+     
 
 
 
@@ -57,33 +57,6 @@
                 <h2 class="text-primary">Order's List</h2>
             </div>*@
         <div class="p-12">
-            <div class="form-row">
-
-                <div class="form-group col-md-2">
-                    <label>From Date</label>
-                </div>
-                <div class="form-group col-md-3">
-                    <input type="text" id="txtFromDate" value="@DateTime.Now.ToString("dd/MM/yyyy")"  name="SelectedDate" readonly="readonly" />
-                    @*<input asp-for="DOB" class="form-control" />
-            <span asp-validation-for="DOB" class="text-danger"></span>*@
-                </div>
-                <div class="form-group col-md-2">
-                    <label></label>
-                </div>
-                <div class="form-group col-md-2">
-                    <label>To Date</label>
-                </div>
-                <div class="form-group col-md-3">
-                    <input type="text" id="txtToDate" value="@DateTime.Now.ToString("dd/MM/yyyy")"  name="SelectedDate" readonly="readonly" />
-                    @*<input asp-for="DOB" class="form-control" />
-            <span asp-validation-for="DOB" class="text-danger"></span>*@
-                </div>
-            </div>
-
-
-
-
-
             <ul class="list-group list-group-horizontal-lg" style="text-align:right;">
                 @*//pending
                     //approved
@@ -96,7 +69,7 @@
                 <a style="text-decoration:none;" asp-controller="Order" asp-action="test" asp-route-status="pending">
                     <li class="list-group-item @pending">Pending</li>
                 </a>
-                <a style="text-decoration:none;" asp-controller="Order" asp-action="test" asp-route-status="approved">
+                <a style="text-decoration:none;" asp-controller="Order" asp-action="test" asp-route-status="approved" >
                     <li class="list-group-item @approved">Approved</li>
                 </a>
                 <a style="text-decoration:none;" asp-controller="Order" asp-action="test" asp-route-status="processorders">
@@ -147,28 +120,13 @@
 </div>
 @section Scripts{
     <script src="~/js/order.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('#txtFromDate').datepicker({
-                changeMonth: true,
-                changeYear: true,
-                format: "dd/MM/yyyy",
-                language: "tr"
-            });
-            $('#txtToDate').datepicker({
-                changeMonth: true,
-                changeYear: true,
-                format: "dd/MM/yyyy",
-                language: "tr"
-            });
-        });
-    </script>
+
 }
 @*@if (ViewBag.Message != null)
-    {
-        <script type="text/javascript">
-                window.onload = function () {
-                    alert("@ViewBag.Message");
-                };
-        </script>
-    }*@
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+}*@

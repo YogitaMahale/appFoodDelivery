@@ -103,7 +103,7 @@ function loadDataTable(url) {
                                   
                                   <a href="/Order/Details?id=${row['id']}" class='btn btn-warning text-white btn-lg btn-block ' style='cursor:pointer; width:70px;'>Details</a>
                                     <a href="/Order/changeorderStatus?id=${row['id']}&status=completedorders" class='btn btn-success text-white btn-lg' style='cursor:pointer; width:80px;'>Complete</a>
-                                     
+                                      <a href="/Order/changeorderStatus?id=${row['id']}&status=cancelledorders" class='btn btn-danger text-white btn-lg' style='cursor:pointer; width:80px;'>Cancel</a>
                             `;
                     }
                     else {

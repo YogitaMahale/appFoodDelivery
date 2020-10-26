@@ -156,26 +156,18 @@ namespace appFoodDelivery.Controllers
         }
         public async Task<IActionResult> test()
         {
-            //if (ViewBag.from == null&& ViewBag.to==null)
-            //{
-            //    ViewBag.from = DateTime.Now.ToString("dd/MM/yyyy");
-            //    ViewBag.to = DateTime.Now.ToString("dd/MM/yyyy");
-            //}
-            // ViewBag.Message = string.Format("Hello {0}.\\nCurrent Date and Time: ", DateTime.Now.ToString());
+           // ViewBag.Message = string.Format("Hello {0}.\\nCurrent Date and Time: ", DateTime.Now.ToString());
             return View();
         }
         #region API Calls
-        public async Task<IActionResult> GetOrderList(string status, string from, string to)
+        public async Task<IActionResult> GetOrderList(string status)
         {
-         //  ViewBag.from = from;
-          //  ViewBag.from = to;
+
             ApplicationUser usr = await GetCurrentUserAsync();
             var user = await _usermanager.FindByIdAsync(usr.Id);
             var role = await _usermanager.GetRolesAsync(user);
             string roles = role[0].ToString();
             IEnumerable<orders> orderheaderList;
-
-            string fromdate = from + "," + to;
             //-------------------------------------------
             orderheaderList = _ordersServices.GetAll();
             if (roles == "Admin")

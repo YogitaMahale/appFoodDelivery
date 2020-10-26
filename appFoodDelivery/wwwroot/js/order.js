@@ -3,38 +3,35 @@
 $(document).ready(function () {
     var url = window.location.search;
 
-    var txtFromDate = document.getElementById("txtFromDate").value;
-    var txtToDate = document.getElementById("txtToDate").value;
-     
 
     // alert(url);
     if (url.includes("pending")) {
-        loadDataTable("GetOrderList?status=Placed&from='" + txtFromDate + "'&to='" + txtToDate + "'");
+        loadDataTable("GetOrderList?status=Placed");
     } else {
         if (url.includes("approved")) {
-            loadDataTable("GetOrderList?status=approved&from='" + txtFromDate + "'&to='" + txtToDate + "'");
+            loadDataTable("GetOrderList?status=approved");
         }
         else {
             if (url.includes("processorders")) {
-                loadDataTable("GetOrderList?status=processorders&from='" + txtFromDate + "'&to='" + txtToDate + "'");
+                loadDataTable("GetOrderList?status=processorders");
             }
             else {
                 if (url.includes("ongoingorders")) {
-                    loadDataTable("GetOrderList?status=ongoingorders&from='" + txtFromDate + "'&to='" + txtToDate + "'");
+                    loadDataTable("GetOrderList?status=ongoingorders");
                 }
                 else {
 
                     if (url.includes("completedorders")) {
-                        loadDataTable("GetOrderList?status=completedorders&from='" + txtFromDate + "'&to='" + txtToDate + "'");
+                        loadDataTable("GetOrderList?status=completedorders");
                     }
                     else {
 
                         if (url.includes("cancelledorders")) {
-                            loadDataTable("GetOrderList?status=cancelledorders&from='" + txtFromDate + "'&to='" + txtToDate + "'");
+                            loadDataTable("GetOrderList?status=cancelledorders");
                         }
                         else {
 
-                            loadDataTable("GetOrderList?status=Placed&from='" + txtFromDate + "'&to='" + txtToDate + "'");
+                            loadDataTable("GetOrderList?status=Placed");
 
                         }
 
@@ -50,23 +47,19 @@ $(document).ready(function () {
     //ongoingorders
     //completedorders
     //cancelledorders
-    document.getElementById("txtFromDate").innerText = txtFromDate;
-    document.getElementById("txtToDate").innerText = txtToDate;
+
 
 
 });
 
 function loadDataTable(url) {
     //alert(url);
-
     dataTable = $('#DT_load').DataTable({
 
         "ajax": {
-            "url": "/Order/" + url,             
+            "url": "/Order/" + url,
             "type": "GET",
             "datatype": "json"
-
-          
         },
 
 
