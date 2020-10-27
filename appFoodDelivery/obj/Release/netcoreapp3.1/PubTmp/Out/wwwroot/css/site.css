@@ -69,3 +69,18 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+input#datepicker1 {
+    background-color: #fff;
+    height: 20px;
+    color: black;
+}
+input#datepicker2 {
+    background-color: #fff;
+    height: 28px;
+    width: 145px;
+}
+.form-group input.btn {
+    padding: 10px 7px;
+    font-size: 12px;
+    width: 100px;
+}

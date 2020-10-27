@@ -18,13 +18,16 @@ namespace appFoodDelivery.Models
         public decimal customerdeliverycharges { get; set; }
         public decimal deliveryboycharges { get; set; }
 
-        public DateTime placedate { get; set; }
+        public string placedate { get; set; }
         public string orderstatus { get; set; }
 
 
-        public string  deliveryboyName { get; set; } 
+        public string  deliveryboyName { get; set; }
+
+        public string promocode { get; set; }
+        public decimal tofozamt { get; set; }
+        public decimal netpayable { get; set; }
        
-         
 
 
     }

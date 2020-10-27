@@ -21,6 +21,7 @@ using Nancy.Json;
 using System.Text;
 using appFoodDelivery.Notification;
 using Microsoft.AspNetCore.Authorization;
+using System.Globalization;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace appFoodDelivery.Controllers
@@ -49,54 +50,10 @@ namespace appFoodDelivery.Controllers
             _distanceServices = distanceServices;
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _usermanager.GetUserAsync(HttpContext.User);
-        //[HttpGet]
-        //public async Task<IActionResult> test()
-        //{
-        //    // ViewBag.Message = string.Format("Hello {0}.\\nCurrent Date and Time: ", DateTime.Now.ToString());
-        //    return View();
-        //}
-        //#region API Calls
-        //public async Task<IActionResult> GetOrderList(string status)
-        //{
-
-        //    ApplicationUser usr = await GetCurrentUserAsync();
-        //    var user = await _usermanager.FindByIdAsync(usr.Id);
-        //    var role = await _usermanager.GetRolesAsync(user);
-        //    string roles = role[0].ToString();
-        //    IEnumerable<orders> orderheaderList;
-        //    //-------------------------------------------
-        //    orderheaderList = _ordersServices.GetAll();
-        //    if (roles == "Admin")
-        //    {
-        //        var paramter = new DynamicParameters();
-        //        paramter.Add("@storeid", "");
-        //        paramter.Add("@status", status);
-
-        //        //storedetailsListViewmodel
-        //        var orderheaderList1 = _ISP_Call.List<orderselectallViewModel>("orderSelectAll1", paramter);
-        //        orderheaderList1 = orderheaderList1.Where(x => x.placedate.ToString() == DateTime.Today.ToString("dd/MM/yyyy").Replace("-", "/"));
-        //        //return Json(new { data = orderheaderList });
-        //        return Json(new { data = orderheaderList1 });
-        //    }
-        //    else if (roles == "Store")
-        //    {
-        //        var paramter = new DynamicParameters();
-        //        paramter.Add("@storeid", usr.Id);
-        //        paramter.Add("@status", status);
-
-
-        //        //storedetailsListViewmodel
-        //        var orderheaderList1 = _ISP_Call.List<orderselectallViewModel>("orderSelectAll1", paramter);
-        //        orderheaderList1 = orderheaderList1.Where(x => x.placedate.ToString() == DateTime.Today.ToString("dd/MM/yyyy").Replace("-", "/"));
-        //        return Json(new { data = orderheaderList1 });
-        //    }
-
-        //    return Json(new { data = orderheaderList });
-
-        //}
-        //#endregion
+       
 
         // GET: /<controller>/
+        /*
         public async Task<IActionResult> Index()
         {
             
@@ -208,11 +165,16 @@ namespace appFoodDelivery.Controllers
 
         }
 
+        */
+
 
         [HttpGet]
-        public async Task<IActionResult> orderHistoryReport()
+        public async Task<IActionResult> Index(int? PageNumber, string from1, string to1,string status)
         {
 
+            ViewBag.from1 = from1;
+            ViewBag.to1 = to1;
+            ViewBag.status1 = status;
             ApplicationUser usr = await GetCurrentUserAsync();
             var user = await _usermanager.FindByIdAsync(usr.Id);
             var role = await _usermanager.GetRolesAsync(user);
@@ -230,31 +192,29 @@ namespace appFoodDelivery.Controllers
             {
                 paramter.Add("@storeid", usr.Id);
             }
-            paramter.Add("@status", "Placed");
-            //paramter.Add("@from", DateTime.Now.ToShortDateString().ToString());
-            //paramter.Add("@to", DateTime.Now.ToShortDateString().ToString());
-            //paramter.Add("@from", DateTime.Today.ToString("dd/MM/yyyy"));
-            //paramter.Add("@to", DateTime.Today.ToString("dd/MM/yyyy"));
-            paramter.Add("@from",null);
-            paramter.Add("@to", null);
-           // var xyz = new List<orderHistoryReportViewModel>(); 
-            var orderheaderList1 = _ISP_Call.List<orderHistoryReportViewModel>("orderHistoryReport", null);
-             orderheaderList1 = orderheaderList1.Where(x => x.id.ToString() == "0");
+            paramter.Add("@status", status);
 
+            paramter.Add("@from", from1);
+            paramter.Add("@to", to1);
 
-            // int PageSize = 10;
-            return View(orderheaderList1.ToList());
-            //int PageSize = 100;
-            //return View(OrderPagination<orderselectallViewModel>.Create(orderheaderList1.ToList(), PageNumber ?? 1, PageSize));
+            
+
+            var orderheaderList1 = _ISP_Call.List<orderselectallViewModel>("orderSelectAllSearch", paramter);
+            //  return View(orderheaderList1.ToList());
+            int PageSize = 10;
+            return View(OrderPagination<orderselectallViewModel>.Create(orderheaderList1.ToList(), PageNumber ?? 1, PageSize));
 
 
 
 
         }
-         
+
         [HttpPost]
-        public async Task<IActionResult> orderHistoryReport(DateTime from, DateTime to, string status, string search, string ExcelFileDownload)
+        public async Task<IActionResult> Index(int? PageNumber, string from1, string to1, string status, string search, string ExcelFileDownload)
         {
+            ViewBag.from1 = from1;
+            ViewBag.to1 = to1;
+            ViewBag.status1 = status;
             ApplicationUser usr = await GetCurrentUserAsync();
             var user = await _usermanager.FindByIdAsync(usr.Id);
             var role = await _usermanager.GetRolesAsync(user);
@@ -262,8 +222,6 @@ namespace appFoodDelivery.Controllers
 
             if (search != null)
             {
-                //ViewBag.message = "From Date  : " + from.ToShortDateString().ToString() + " - To Date : " + to.ToShortDateString().ToString();
-                //string ss = status + "," + from.ToShortDateString().ToString() + "," + to.ToShortDateString().ToString();
 
                 var paramter = new DynamicParameters();
                 if (roles == "Admin")
@@ -274,21 +232,19 @@ namespace appFoodDelivery.Controllers
                 {
                     paramter.Add("@storeid", usr.Id);
                 }
-                string l1= DateTime.ParseExact(from.Date.ToShortDateString().ToString(), "dd/MM/yyyy", null).ToString();
-                string l2 = DateTime.ParseExact(to.Date.ToShortDateString().ToString(), "dd/MM/yyyy", null).ToString();
 
-                // string ll = from.Date.ToString("dd/MM/yyyy").Replace("-", "/");
+                DateTime l1 = DateTime.ParseExact(from1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime l2 = DateTime.ParseExact(to1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
                 paramter.Add("@status", status);
                 paramter.Add("@from", l1);
                 paramter.Add("@to", l2);
-                var orderheaderList1 = _ISP_Call.List<orderHistoryReportViewModel>("orderHistoryReport", paramter);
-                //   orderheaderList1 = orderheaderList1.Where(x => x.placedate.ToString() == DateTime.Today.ToString("dd/MM/yyyy").Replace("-", "/"));
 
+                var orderheaderList1 = _ISP_Call.List<orderselectallViewModel>("orderSelectAllSearch", paramter);
+                //  return View(orderheaderList1.ToList());
+                int PageSize = 10;
 
-                // int PageSize = 10;
-                return View(orderheaderList1.ToList());
-                //int PageSize = 10;
-                //return View(OrderPagination<orderselectallViewModel>.Create(orderheaderList1.ToList(), PageNumber ?? 1, PageSize));
+                return View(OrderPagination<orderselectallViewModel>.Create(orderheaderList1.ToList(), PageNumber ?? 1, PageSize));
 
             }
             else if (ExcelFileDownload != null)
@@ -303,9 +259,137 @@ namespace appFoodDelivery.Controllers
                 {
                     paramter.Add("@storeid", usr.Id);
                 }
+                DateTime l1 = DateTime.ParseExact(from1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime l2 = DateTime.ParseExact(to1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
                 paramter.Add("@status", status);
-                paramter.Add("@from", from.ToShortDateString().ToString());
-                paramter.Add("@to", to.ToShortDateString().ToString());
+                paramter.Add("@from", l1);
+                paramter.Add("@to", l2);
+                 
+                var orderheaderList1 = _ISP_Call.List<orderselectallViewModel>("orderSelectAllSearch", paramter);
+
+
+
+                var builder = new StringBuilder();
+                builder.AppendLine("Order ID,Store Name,CustomerName,Amount,Date");
+                foreach (var item in orderheaderList1)
+                {
+                    builder.AppendLine($"{item.id},{item.storeid},{item.customerName},{item.amount},{item.placedate}");
+                }
+
+                return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "Report.csv");
+            }
+
+
+            else
+            {
+                return View();
+            }
+
+
+
+        }
+
+
+        //--------------------------------------------------
+        [HttpGet]
+        public async Task<IActionResult> orderHistoryReport(int? PageNumber, string from1, string to1, string status)
+        {
+
+            ViewBag.from1 = from1;
+            ViewBag.to1 = to1;
+            ViewBag.status1 = status;
+            ApplicationUser usr = await GetCurrentUserAsync();
+            var user = await _usermanager.FindByIdAsync(usr.Id);
+            var role = await _usermanager.GetRolesAsync(user);
+            string roles = role[0].ToString();
+
+
+            string s1 = DateTime.Now.ToShortDateString().ToString();
+
+            var paramter = new DynamicParameters();
+            if (roles == "Admin")
+            {
+                paramter.Add("@storeid", "");
+            }
+            else
+            {
+                paramter.Add("@storeid", usr.Id);
+            }
+            paramter.Add("@status", status);
+          
+            paramter.Add("@from", from1);
+            paramter.Add("@to", to1);
+            
+            var orderheaderList1 = _ISP_Call.List<orderHistoryReportViewModel>("orderHistoryReport", paramter);
+           
+            
+            //  return View(orderheaderList1.ToList());
+            int PageSize = 10;
+            return View(OrderPagination<orderHistoryReportViewModel>.Create(orderheaderList1.ToList(), PageNumber ?? 1, PageSize));
+
+
+
+
+        }
+         
+        [HttpPost]
+        public async Task<IActionResult> orderHistoryReport(int? PageNumber,string from1, string to1, string status, string search, string ExcelFileDownload)
+        {
+            ViewBag.from1 = from1;
+            ViewBag.to1 = to1;
+            ViewBag.status1 = status;
+            ApplicationUser usr = await GetCurrentUserAsync();
+            var user = await _usermanager.FindByIdAsync(usr.Id);
+            var role = await _usermanager.GetRolesAsync(user);
+            string roles = role[0].ToString();
+
+            if (search != null)
+            {
+               
+                var paramter = new DynamicParameters();
+                if (roles == "Admin")
+                {
+                    paramter.Add("@storeid", "");
+                }
+                else
+                {
+                    paramter.Add("@storeid", usr.Id);
+                }              
+
+                DateTime l1 = DateTime.ParseExact(from1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime l2 = DateTime.ParseExact(to1 , "dd/MM/yyyy", CultureInfo.InvariantCulture);
+             
+                paramter.Add("@status", status);
+                paramter.Add("@from", l1);
+                paramter.Add("@to", l2);
+               
+                var orderheaderList1 = _ISP_Call.List<orderHistoryReportViewModel>("orderHistoryReport", paramter);
+               
+                //  return View(orderheaderList1.ToList());
+                int PageSize = 10;
+              
+                return View(OrderPagination<orderHistoryReportViewModel>.Create(orderheaderList1.ToList(), PageNumber ?? 1, PageSize));
+
+            }
+            else if (ExcelFileDownload != null)
+            {
+
+                var paramter = new DynamicParameters();
+                if (roles == "Admin")
+                {
+                    paramter.Add("@storeid", "");
+                }
+                else
+                {
+                    paramter.Add("@storeid", usr.Id);
+                }
+                DateTime l1 = DateTime.ParseExact(from1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime l2 = DateTime.ParseExact(to1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                paramter.Add("@status", status);
+                paramter.Add("@from", l1);
+                paramter.Add("@to", l2);
                 var orderheaderList1 = _ISP_Call.List<orderHistoryReportViewModel>("orderHistoryReport", paramter);
 
 
@@ -330,5 +414,131 @@ namespace appFoodDelivery.Controllers
 
    
         }
+
+        //---------------------------
+        [HttpGet]
+        public async Task<IActionResult> HotelEarningReport(int? PageNumber, string from1, string to1, string status)
+        {
+
+            ViewBag.from1 = from1;
+            ViewBag.to1 = to1;
+            ViewBag.status1 = status;
+            ApplicationUser usr = await GetCurrentUserAsync();
+            var user = await _usermanager.FindByIdAsync(usr.Id);
+            var role = await _usermanager.GetRolesAsync(user);
+            string roles = role[0].ToString();
+
+
+            string s1 = DateTime.Now.ToShortDateString().ToString();
+
+            var paramter = new DynamicParameters();
+            if (roles == "Admin")
+            {
+                paramter.Add("@storeid", "");
+            }
+            else
+            {
+                paramter.Add("@storeid", usr.Id);
+            }
+            paramter.Add("@status", status);
+
+            paramter.Add("@from", from1);
+            paramter.Add("@to", to1);
+
+            var orderheaderList1 = _ISP_Call.List<HotelEarningViewModel>("HotelEarningReport", paramter);
+
+            //  return View(orderheaderList1.ToList());
+            int PageSize = 10;
+            return View(OrderPagination<HotelEarningViewModel>.Create(orderheaderList1.ToList(), PageNumber ?? 1, PageSize));
+
+
+
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> HotelEarningReport(int? PageNumber, string from1, string to1, string status, string search, string ExcelFileDownload)
+        {
+            ViewBag.from1 = from1;
+            ViewBag.to1 = to1;
+            ViewBag.status1 = status;
+            ApplicationUser usr = await GetCurrentUserAsync();
+            var user = await _usermanager.FindByIdAsync(usr.Id);
+            var role = await _usermanager.GetRolesAsync(user);
+            string roles = role[0].ToString();
+
+            if (search != null)
+            {
+
+                var paramter = new DynamicParameters();
+                if (roles == "Admin")
+                {
+                    paramter.Add("@storeid", "");
+                }
+                else
+                {
+                    paramter.Add("@storeid", usr.Id);
+                }
+
+                DateTime l1 = DateTime.ParseExact(from1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime l2 = DateTime.ParseExact(to1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                paramter.Add("@status", status);
+                paramter.Add("@from", l1);
+                paramter.Add("@to", l2);
+
+                var orderheaderList1 = _ISP_Call.List<HotelEarningViewModel>("HotelEarningReport", paramter);
+
+                //  return View(orderheaderList1.ToList());
+                int PageSize = 10;
+
+                return View(OrderPagination<HotelEarningViewModel>.Create(orderheaderList1.ToList(), PageNumber ?? 1, PageSize));
+
+            }
+            else if (ExcelFileDownload != null)
+            {
+
+                var paramter = new DynamicParameters();
+                if (roles == "Admin")
+                {
+                    paramter.Add("@storeid", "");
+                }
+                else
+                {
+                    paramter.Add("@storeid", usr.Id);
+                }
+                DateTime l1 = DateTime.ParseExact(from1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime l2 = DateTime.ParseExact(to1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                paramter.Add("@status", status);
+                paramter.Add("@from", l1);
+                paramter.Add("@to", l2);
+                 
+
+                var orderheaderList1 = _ISP_Call.List<HotelEarningViewModel>("HotelEarningReport", paramter);
+
+
+
+                var builder = new StringBuilder();
+                builder.AppendLine(" Order Id,Date,Store,Hotel Amount,Packing Charges,Subtotal,Commission,tofozamt,netpayable,storetax, promocode, Status, Deliveryboy");
+                foreach (var item in orderheaderList1)
+                {
+                    builder.AppendLine($"{item.id},{item.placedate },{item.customeramt },{item.packingcharges },{item.subtotal1 },{item.storecommission},{item.tofozamt },{item.netpayable  },{item.storetax},{item.promocode  },{item.orderstatus},{item.deliveryboyName   }");
+                }
+
+              
+                return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "HotelEarning.csv");
+            }
+
+
+            else
+            {
+                return View();
+            }
+
+
+
+        }
+
     }
 }
