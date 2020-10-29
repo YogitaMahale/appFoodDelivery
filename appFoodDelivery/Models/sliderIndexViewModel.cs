@@ -10,9 +10,9 @@ namespace appFoodDelivery.Models
         public int id { get; set; }
         public string name { get; set; }
 
-       
+
         public Boolean isdeleted { get; set; }
-         
+
         public Boolean isactive { get; set; }
     }
 }

@@ -15,9 +15,9 @@ namespace appFoodDelivery.Models
         public string countrycode { get; set; }
 
 
-        
+
         public Boolean isdeleted { get; set; }
-         
+
         public Boolean isactive { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace appFoodDelivery.pagination
 {
-    
+
     public class OrderPagination<T> : List<T>
     {
         public int PageIndex { get; private set; }
@@ -24,6 +24,6 @@ namespace appFoodDelivery.pagination
             var items = source.Skip((pageindex - 1) * pagesize).Take(pagesize).ToList();
             return new OrderPagination<T>(items, count, pageindex, pagesize);
         }
-        
+
     }
 }

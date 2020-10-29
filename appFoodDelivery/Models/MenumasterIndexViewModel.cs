@@ -12,11 +12,11 @@ namespace appFoodDelivery.Models
         [Required]
         [Display(Name = "Menu Name")]
         public string name { get; set; }
-        
-        public string  img { get; set; }
-         
+
+        public string img { get; set; }
+
         public int productcuisineid { get; set; }
-         
+
         public string cusinename { get; set; }
     }
 }

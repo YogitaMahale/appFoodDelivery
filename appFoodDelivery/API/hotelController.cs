@@ -1,36 +1,36 @@
-﻿using System;
+﻿using appFoodDelivery.Entity;
+using appFoodDelivery.Models;
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using appFoodDelivery.Models.dtos;
+using appFoodDelivery.Persistence;
+//using appFoodDelivery.Models.Dtos;
+using appFoodDelivery.Services;
+using Dapper;
+//using System.Web.Http;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Nancy.Json;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Spatial;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.Xml;
+using System.Text;
 using System.Threading.Tasks;
-//using System.Web.Http;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using appFoodDelivery.Entity;
-//using appFoodDelivery.Models.Dtos;
-using appFoodDelivery.Services;
 using HttpDeleteAttribute = Microsoft.AspNetCore.Mvc.HttpDeleteAttribute;
 using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
 using HttpPutAttribute = Microsoft.AspNetCore.Mvc.HttpPutAttribute;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
-using System.Data;
-using Newtonsoft.Json;
-using appFoodDelivery.Persistence;
-using System.Data.Entity;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.Xml;
-using System.Data.Entity.Spatial;
-using Dapper;
-using appFoodDelivery.Models;
-using Microsoft.AspNetCore.Identity;
-using Nancy.Json;
-using System.Text;
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-using appFoodDelivery.Models.dtos;
 namespace appFoodDelivery.API
 {
     [Route("hotel")]
@@ -78,19 +78,19 @@ namespace appFoodDelivery.API
         }
         [HttpGet]
         [Route("hotelselectallbyLocation")]
-        public async Task<IActionResult> hotelselectallbyLocation(decimal Latitude,decimal Longitude)
+        public async Task<IActionResult> hotelselectallbyLocation(decimal Latitude, decimal Longitude)
         {
-            
+
             var paramter = new DynamicParameters();
             paramter.Add("@Latitude", Latitude);
             paramter.Add("@Longitude", Longitude);
             paramter.Add("@distance", 5);
             //storedetailsListViewmodel
-            var storeList =_ISP_Call.List<storedetailsListViewmodel>("getNearestStoredbyLocationNew", paramter);             
+            var storeList = _ISP_Call.List<storedetailsListViewmodel>("getNearestStoredbyLocationNew", paramter);
             if (storeList != null)
             {
                 return Ok(storeList);
-                
+
             }
             else
             {
@@ -129,7 +129,7 @@ namespace appFoodDelivery.API
             var paramter = new DynamicParameters();
             paramter.Add("@hotelid", hotelid);
             paramter.Add("@Cuisineid", Cuisineid);
-           
+
             var orderlist = _ISP_Call.List<productModel>("getProductbyHotelIdandCuisineId", paramter);
             if (orderlist == null)
             {
@@ -192,7 +192,7 @@ namespace appFoodDelivery.API
             //return Json(query, JsonRequestBehavior.AllowGet);
 
             //  var res = from a in _db.product where a.productcuisineid==2 select a;
-              var storeidd = _productservices.GetAll().Where(x => x.productcuisineid == Cuisineid).Select(x => x.storeid).Distinct().ToList();
+            var storeidd = _productservices.GetAll().Where(x => x.productcuisineid == Cuisineid).Select(x => x.storeid).Distinct().ToList();
             var hotels = _storedetailsServices.GetAll().Where(hotels => storeidd.Contains(hotels.storeid)).ToList();
 
             //var customer = _productservices.GetAll().Where(x => x.productcuisineid == Cuisineid && x.productcuisineid == Cuisineid && x.isdeleted == false).Distinct();
@@ -219,12 +219,12 @@ namespace appFoodDelivery.API
             var orderlist = _ISP_Call.List<orderselectallViewModel>("checkCustomerOrderComplete", paramter);
 
             bool flg = true;
-            
-            foreach(var item in orderlist)
+
+            foreach (var item in orderlist)
             {
-                if(item.orderstatus== "completedorders"||item.orderstatus== "cancelledorders")
+                if (item.orderstatus == "completedorders" || item.orderstatus == "cancelledorders")
                 {
-                     
+
                 }
                 else
                 {
@@ -630,7 +630,7 @@ namespace appFoodDelivery.API
             //var storeidd = _productservices.GetAll().Where(x => x.productcuisineid == Cuisineid).Select(x => x.storeid).Distinct().ToList();
             //var hotels = _storedetailsServices.GetAll().Where(hotels => storeidd.Contains(hotels.storeid)).ToList();
 
-            var cusineid = _productservices.GetAll().Where(x => x.storeid==hotelid).Select(x => x.productcuisineid).Distinct().ToList();
+            var cusineid = _productservices.GetAll().Where(x => x.storeid == hotelid).Select(x => x.productcuisineid).Distinct().ToList();
             var cusineList = _productcuisinemasterservices.GetAll().Where(hotels => cusineid.Contains(hotels.id)).ToList();
             //var cusineList = _productcuisinemasterservices.GetAll().Where(cusineList => cusineid.Contains(cusineid.p)).ToList();
 
@@ -648,12 +648,12 @@ namespace appFoodDelivery.API
 
         [HttpGet]
         [Route("getNearestHotelbyCusineidandlocation")]
-        public async Task<IActionResult> getNearestHotelbyCusineidandlocation(int cusineid,decimal Latitude,decimal Longitude)
+        public async Task<IActionResult> getNearestHotelbyCusineidandlocation(int cusineid, decimal Latitude, decimal Longitude)
         {
-            
-            
+
+
             var paramter = new DynamicParameters();
-            paramter.Add("@cusineid", cusineid );
+            paramter.Add("@cusineid", cusineid);
             paramter.Add("@Latitude", Latitude);
             paramter.Add("@Longitude", Longitude);
             var orderlist = _ISP_Call.List<storeDetailsViewModel>("getNearestHotelbyCusineidandlocation", paramter);
@@ -672,7 +672,7 @@ namespace appFoodDelivery.API
 
         [HttpGet]
         [Route("getNearestHotelbyProductNameandlocation")]
-        public async Task<IActionResult> getNearestHotelbyProductNameandlocation(string  productname, decimal Latitude, decimal Longitude)
+        public async Task<IActionResult> getNearestHotelbyProductNameandlocation(string productname, decimal Latitude, decimal Longitude)
         {
             //var orderheaderList1 = _ISP_Call.List<orderselectallViewModel>("orderSelectAllPending", null);
             //orderheaderList1 = orderheaderList1.Where(x => x.placedate.ToString() == DateTime.Today.ToString("dd/MM/yyyy").Replace("-", "/"));

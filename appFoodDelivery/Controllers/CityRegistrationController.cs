@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using appFoodDelivery.Entity;
+﻿using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
 using appFoodDelivery.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace appFoodDelivery.Controllers
 {
@@ -52,15 +52,15 @@ namespace appFoodDelivery.Controllers
             return View("test");
 
         }
-        
+
         public JsonResult getstatebyid(int id)
         {
 
             IList<StateRegistration> obj = _StateRegistrationService.GetAll().Where(x => x.countryid == id).ToList();
             obj.Insert(0, new StateRegistration { id = 0, StateName = "select", isactive = false, isdeleted = false });
-            return Json(new SelectList(obj,"id", "StateName"));
+            return Json(new SelectList(obj, "id", "StateName"));
         }
-        
+
         public IActionResult GetStates(string countryid)
         {
             ViewBag.Countries = _CountryRegistrationservices.GetAllCountry();
@@ -74,7 +74,7 @@ namespace appFoodDelivery.Controllers
         {
             // ViewBag.Countries = _CountryRegistrationservices.GetAllCountry();
             ViewBag.Countries = _CountryRegistrationservices.GetAll().ToList();
-          //  ViewBag.StateEnabled = false;
+            //  ViewBag.StateEnabled = false;
             var model = new CityCreateViewModel();
             return View(model);
         }

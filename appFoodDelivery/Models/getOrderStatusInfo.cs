@@ -48,6 +48,6 @@ namespace appFoodDelivery.Models
         public string storelatitude { get; set; }
 
         public string storelongitude { get; set; }
-        
+
     }
 }

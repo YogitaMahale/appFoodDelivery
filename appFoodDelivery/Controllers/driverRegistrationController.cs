@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using appFoodDelivery.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
-using appFoodDelivery.Entity;
-using System.IO;
+using appFoodDelivery.pagination;
+using appFoodDelivery.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 //using plathora.pagination;
 using System.Runtime.Serialization;
-using appFoodDelivery.pagination;
-using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,7 +39,7 @@ namespace appFoodDelivery.Controllers
                 ,
                 mobileno = x.mobileno
                 ,
-                
+
                 isactive = x.isactive
             }).ToList();
             //  return View(storeList);
@@ -57,7 +57,7 @@ namespace appFoodDelivery.Controllers
         public string ValidateMobileNo(string mobileno)
         {
 
-            var emailStatus = _driverRegistrationServices .GetAll().Where(x => x.mobileno == mobileno && x.isdeleted == false).FirstOrDefault();
+            var emailStatus = _driverRegistrationServices.GetAll().Where(x => x.mobileno == mobileno && x.isdeleted == false).FirstOrDefault();
             if (emailStatus != null)
             {
                 return "1";
@@ -99,9 +99,9 @@ namespace appFoodDelivery.Controllers
                     isdeleted = false
                     ,
                     isactive = false
-                    
+
                     ,
-                     
+
                     biketype = model.biketype
 ,
                     manufacturename = model.manufacturename,
@@ -109,15 +109,15 @@ namespace appFoodDelivery.Controllers
                     modelyear = model.modelyear,
                     vehicleplateno = model.vehicleplateno,
 
-                    accountno=model.accountno,
-                    banklocation=model.banklocation,
-                    bankname=model.bankname,
-                    ifsccode=model.ifsccode,
-                    status=model.status,
-                    bloodgroup=model.bloodgroup
+                    accountno = model.accountno,
+                    banklocation = model.banklocation,
+                    bankname = model.bankname,
+                    ifsccode = model.ifsccode,
+                    status = model.status,
+                    bloodgroup = model.bloodgroup
                     //drivinglicphoto = model.drivinglicphoto,
                     //vehicleinsurancephoto = model.vehicleinsurancephoto,
-                  
+
                 };
                 if (model.profilephoto != null && model.profilephoto.Length > 0)
                 {
@@ -182,21 +182,21 @@ namespace appFoodDelivery.Controllers
                 emailid = storeowner.emailid,
                 password = storeowner.password,
                 gender = storeowner.gender,
-                
-                
+
+
                 biketype = storeowner.biketype,
 
                 manufacturename = storeowner.manufacturename,
                 modelname = storeowner.modelname,
                 modelyear = storeowner.modelyear,
                 vehicleplateno = storeowner.vehicleplateno,
-               
-                accountno =  storeowner.accountno,
-                bankname =   storeowner.bankname,
-                banklocation =   storeowner.banklocation,
-                ifsccode  =  storeowner.ifsccode,
-                status=storeowner.status,
-                bloodgroup=storeowner.bloodgroup
+
+                accountno = storeowner.accountno,
+                bankname = storeowner.bankname,
+                banklocation = storeowner.banklocation,
+                ifsccode = storeowner.ifsccode,
+                status = storeowner.status,
+                bloodgroup = storeowner.bloodgroup
 
             };
             return View(model);
@@ -213,7 +213,7 @@ namespace appFoodDelivery.Controllers
                     return NotFound();
                 }
                 var chkduplicate = _driverRegistrationServices.GetAll().Where(x => x.mobileno == model.mobileno && x.id != model.id).FirstOrDefault();
-                if(chkduplicate!=null)
+                if (chkduplicate != null)
                 {
                     ModelState.AddModelError("", "Duplicate Mobile No");
                     return View(model);
@@ -280,7 +280,7 @@ namespace appFoodDelivery.Controllers
                     TempData["success"] = "Record Updated successfully";
                     return RedirectToAction(nameof(Index));
                 }
-               
+
             }
             else
             {

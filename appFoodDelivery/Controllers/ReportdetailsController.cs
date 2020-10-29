@@ -1,27 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using appFoodDelivery.Entity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
+using appFoodDelivery.Notification;
+using appFoodDelivery.pagination;
 using appFoodDelivery.Services;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using appFoodDelivery.Services.Implementation;
 using Dapper;
-using appFoodDelivery.pagination;
-using System.Security.Cryptography.Xml;
-using System.Net;
-using Nancy.Json;
-using System.Text;
-using appFoodDelivery.Notification;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
+using Nancy.Json;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Security.Cryptography.Xml;
+using System.Text;
+using System.Threading.Tasks;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace appFoodDelivery.Controllers
@@ -272,11 +272,13 @@ namespace appFoodDelivery.Controllers
 
                 var builder = new StringBuilder();
                 builder.AppendLine("Order ID,Store Name,CustomerName,Amount,Date");
+                decimal amount = 0;
                 foreach (var item in orderheaderList1)
                 {
+                    amount += item.amount;
                     builder.AppendLine($"{item.id},{item.storeid},{item.customerName},{item.amount},{item.placedate}");
                 }
-
+                builder.AppendLine($"{""},{""},{"Total :"},{amount },{""}");
                 return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "Report.csv");
             }
 
@@ -293,7 +295,7 @@ namespace appFoodDelivery.Controllers
 
         //--------------------------------------------------
         [HttpGet]
-        public async Task<IActionResult> orderHistoryReport(int? PageNumber, string from1, string to1, string status,string deliveryboyid)
+        public async Task<IActionResult> orderHistoryReport(int? PageNumber, string from1, string to1, string status, string deliveryboyid)
         {
             //List<SelectListItem> mySkills = new List<SelectListItem>() {
 
@@ -328,7 +330,7 @@ namespace appFoodDelivery.Controllers
             paramter.Add("@from", from1);
             paramter.Add("@to", to1);
             paramter.Add("@deliveryboyid", deliveryboyid);
-            
+
             var orderheaderList1 = _ISP_Call.List<orderHistoryReportViewModel>("orderHistoryReport", paramter);
 
 
@@ -342,7 +344,7 @@ namespace appFoodDelivery.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> orderHistoryReport(int? PageNumber, string from1, string to1, string status, string search, string ExcelFileDownload,int deliveryboyid)
+        public async Task<IActionResult> orderHistoryReport(int? PageNumber, string from1, string to1, string status, string search, string ExcelFileDownload, int deliveryboyid)
         {
             IEnumerable<SelectListItem> obj = _driverRegistrationServices.GetAlldriver();
             ViewData["deliveryboylist"] = obj;
@@ -351,7 +353,7 @@ namespace appFoodDelivery.Controllers
             ViewBag.to1 = to1;
             ViewBag.status1 = status;
             ViewBag.deliveryboyid1 = deliveryboyid;
-            
+
             ApplicationUser usr = await GetCurrentUserAsync();
             var user = await _usermanager.FindByIdAsync(usr.Id);
             var role = await _usermanager.GetRolesAsync(user);
@@ -406,17 +408,26 @@ namespace appFoodDelivery.Controllers
                 paramter.Add("@deliveryboyid", deliveryboyid);
                 var orderheaderList1 = _ISP_Call.List<orderHistoryReportViewModel>("orderHistoryReport", paramter);
 
-
+                string deliveryname = _driverRegistrationServices.GetById(deliveryboyid).name;
 
 
                 var builder = new StringBuilder();
                 builder.AppendLine("Order ID,Store ,Customer,Fianl Amount,Customer Amount,Customer Delivery Charges,Delivery boy Charges,Order Status,Deliveryboy ,Date");
+                decimal tot_finalamt = 0;
+                decimal tot_customeramt = 0;
+                decimal tot_customerdeliverycharges = 0;
+                decimal tot_deliveryboycharges = 0;
                 foreach (var item in orderheaderList1)
                 {
+                    tot_finalamt += item.finalamt;
+                    tot_customeramt += item.customeramt;
+                    tot_customerdeliverycharges += item.customerdeliverycharges;
+                    tot_deliveryboycharges += item.deliveryboycharges;
                     builder.AppendLine($"{item.id},{item.storename},{item.customerName},{item.finalamt },{item.customeramt},{item.customerdeliverycharges},{item.deliveryboycharges},{item.orderstatus },{item.deliveryboyName},{item.placedate }");
                 }
-
-                return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "OrderHistory.csv");
+                builder.AppendLine($"{""},{""},{"Total :"},{tot_finalamt },{tot_customeramt},{tot_customerdeliverycharges},{tot_deliveryboycharges},{"" },{""},{"" }");
+                string namee = deliveryname + "_OrderHistory.csv";
+                return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", namee);
             }
 
 
@@ -431,9 +442,13 @@ namespace appFoodDelivery.Controllers
 
         //---------------------------
         [HttpGet]
-        public async Task<IActionResult> HotelEarningReport(int? PageNumber, string from1, string to1, string status)
+        public async Task<IActionResult> HotelEarningReport(int? PageNumber, string from1, string to1, string status, string storeid)
         {
 
+            IEnumerable<SelectListItem> obj = _storedetailsServices.GetAllStore();
+            ViewData["storelist"] = obj;
+
+            ViewBag.storeid1 = storeid;
             ViewBag.from1 = from1;
             ViewBag.to1 = to1;
             ViewBag.status1 = status;
@@ -448,7 +463,7 @@ namespace appFoodDelivery.Controllers
             var paramter = new DynamicParameters();
             if (roles == "Admin")
             {
-                paramter.Add("@storeid", "");
+                paramter.Add("@storeid", storeid);
             }
             else
             {
@@ -471,8 +486,13 @@ namespace appFoodDelivery.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> HotelEarningReport(int? PageNumber, string from1, string to1, string status, string search, string ExcelFileDownload)
+        public async Task<IActionResult> HotelEarningReport(int? PageNumber, string from1, string to1, string status, string search, string ExcelFileDownload, string storeid)
         {
+
+            IEnumerable<SelectListItem> obj = _storedetailsServices.GetAllStore();
+            ViewData["storelist"] = obj;
+
+            ViewBag.storeid1 = storeid;
             ViewBag.from1 = from1;
             ViewBag.to1 = to1;
             ViewBag.status1 = status;
@@ -487,7 +507,7 @@ namespace appFoodDelivery.Controllers
                 var paramter = new DynamicParameters();
                 if (roles == "Admin")
                 {
-                    paramter.Add("@storeid", "");
+                    paramter.Add("@storeid", storeid);
                 }
                 else
                 {
@@ -515,7 +535,7 @@ namespace appFoodDelivery.Controllers
                 var paramter = new DynamicParameters();
                 if (roles == "Admin")
                 {
-                    paramter.Add("@storeid", "");
+                    paramter.Add("@storeid", storeid);
                 }
                 else
                 {
@@ -534,14 +554,37 @@ namespace appFoodDelivery.Controllers
 
 
                 var builder = new StringBuilder();
+
+
+                decimal tot_customeramt = 0;
+                decimal tot_packingcharges = 0;
+                decimal tot_subtotal1 = 0;
+                decimal tot_storecommission = 0;
+                decimal tot_tofozamt = 0;
+                decimal tot_netpayable = 0;
+                decimal tot_storetax = 0;
+
+
                 builder.AppendLine(" Order Id,Date,Store,Hotel Amount,Packing Charges,Subtotal,Commission,tofozamt,netpayable,storetax, promocode, Status, Deliveryboy");
                 foreach (var item in orderheaderList1)
                 {
-                    builder.AppendLine($"{item.id},{item.placedate },{item.customeramt },{item.packingcharges },{item.subtotal1 },{item.storecommission},{item.tofozamt },{item.netpayable  },{item.storetax},{item.promocode  },{item.orderstatus},{item.deliveryboyName   }");
+
+
+                    tot_customeramt += item.customeramt;
+                    tot_packingcharges += item.packingcharges;
+                    tot_subtotal1 += item.subtotal1;
+                    tot_storecommission += item.storecommission;
+                    tot_tofozamt += item.tofozamt;
+                    tot_netpayable += item.netpayable;
+                    tot_storetax += item.storetax;
+
+                    builder.AppendLine($"{item.id},{item.placedate },{item.storename },{item.customeramt },{item.packingcharges},{item.subtotal1 },{item.storecommission},{item.tofozamt },{item.netpayable  },{item.storetax},{item.promocode  },{item.orderstatus},{item.deliveryboyName   }");
+
                 }
-
-
-                return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "HotelEarning.csv");
+                builder.AppendLine($"{""},{"" },{"Total :" },{tot_customeramt },{tot_packingcharges},{tot_subtotal1 },{tot_storecommission},{tot_tofozamt },{tot_netpayable  },{tot_storetax},{""  },{""},{""   }");
+                string namee = _storedetailsServices.GetAll().Where(x => x.storeid == storeid).FirstOrDefault().storename;
+                string abc = namee + "_HotelEarning.csv";
+                return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", abc);
             }
 
 
@@ -755,7 +798,7 @@ namespace appFoodDelivery.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> orderHistoryReport1(int? PageNumber, string from1, string to1, string status, string search, string ExcelFileDownload,string deliveryboyid)
+        public async Task<IActionResult> orderHistoryReport1(int? PageNumber, string from1, string to1, string status, string search, string ExcelFileDownload, string deliveryboyid)
         {
             ViewBag.from1 = from1;
             ViewBag.to1 = to1;

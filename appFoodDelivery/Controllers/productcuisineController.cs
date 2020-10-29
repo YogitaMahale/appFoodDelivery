@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using appFoodDelivery.Entity;
+using appFoodDelivery.Models;
+using appFoodDelivery.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using appFoodDelivery.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using appFoodDelivery.Entity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using appFoodDelivery.Services;
-using System;
-using Microsoft.AspNetCore.Authorization;
 
 namespace appFoodDelivery.Controllers
 {
@@ -40,7 +40,7 @@ namespace appFoodDelivery.Controllers
                 id = x.id
                 ,
                 name = x.name,
-                img=x.img
+                img = x.img
 
             }).ToList();
             //  return View(storeList);
@@ -74,7 +74,7 @@ namespace appFoodDelivery.Controllers
                     isdeleted = false
                     ,
                     isactive = false
-                     
+
 
                 };
                 if (model.img != null && model.img.Length > 0)

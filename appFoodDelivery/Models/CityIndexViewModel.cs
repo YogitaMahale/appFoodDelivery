@@ -14,12 +14,12 @@ namespace appFoodDelivery.Models
         public int countryid { get; set; }
         public int stateid { get; set; }
 
-        
-        public string cityName { get; set; }       
 
-       
-        public  CountryRegistration CountryRegistration { get; set; }
-       
-        public  StateRegistration StateRegistration { get; set; }
+        public string cityName { get; set; }
+
+
+        public CountryRegistration CountryRegistration { get; set; }
+
+        public StateRegistration StateRegistration { get; set; }
     }
 }

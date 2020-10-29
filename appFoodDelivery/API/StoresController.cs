@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using appFoodDelivery.Entity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using System.Security.Policy;
-using System.Net.Mail;
-using System.Text;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using appFoodDelivery.Services;
 using appFoodDelivery.pagination;
+using appFoodDelivery.Services;
 using Dapper;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Mail;
+using System.Security.Policy;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace appFoodDelivery.API
 {
@@ -331,7 +331,7 @@ namespace appFoodDelivery.API
             //return BadRequest();
         }
 
-     
+
         [HttpGet]
         [Route("storeCountOrders")]
         public async Task<IActionResult> storeCountOrders(string storedid)
@@ -367,10 +367,10 @@ namespace appFoodDelivery.API
                 var result = await _usermanager.ChangePasswordAsync(user, currentpasswod, newpassword);
                 if (!result.Succeeded)
                 {
-                    string  myJson1 = "{\"Message\": " + "\"Password Not Change\"" + "}";
+                    string myJson1 = "{\"Message\": " + "\"Password Not Change\"" + "}";
                     return BadRequest(myJson1);
 
-                    
+
                 }
                 string myJson = "{'message': " + "Password Updated Successfully" + "}";
                 return Ok(myJson);
@@ -420,10 +420,10 @@ namespace appFoodDelivery.API
                 var users = await _usermanager.FindByIdAsync(storeid);
                 if (users == null)
                 {
-                      myJson = "{\"Message\": " + "\"Not Found\"" + "}";
+                    myJson = "{\"Message\": " + "\"Not Found\"" + "}";
                     return NotFound(myJson);
 
-                  
+
 
                 }
                 else
@@ -441,14 +441,14 @@ namespace appFoodDelivery.API
                     else
                     {
                         myJson = "{\"Message\": " + "\"Bad Request\"" + "}";
-                        
+
                         return BadRequest(myJson);
 
                     }
                 }
                 myJson = "{\"Message\": " + "\"Bad Request\"" + "}";
 
-                
+
                 return BadRequest(myJson);
 
 
@@ -462,7 +462,7 @@ namespace appFoodDelivery.API
 
         [HttpPut]
         [Route("updateProductAvailableStatus")]
-        public async Task<IActionResult> updateProductAvailableStatus( int id, string status)
+        public async Task<IActionResult> updateProductAvailableStatus(int id, string status)
         {
             try
             {
@@ -477,7 +477,7 @@ namespace appFoodDelivery.API
                 }
                 else
                 {
-                    product.status = status ;                 
+                    product.status = status;
                     await _productservices.UpdateAsync(product);
 
                     return Ok(product);
@@ -494,7 +494,7 @@ namespace appFoodDelivery.API
         public async Task<IActionResult> updateStoreStatus(string storeId, string status)
         {
             try
-            {                
+            {
 
                 try
                 {
@@ -508,14 +508,14 @@ namespace appFoodDelivery.API
 
                         };
 
-                      int id=  await _storedetailsServices.CreateAsync(details);
+                        int id = await _storedetailsServices.CreateAsync(details);
                         var store1 = _storedetailsServices.GetById(id);
                         return Ok(store1);
                     }
                     else
                     {
                         //var store1 = _storedetailsServices.GetAll().Where(x => x.storeid == storeId).FirstOrDefault();
-                        if(store==null)
+                        if (store == null)
                         { }
                         else
                         {
@@ -524,12 +524,12 @@ namespace appFoodDelivery.API
                             await _storedetailsServices.UpdateAsync(store);
                             return Ok(store);
                         }
-                      
-                        
+
+
 
                     }
                 }
-                catch(Exception obj)
+                catch (Exception obj)
                 {
                     //var details = new storedetails
                     //{
@@ -561,7 +561,7 @@ namespace appFoodDelivery.API
                     //    taxstatus = "",
                     //    taxstatusPer = 0
 
-                       
+
 
                     //};
 
@@ -575,8 +575,8 @@ namespace appFoodDelivery.API
                 }
 
 
-              //  IEnumerable<storedetails> store = _storedetailsServices.GetAll().Where(x => x.storeid == storeId);
-                
+                //  IEnumerable<storedetails> store = _storedetailsServices.GetAll().Where(x => x.storeid == storeId);
+
                 return BadRequest();
                 //if (store == null)
                 //{

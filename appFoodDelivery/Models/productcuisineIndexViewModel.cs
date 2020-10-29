@@ -12,7 +12,7 @@ namespace appFoodDelivery.Models
         [Required]
         [Display(Name = "Cuisine")]
         public string name { get; set; }
-        
-        public string  img { get; set; }
+
+        public string img { get; set; }
     }
 }

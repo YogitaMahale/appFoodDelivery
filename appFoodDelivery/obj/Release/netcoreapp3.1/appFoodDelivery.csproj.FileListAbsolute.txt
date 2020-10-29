@@ -4160,3 +4160,5 @@ E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoo
 E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Release\netcoreapp3.1\staticwebassets\appFoodDelivery.StaticWebAssets.Manifest.cache
 E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Release\netcoreapp3.1\staticwebassets\appFoodDelivery.StaticWebAssets.xml
 E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Release\netcoreapp3.1\appFoodDelivery.genruntimeconfig.cache
+E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Release\netcoreapp3.1\Razor\Views\Reportdetails\DeliveryboyReport.cshtml.g.cs
+E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Release\netcoreapp3.1\Razor\Views\Reportdetails\orderHistoryReport1.cshtml.g.cs

@@ -13,7 +13,7 @@ namespace appFoodDelivery.Models
         [Display(Name = "Store Version")]
         public string storeVersion { get; set; }
 
-       
+
         [Required]
         [Display(Name = "Customer Version")]
         public string customerVersion { get; set; }

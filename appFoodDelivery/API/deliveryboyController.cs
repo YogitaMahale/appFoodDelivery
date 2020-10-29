@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using appFoodDelivery.Entity;
+﻿using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
+using appFoodDelivery.Notification;
 using appFoodDelivery.Services;
 using Dapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Nancy.Json;
-using appFoodDelivery.Notification;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace appFoodDelivery.API
@@ -282,8 +282,8 @@ namespace appFoodDelivery.API
         [Route("acceptOrder")]
         public async Task<IActionResult> acceptOrder(int orderid, int deliveryboyid)
         {
-              orders obj = _ordersServices.GetById(orderid);// await _usermanager.GetUserAsync(User); 
-          
+            orders obj = _ordersServices.GetById(orderid);// await _usermanager.GetUserAsync(User); 
+
             if (obj == null)
             {
                 string myJson = "{\"message\": " + "\"Record Not Found\"" + "}";
@@ -311,7 +311,7 @@ namespace appFoodDelivery.API
                     string customerDeviceId = _CustomerRegistrationservices.GetById(customerid).deviceid;
 
                     var storeDeviceId = _usermanager.Users.Where(x => x.Id == obj.storeid).FirstOrDefault().deviceid;
-                    if (customerDeviceId.Trim() == ""|| customerDeviceId==null)
+                    if (customerDeviceId.Trim() == "" || customerDeviceId == null)
                     {
 
                     }
@@ -340,7 +340,7 @@ namespace appFoodDelivery.API
                                 {
                                     //body = "Your Order No. - " + orderid + " Accept by " + driverdetails.name + " delivery person",
                                     //title = "Accept Order by Deliveryboy",
-                                    body = driverdetails.name+" will be Delivering Your order",                                    
+                                    body = driverdetails.name + " will be Delivering Your order",
                                     title = "Delivering Your order",
                                     badge = 1
                                 },
@@ -385,10 +385,10 @@ namespace appFoodDelivery.API
                     {
 
 
-                        if (storeDeviceId.Trim()!="" || storeDeviceId != null)
+                        if (storeDeviceId.Trim() != "" || storeDeviceId != null)
                         {
 
-                        
+
 
 
                             try
@@ -463,7 +463,7 @@ namespace appFoodDelivery.API
                             }
                         }
                     }
-                    catch(Exception obj1)
+                    catch (Exception obj1)
                     {
                     }
                     #endregion
@@ -528,7 +528,7 @@ namespace appFoodDelivery.API
 
         [HttpGet]
         [Route("deliveryboyMonthlyorderCount")]
-        public async Task<IActionResult> deliveryboyMonthlyorderCount(int deliveryboyid,int month)
+        public async Task<IActionResult> deliveryboyMonthlyorderCount(int deliveryboyid, int month)
         {
             var paramter = new DynamicParameters();
             paramter.Add("@deliveryboyid", deliveryboyid);
@@ -611,9 +611,9 @@ namespace appFoodDelivery.API
 
         }
 
-        public void customerNotification(string deviceid,string message,string img,string title)
+        public void customerNotification(string deviceid, string message, string img, string title)
         {
-           
+
             if (deviceid.Trim() == "")
             {
 
@@ -686,7 +686,7 @@ namespace appFoodDelivery.API
         }
         [HttpPut]
         [Route("changeorderStatus")]
-        public async Task<IActionResult> changeorderStatus(int orderid, string status,string reason)
+        public async Task<IActionResult> changeorderStatus(int orderid, string status, string reason)
         {
             var paramter = new DynamicParameters();
             paramter.Add("@id", orderid);
@@ -716,8 +716,8 @@ namespace appFoodDelivery.API
 
             string deliveryboyname = "";
 
-            if(orderss.deliveryboyid==null|| orderss.deliveryboyid.ToString().Trim()=="")
-            { 
+            if (orderss.deliveryboyid == null || orderss.deliveryboyid.ToString().Trim() == "")
+            {
 
             }
             else
@@ -725,7 +725,7 @@ namespace appFoodDelivery.API
                 int deliveryboyidd = Convert.ToInt32(orderss.deliveryboyid.ToString());
                 deliveryboyname = _driverRegistrationServices.GetById(deliveryboyidd).name;
             }
-            
+
 
             #region "Notification"
             if (status.ToString().ToLower().Trim() == "processorders".ToString().ToLower().Trim())
@@ -735,7 +735,7 @@ namespace appFoodDelivery.API
 
                 //string message = "Your Order No. - " + orderid + " in  process";
                 //string title = "Assign Deliveryboy";
-                string message = storeName+ " is Processing Your order";
+                string message = storeName + " is Processing Your order";
                 string title = "Processing Your order";
                 // customerNotification(customerDeviceId, message,"", title);
                 objfcmNotification.customerNotification(customerDeviceId, message, "", title);
@@ -746,10 +746,10 @@ namespace appFoodDelivery.API
             {
                 //string message = "Your Order No. - " + orderid + " in Shipped";
                 //string title = "Shipped Orders";
-                string message = deliveryboyname+" is On The Way";
-                string title = deliveryboyname+" is On The Way";
+                string message = deliveryboyname + " is On The Way";
+                string title = deliveryboyname + " is On The Way";
 
-                 
+
                 // customerNotification(customerDeviceId, message, "", title);
                 objfcmNotification.customerNotification(customerDeviceId, message, "", title);
 
@@ -775,7 +775,7 @@ namespace appFoodDelivery.API
             }
             else if (status.ToString().ToLower().Trim() == "approved".ToString().ToLower().Trim())
             {
-                string message =storeName+ " Has Accepted Your Order";
+                string message = storeName + " Has Accepted Your Order";
                 string title = "Accept Order";
                 // customerNotification(customerDeviceId, message, "", title);
                 objfcmNotification.customerNotification(customerDeviceId, message, "", title);
@@ -967,7 +967,7 @@ namespace appFoodDelivery.API
         [Route("getdeliveryboyTopOrder")]
         public async Task<IActionResult> getdeliveryboyTopOrder(int deliveryboyid)
         {
- 
+
 
             var paramter = new DynamicParameters();
             paramter.Add("@deliveryboyid", deliveryboyid);
@@ -1008,7 +1008,7 @@ namespace appFoodDelivery.API
 
         [HttpPut]
         [Route("UpdateDeliveryboyCheckStatus")]
-        public async Task<IActionResult> UpdateDeliveryboyCheckStatus(int orderid, string status,string paymentstatus)
+        public async Task<IActionResult> UpdateDeliveryboyCheckStatus(int orderid, string status, string paymentstatus)
         {
             orders obj = _ordersServices.GetById(orderid);// await _usermanager.GetUserAsync(User); 
             if (obj == null)
@@ -1021,7 +1021,7 @@ namespace appFoodDelivery.API
                 obj.deliveryboyCheckStaus = status;
                 obj.paymentstatus = paymentstatus;
                 await _ordersServices.UpdateAsync(obj);
-            
+
 
                 string myJson = "{\"message\": " + "\"Record Updated Successfully\"" + "}";
                 return Ok(obj);
@@ -1061,7 +1061,7 @@ namespace appFoodDelivery.API
 
                 var parameter = new DynamicParameters();
                 parameter.Add("@orderid", orderid);
-                
+
                 var obj = _ISP_Call.List<customerdeliverycharges>("deliveryboyDeliveryCharges", parameter);
                 //  var categories = await _context.CustomerRegistration.ToListAsync(); 
                 if (obj == null)
@@ -1089,11 +1089,11 @@ namespace appFoodDelivery.API
 
         [HttpPost]
         [Route("denyOrders")]
-        public async Task<IActionResult> denyOrders(int orderid,int deliveryboyid)
+        public async Task<IActionResult> denyOrders(int orderid, int deliveryboyid)
         {
             try
             {
-                var  c = _denyOrdersServices.GetAll().Where(x => x.deliveryboyid == deliveryboyid && x.orderid == orderid&&x.isdeleted==false).FirstOrDefault();
+                var c = _denyOrdersServices.GetAll().Where(x => x.deliveryboyid == deliveryboyid && x.orderid == orderid && x.isdeleted == false).FirstOrDefault();
                 //  var categories = await _context.CustomerRegistration.ToListAsync(); 
                 if (c == null)
                 {
@@ -1109,8 +1109,8 @@ namespace appFoodDelivery.API
                     var obj1 = _denyOrdersServices.GetById(id);
                     return Ok(obj1);
 
-                   
-                   
+
+
                 }
                 else
                 {

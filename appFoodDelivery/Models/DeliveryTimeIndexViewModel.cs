@@ -8,7 +8,7 @@ namespace appFoodDelivery.Models
     public class DeliveryTimeIndexViewModel
     {
         public int id { get; set; }
-        
+
         public string name { get; set; }
         public Boolean isdeleted { get; set; }
 

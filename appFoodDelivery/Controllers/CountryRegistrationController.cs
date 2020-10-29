@@ -1,45 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using plathora.Services;
-using Microsoft.AspNetCore.Mvc;
-using appFoodDelivery.Models;
+﻿using appFoodDelivery;
 using appFoodDelivery.Entity;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
+using appFoodDelivery.Entity;
+using appFoodDelivery.Models;
+using appFoodDelivery.Models;
 using appFoodDelivery.pagination;
-using appFoodDelivery.Models;
-using appFoodDelivery.Entity;
 using appFoodDelivery.Services;
 using Microsoft.AspNetCore.Authorization;
-using appFoodDelivery;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using plathora.Services;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace plathora.Controllers
 {
-    [Authorize(Roles = SD.Role_Admin )]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CountryRegistrationController : Controller
     {
-        
+
         private readonly ICountryRegistrationservices _CountryRegistrationservices;
         public CountryRegistrationController(ICountryRegistrationservices CountryRegistrationservices)
         {
             _CountryRegistrationservices = CountryRegistrationservices;
-            
+
         }
-     
+
         public IActionResult Index()
         {
             var countrydetails = _CountryRegistrationservices.GetAll().Select(x => new CountryIndexViewModel
             {
                 id = x.id,
-                countrycode  = x.countrycode,
+                countrycode = x.countrycode,
                 countryname = x.countryname
 
             }).ToList();
-             return View(countrydetails);
-            
-            
+            return View(countrydetails);
+
+
         }
         [HttpGet]
         public IActionResult Create()
@@ -51,7 +51,7 @@ namespace plathora.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CountryCreateViewModel model)
         {
-             
+
             if (ModelState.IsValid)
             {
                 var objcountry = new CountryRegistration
@@ -59,10 +59,10 @@ namespace plathora.Controllers
                     id = model.id,
                     countryname = model.countryname,
                     countrycode = "",
-                    isdeleted=false,
-                    isactive=false
+                    isdeleted = false,
+                    isactive = false
                 };
- 
+
                 await _CountryRegistrationservices.CreateAsync(objcountry);
                 TempData["success"] = "Record Saved successfully";
                 return RedirectToAction(nameof(Index));
@@ -85,7 +85,7 @@ namespace plathora.Controllers
             {
                 id = objcountry.id,
                 countryname = objcountry.countryname,
-                
+
             };
             return View(model);
 
@@ -97,16 +97,16 @@ namespace plathora.Controllers
         {
             if (ModelState.IsValid)
             {
-                var objcountry = _CountryRegistrationservices .GetById(model.id);
+                var objcountry = _CountryRegistrationservices.GetById(model.id);
                 if (objcountry == null)
                 {
                     return NotFound();
                 }
                 objcountry.id = model.id;
                 objcountry.countryname = model.countryname;
-                
-                 
-                await _CountryRegistrationservices .UpdateAsync(objcountry);
+
+
+                await _CountryRegistrationservices.UpdateAsync(objcountry);
                 TempData["success"] = "Record Updated successfully";
                 return RedirectToAction(nameof(Index));
             }

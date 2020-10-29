@@ -11,8 +11,8 @@ namespace appFoodDelivery.Models
         public string countryname { get; set; }
 
         public string countrycode { get; set; }
-        
-       
-        
+
+
+
     }
 }

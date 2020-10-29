@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 namespace appFoodDelivery.Models
 {
     public class RadiusMasterCreateViewModel
@@ -12,7 +12,7 @@ namespace appFoodDelivery.Models
         [Display(Name = "Product Cuisine")]
         public string name { get; set; }
         public Boolean isdeleted { get; set; }
-        
+
         public Boolean isactive { get; set; }
     }
 }

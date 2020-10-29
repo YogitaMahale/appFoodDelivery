@@ -9,7 +9,7 @@ namespace appFoodDelivery.Models
     public class sliderCreateViewModel
     {
         public int id { get; set; }
-        public IFormFile  name { get; set; }
+        public IFormFile name { get; set; }
 
 
         public Boolean isdeleted { get; set; }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using appFoodDelivery.Entity;
+﻿using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
 using appFoodDelivery.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace appFoodDelivery.Controllers
 {
@@ -35,8 +35,8 @@ namespace appFoodDelivery.Controllers
                 id = storeowner.id,
                 customer1Km = storeowner.customer1Km,
                 customer2K = storeowner.customer2K,
-                deliveryboy1Km= storeowner.deliveryboy1Km,
-                deliveryboy2Km=storeowner.deliveryboy2Km
+                deliveryboy1Km = storeowner.deliveryboy1Km,
+                deliveryboy2Km = storeowner.deliveryboy2Km
 
             };
             return View(model);
@@ -59,7 +59,7 @@ namespace appFoodDelivery.Controllers
                 storeobj.customer2K = model.customer2K;
                 storeobj.deliveryboy1Km = model.deliveryboy1Km;
                 //id, customer1Km, customer2K, deliveryboy1Km, deliveryboy2Km
-                 await _chargesServices.UpdateAsync(storeobj);
+                await _chargesServices.UpdateAsync(storeobj);
                 TempData["success"] = "Record Update successfully";
                 return RedirectToAction(nameof(Edit));
             }

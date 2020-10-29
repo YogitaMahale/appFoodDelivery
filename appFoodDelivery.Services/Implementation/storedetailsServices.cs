@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace appFoodDelivery.Services.Implementation
 {
   public   class storedetailsServices:IstoredetailsServices
@@ -32,8 +34,16 @@ namespace appFoodDelivery.Services.Implementation
             await _context.SaveChangesAsync();
         }
         //------
-        
 
+        public IEnumerable<SelectListItem> GetAllStore()
+        {
+            var obj = _context.storedetails.Where(x => x.isdeleted == false).ToList();
+            return GetAll().Select(emp => new SelectListItem()
+            {
+                Text = emp.storename,
+                Value = emp.storeid
+            });
+        }
 
     }
 }

@@ -10,12 +10,12 @@ namespace appFoodDelivery.Models
     {
         public int id { get; set; }
         [Required]
-           [Display(Name = "Range")]
+        [Display(Name = "Range")]
         public decimal range { get; set; } = 0;
 
 
 
-         
+
 
     }
 }

@@ -1,27 +1,27 @@
+using appFoodDelivery.Entity;
+using appFoodDelivery.Models;
+using appFoodDelivery.Persistence;
+using appFoodDelivery.Services;
+using appFoodDelivery.Services.Implementation;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using plathora.Services.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
-using appFoodDelivery.Persistence;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using appFoodDelivery.Services;
-using appFoodDelivery.Services.Implementation;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using appFoodDelivery.Entity;
-using appFoodDelivery.Models;
-using plathora.Services.Implementation;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace appFoodDelivery
 {
@@ -84,20 +84,20 @@ namespace appFoodDelivery
             services.AddScoped<IstoredetailsServices, storedetailsServices>();
             services.AddScoped<IRadiusMasterServices, RadiusMasterServices>();
             services.AddScoped<IDeliveryTimeMasterServices, DeliveryTimeMasterServices>();
-            services.AddScoped<Iproductcuisinemasterservices , productcuisinemasterservices>();
+            services.AddScoped<Iproductcuisinemasterservices, productcuisinemasterservices>();
             services.AddScoped<Iproductservices, productservices>();
-            services.AddScoped<IdriverRegistrationServices , driverRegistrationServices>();
+            services.AddScoped<IdriverRegistrationServices, driverRegistrationServices>();
             services.AddScoped<ICustomerRegistrationservices, CustomerRegistrationservices>();
             services.AddScoped<IStateRegistrationService, StateRegistrationService>();
-            services.AddScoped<ICountryRegistrationservices,CountryRegistrationServices>();
-            services.AddScoped<ICityRegistrationservices,CityRegistrationservices>();
-            services.AddScoped<IsliderServices , sliderServices>();
-            services.AddScoped<IordersServices,ordersServices>();
+            services.AddScoped<ICountryRegistrationservices, CountryRegistrationServices>();
+            services.AddScoped<ICityRegistrationservices, CityRegistrationservices>();
+            services.AddScoped<IsliderServices, sliderServices>();
+            services.AddScoped<IordersServices, ordersServices>();
             services.AddScoped<IorderproductServices, orderproductServices>();
             services.AddScoped<IorderhistoryServices, orderhistoryServices>();
             services.AddScoped<ISP_Call, SP_Call>();
             services.AddScoped<IpromocodeServices, promocodeServices>();
-            services.AddScoped<IcustomerfeedbackServices,customerfeedbackServices>();
+            services.AddScoped<IcustomerfeedbackServices, customerfeedbackServices>();
             services.AddScoped<IDeliveryboytoCustomerfeedbackSerivces, DeliveryboytoCustomerfeedbackSerivces>();
             services.AddScoped<IdistanceServices, distanceServices>();
             services.AddScoped<Imenumasterservices, menumasterservices>();
@@ -134,7 +134,7 @@ namespace appFoodDelivery
 
             app.UseAuthentication();
             app.UseAuthorization();
-           DataSeedingInitializer.UserAndRoleSeedAsync(userManager, roleManager).Wait();
+            DataSeedingInitializer.UserAndRoleSeedAsync(userManager, roleManager).Wait();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

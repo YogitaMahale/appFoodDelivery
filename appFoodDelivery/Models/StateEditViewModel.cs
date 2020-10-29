@@ -16,6 +16,6 @@ namespace appFoodDelivery.Models
         public string StateName { get; set; }
 
 
-       
+
     }
 }

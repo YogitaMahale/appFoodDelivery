@@ -7,8 +7,8 @@ namespace appFoodDelivery.Models
 {
     public class StoreShowDetailsViewModel
     {
-        
-        public int id { get; set; }         
+
+        public int id { get; set; }
         public string storeid { get; set; }
         public string storeownerName { get; set; }
         public string mobileno { get; set; }
@@ -20,16 +20,16 @@ namespace appFoodDelivery.Models
         public string contactno { get; set; }
         public string gender { get; set; }
         public string fooddelivery { get; set; }
-        public string storename { get; set; }        
-        public string  radiusid { get; set; }      
+        public string storename { get; set; }
+        public string radiusid { get; set; }
 
-        public string  deliverytimeid { get; set; }       
+        public string deliverytimeid { get; set; }
 
-        
+
         public decimal orderMinAmount { get; set; }
 
 
-         
+
         public decimal packagingCharges { get; set; }
         public string storeBannerPhoto { get; set; }
 
@@ -45,8 +45,7 @@ namespace appFoodDelivery.Models
         public string country { get; set; }
         public string state { get; set; }
 
-        public string  cityid { get; set; }
-         
+        public string cityid { get; set; }
+
     }
 }
-  

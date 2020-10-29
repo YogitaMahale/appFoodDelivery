@@ -1,26 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using appFoodDelivery.Entity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
+using appFoodDelivery.Notification;
+using appFoodDelivery.pagination;
 using appFoodDelivery.Services;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using appFoodDelivery.Services.Implementation;
 using Dapper;
-using appFoodDelivery.pagination;
-using System.Security.Cryptography.Xml;
-using System.Net;
-using Nancy.Json;
-using System.Text;
-using appFoodDelivery.Notification;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
+using Nancy.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Security.Cryptography.Xml;
+using System.Text;
+using System.Threading.Tasks;
 //using AspNetCore;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -156,7 +156,7 @@ namespace appFoodDelivery.Controllers
         }
         public async Task<IActionResult> test()
         {
-           // ViewBag.Message = string.Format("Hello {0}.\\nCurrent Date and Time: ", DateTime.Now.ToString());
+            // ViewBag.Message = string.Format("Hello {0}.\\nCurrent Date and Time: ", DateTime.Now.ToString());
             return View();
         }
         #region API Calls
@@ -268,7 +268,7 @@ namespace appFoodDelivery.Controllers
                 //string message = "New Order No. - " + id + " Approved by Admin";
                 //string title = "Order Approved";
 
-                string message = storeName+" Has Accepted Your Order";
+                string message = storeName + " Has Accepted Your Order";
                 string title = "Order Accepted";
 
                 objfcmNotification.customerNotification(customerDeviceId, message, "", title);
@@ -295,10 +295,10 @@ namespace appFoodDelivery.Controllers
                         //string title1 = "Order Approved";
                         string message1 = "New Order Received";
                         string title1 = "New Order Received";
-                        
+
                         objfcmNotification.deliveryboyNotification(deviceid, message1, "", title1);
 
-                     
+
                     }
 
 
@@ -329,7 +329,7 @@ namespace appFoodDelivery.Controllers
 
 
                 #endregion
-                
+
             }
             else if (status == "completedorders")
             {
@@ -462,7 +462,7 @@ namespace appFoodDelivery.Controllers
                 string title1 = "Assign Order";
                 // customerNotification(customerDeviceId, message,"", title);
                 objfcmNotification.deliveryboyNotification(deliveryboyDeviceId, message1, "", title1);
- 
+
 
                 #endregion
 
@@ -473,7 +473,7 @@ namespace appFoodDelivery.Controllers
 
         public async Task<IActionResult> test2()
         {
-             ViewBag.Message = string.Format("Hello {0}.\\nCurrent Date and Time: ", DateTime.Now.ToString());
+            ViewBag.Message = string.Format("Hello {0}.\\nCurrent Date and Time: ", DateTime.Now.ToString());
             return View();
         }
     }

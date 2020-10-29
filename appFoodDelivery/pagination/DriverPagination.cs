@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace appFoodDelivery.pagination
 {
-    
+
     public class DriverPagination<T> : List<T>
     {
         public int PageIndex { get; private set; }

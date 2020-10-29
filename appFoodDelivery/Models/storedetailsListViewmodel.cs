@@ -18,7 +18,7 @@ namespace appFoodDelivery.Models
         public string storename { get; set; }
         public string radiusid { get; set; }
         public string deliverytimeid { get; set; }
-        public decimal orderMinAmount { get; set; }       
+        public decimal orderMinAmount { get; set; }
         public decimal packagingCharges { get; set; }
         public string storeBannerPhoto { get; set; }
         public string address { get; set; }
@@ -28,7 +28,7 @@ namespace appFoodDelivery.Models
         public string latitude { get; set; }
         public string longitude { get; set; }
         public string cityid { get; set; }
-        public string promocode { get; set; }        
+        public string promocode { get; set; }
         public decimal discount { get; set; }
         public string status { get; set; }
 

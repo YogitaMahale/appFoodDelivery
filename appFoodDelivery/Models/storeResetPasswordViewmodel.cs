@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 namespace appFoodDelivery.Models
 {
     public class storeResetPasswordViewmodel
@@ -16,7 +16,7 @@ namespace appFoodDelivery.Models
         public string Password { get; set; }
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name ="Confirmed Password")]
+        [Display(Name = "Confirmed Password")]
         public string ConfirmedPassword { get; set; }
 
         public string Token { get; set; }

@@ -22,12 +22,12 @@ namespace appFoodDelivery.Models
         public string orderstatus { get; set; }
 
 
-        public string  deliveryboyName { get; set; }
+        public string deliveryboyName { get; set; }
 
         public string promocode { get; set; }
         public decimal tofozamt { get; set; }
         public decimal netpayable { get; set; }
-       
+
 
 
     }

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 namespace appFoodDelivery.Models
 {
     public class promocodeEditViewModel
@@ -26,6 +26,6 @@ namespace appFoodDelivery.Models
 
         [Display(Name = "Expiry Date")]
         public DateTime expirydate { get; set; } = DateTime.UtcNow;
-        
+
     }
 }

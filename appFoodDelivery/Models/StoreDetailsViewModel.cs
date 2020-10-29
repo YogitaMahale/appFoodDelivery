@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 
 namespace appFoodDelivery.Models
 {
@@ -11,11 +11,11 @@ namespace appFoodDelivery.Models
     {
         public int id { get; set; }
         [Required]
-        [Display(Name ="Store Name")]
+        [Display(Name = "Store Name")]
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Use letters only please")]
         public string storename { get; set; }
         [Required]
-       
+
         [Display(Name = "Delivery Radius")]
         public int radiusid { get; set; }
 
@@ -27,9 +27,9 @@ namespace appFoodDelivery.Models
         [Required]
         [Display(Name = "Select State")]
         public int stateid { get; set; }
-         
+
         public string latitude { get; set; }
-        
+
         public string longitude { get; set; }
 
         [Required]
@@ -55,7 +55,7 @@ namespace appFoodDelivery.Models
         [Display(Name = "Store Time")]
         public string storetime { get; set; }
 
-       
+
         public Boolean isdeleted { get; set; }
         [Display(Name = "Promo Code")]
         public string promocode { get; set; }

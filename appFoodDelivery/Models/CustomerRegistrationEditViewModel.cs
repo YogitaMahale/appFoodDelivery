@@ -16,7 +16,7 @@ namespace appFoodDelivery.Models
         public IFormFile profilephoto { get; set; }
         public string address { get; set; }
 
-         
+
         public string mobileno1 { get; set; }
         public string mobileno2 { get; set; }
         public string emailid1 { get; set; }
@@ -36,6 +36,6 @@ namespace appFoodDelivery.Models
         public DateTime createddate { get; set; } = DateTime.UtcNow;
 
 
-    
+
     }
 }

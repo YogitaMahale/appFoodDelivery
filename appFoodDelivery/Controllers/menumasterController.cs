@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using appFoodDelivery.Entity;
+using appFoodDelivery.Models;
+using appFoodDelivery.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using appFoodDelivery.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using appFoodDelivery.Entity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using appFoodDelivery.Services;
-using System;
-using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,7 +24,7 @@ namespace appFoodDelivery.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly Imenumasterservices _menumasterservices;
         private readonly Iproductcuisinemasterservices _productcuisinemasterservices;
-         
+
         public menumasterController(Imenumasterservices menumasterservices, UserManager<ApplicationUser> userManager, IWebHostEnvironment hostingEnvironment, Iproductcuisinemasterservices productcuisinemasterservices)
         {
             _userManager = userManager;
@@ -48,7 +48,7 @@ namespace appFoodDelivery.Controllers
                 cusinename = _productcuisinemasterservices.GetById(x.productcuisineid).name
 
 
-            }); 
+            });
             //  return View(storeList);
 
 
@@ -81,7 +81,7 @@ namespace appFoodDelivery.Controllers
                     isdeleted = false
                     ,
                     isactive = false,
-                    productcuisineid=model.productcuisineid
+                    productcuisineid = model.productcuisineid
 
 
                 };
@@ -121,7 +121,7 @@ namespace appFoodDelivery.Controllers
             {
                 id = storeowner.id,
                 name = storeowner.name,
-               productcuisineid=storeowner.productcuisineid
+                productcuisineid = storeowner.productcuisineid
 
             };
             return View(model);
@@ -215,8 +215,8 @@ namespace appFoodDelivery.Controllers
 
 
             //});
-             var obj = _menumasterservices.GetAll().Where(x=>x.productcuisineid==id) ;
-            return Json(new { data = obj }) ;
+            var obj = _menumasterservices.GetAll().Where(x => x.productcuisineid == id);
+            return Json(new { data = obj });
         }
 
         //[HttpDelete]

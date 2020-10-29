@@ -1,16 +1,16 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using appFoodDelivery.Entity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 using appFoodDelivery.Services;
-using System;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,27 +19,27 @@ namespace appFoodDelivery.Controllers
     [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
     public class sliderController : Controller
     {
-        
+
         private readonly IsliderServices _sliderServices;
         private readonly IWebHostEnvironment _hostingEnvironment;
-       
-        public sliderController(IsliderServices sliderServices                               
+
+        public sliderController(IsliderServices sliderServices
                                , IWebHostEnvironment hostingEnvironment
                                 )
         {
-            _hostingEnvironment = hostingEnvironment;            
+            _hostingEnvironment = hostingEnvironment;
             _sliderServices = sliderServices;
-           
+
         }
         public async Task<IActionResult> Index()
         {
-           
-            var listt = _sliderServices .GetAll().Where(x => x.isdeleted == false).Select(x => new sliderIndexViewModel
+
+            var listt = _sliderServices.GetAll().Where(x => x.isdeleted == false).Select(x => new sliderIndexViewModel
             {
                 id = x.id
-                   ,
+                  ,
                 name = x.name
-                 
+
             }).ToList();
             //  return View(storeList);
 
@@ -50,13 +50,13 @@ namespace appFoodDelivery.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            
 
-            
+
+
             var model = new sliderCreateViewModel();
             return View(model);
         }
-      
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -64,16 +64,16 @@ namespace appFoodDelivery.Controllers
         {
             if (ModelState.IsValid)
             {
-               
+
                 var store = new slider
                 {
-                     
+
                     id = model.id,
-                    
+
                     isdeleted = false
                     ,
                     isactive = false
-                   
+
 
                 };
                 if (model.name != null && model.name.Length > 0)
@@ -88,7 +88,7 @@ namespace appFoodDelivery.Controllers
                     store.name = '/' + uploadDir + '/' + fileName;
 
                 }
-                await _sliderServices .CreateAsync(store);
+                await _sliderServices.CreateAsync(store);
                 TempData["success"] = "Record Saved successfully";
                 return RedirectToAction(nameof(Index));
             }
@@ -102,9 +102,9 @@ namespace appFoodDelivery.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            
 
-             
+
+
             var prod = _sliderServices.GetById(id);
             if (prod == null)
             {
@@ -113,25 +113,25 @@ namespace appFoodDelivery.Controllers
             var model = new sliderCreateViewModel()
             {
                 id = prod.id,
-               // name = prod.name,
-                
+                // name = prod.name,
+
 
             };
             return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(sliderCreateViewModel  model)
+        public async Task<IActionResult> Edit(sliderCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var storeobj = _sliderServices .GetById(model.id);
+                var storeobj = _sliderServices.GetById(model.id);
                 if (storeobj == null)
                 {
                     return NotFound();
                 }
                 storeobj.id = model.id;
-                 
+
 
                 if (model.name != null && model.name.Length > 0)
                 {
@@ -160,7 +160,7 @@ namespace appFoodDelivery.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            await _sliderServices .Delete(id);
+            await _sliderServices.Delete(id);
             TempData["success"] = "Record Delete successfully";
             return RedirectToAction(nameof(Index));
 

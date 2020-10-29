@@ -1,12 +1,12 @@
-﻿using System;
+﻿using appFoodDelivery.Entity;
+using appFoodDelivery.Models;
+using appFoodDelivery.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using appFoodDelivery.Services;
-using Microsoft.AspNetCore.Mvc;
-using appFoodDelivery.Models;
-using appFoodDelivery.Entity;
-using Microsoft.AspNetCore.Authorization;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace appFoodDelivery.Controllers
@@ -115,7 +115,7 @@ namespace appFoodDelivery.Controllers
                 discounttype = objcustomer.discounttype
                 ,
                 expirydate = objcustomer.expirydate
-                 
+
             };
             return View(model);
 
@@ -140,9 +140,9 @@ namespace appFoodDelivery.Controllers
                 customerobj.discount = model.discount;
                 customerobj.discounttype = model.discounttype;
                 customerobj.expirydate = model.expirydate;
-             
 
-                
+
+
                 await _promocodeServices.UpdateAsync(customerobj);
                 TempData["success"] = "Record Updated successfully";
                 return RedirectToAction(nameof(Index));
@@ -154,7 +154,7 @@ namespace appFoodDelivery.Controllers
 
         }
 
-         
+
 
 
         [HttpGet]

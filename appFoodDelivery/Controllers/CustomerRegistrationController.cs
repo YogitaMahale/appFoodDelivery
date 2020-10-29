@@ -1,15 +1,15 @@
-﻿using System;
+﻿using appFoodDelivery.Entity;
+using appFoodDelivery.Models;
+using appFoodDelivery.pagination;
+using appFoodDelivery.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using appFoodDelivery.Services;
-using Microsoft.AspNetCore.Mvc;
-using appFoodDelivery.Models;
-using appFoodDelivery.Entity;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using appFoodDelivery.pagination;
-using Microsoft.AspNetCore.Authorization;
 
 namespace appFoodDelivery.Controllers
 {
@@ -52,7 +52,7 @@ namespace appFoodDelivery.Controllers
         public string ValidateMobileNo(string mobileno)
         {
 
-            var emailStatus = _CustomerRegistrationservices.GetAll().Where(x => x.mobileno1 == mobileno&&x.isdeleted==false).FirstOrDefault();
+            var emailStatus = _CustomerRegistrationservices.GetAll().Where(x => x.mobileno1 == mobileno && x.isdeleted == false).FirstOrDefault();
             if (emailStatus != null)
             {
                 return "1";
@@ -62,7 +62,7 @@ namespace appFoodDelivery.Controllers
                 return "0";
             }
         }
-     
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CustomerRegistrationCreateViewModel model)
@@ -181,9 +181,9 @@ namespace appFoodDelivery.Controllers
                 }
                 customerobj.id = model.id;
                 customerobj.name = model.name;
-                
+
                 customerobj.address = model.address;
-              //  customerobj.mobileno1 = model.mobileno1;
+                //  customerobj.mobileno1 = model.mobileno1;
                 customerobj.mobileno2 = model.mobileno2;
                 customerobj.emailid1 = model.emailid1;
                 customerobj.latitude = model.latitude;
@@ -245,15 +245,15 @@ namespace appFoodDelivery.Controllers
         //    return View(obj);
         //}
 
-        
+
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             await _CustomerRegistrationservices.Delete(id);
-                return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
 
 
-           
+
         }
         [HttpPost]
         public IActionResult Index1(string selectedDate)

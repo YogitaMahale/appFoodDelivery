@@ -8,7 +8,7 @@ namespace appFoodDelivery.Models
     public class promocodeIndexViewModel
     {
         public int id { get; set; }
-         
+
         public string promocode { get; set; }
         public string promocodeusagelimit { get; set; }
         public string discount { get; set; }
@@ -21,9 +21,9 @@ namespace appFoodDelivery.Models
 
         public DateTime createddate { get; set; }
 
-         
+
         public Boolean isdeleted { get; set; }
-         
+
         public Boolean isactive { get; set; }
 
     }

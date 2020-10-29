@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 namespace appFoodDelivery.Models
 {
     public class CustomerRegistrationCreateViewModel
@@ -20,7 +20,7 @@ namespace appFoodDelivery.Models
         [Required(ErrorMessage = "Mobile No is Required")]
         public string mobileno1 { get; set; }
         [Display(Name = "Alternet Mobile No.")]
-         
+
         public string mobileno2 { get; set; }
         [Display(Name = "Email ID")]
         public string emailid1 { get; set; }
@@ -41,8 +41,8 @@ namespace appFoodDelivery.Models
         public DateTime createddate { get; set; } = DateTime.UtcNow;
 
 
-        public Boolean isdeleted { get; set; } 
-        
+        public Boolean isdeleted { get; set; }
+
         public Boolean isactive { get; set; }
     }
 }

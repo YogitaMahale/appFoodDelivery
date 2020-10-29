@@ -10,7 +10,7 @@ namespace appFoodDelivery.Models
     public class productCreateViewModel
     {
         public int id { get; set; }
-        
+
         public string storeid { get; set; }
 
         [Display(Name = "Select Cuisine")]

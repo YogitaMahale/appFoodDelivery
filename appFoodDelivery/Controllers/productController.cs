@@ -1,35 +1,35 @@
-﻿using System;
+﻿using appFoodDelivery.Entity;
+using appFoodDelivery.Models;
+using appFoodDelivery.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using appFoodDelivery.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using appFoodDelivery.Entity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using appFoodDelivery.Services;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Authorization;
 //using AspNetCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace appFoodDelivery.Controllers
 {
-    [Authorize(Roles =  SD.Role_Store)]
+    [Authorize(Roles = SD.Role_Store)]
     public class productController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly Iproductcuisinemasterservices _productcuisinemasterservices;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        private readonly  Iproductservices _productservices;
+        private readonly Iproductservices _productservices;
         private readonly Imenumasterservices _menumasterservices;
         public productController(Iproductservices productservices
                                , Iproductcuisinemasterservices productcuisinemasterservices
-                               ,  IWebHostEnvironment hostingEnvironment
+                               , IWebHostEnvironment hostingEnvironment
                                 , UserManager<ApplicationUser> userManager
                                 , Imenumasterservices menumasterservices)
         {
@@ -38,7 +38,7 @@ namespace appFoodDelivery.Controllers
             _productservices = productservices;
             _userManager = userManager;
             _menumasterservices = menumasterservices;
-        }  
+        }
         public async Task<IActionResult> Index()
         {
             ApplicationUser usr = await GetCurrentUserAsync();
@@ -46,24 +46,32 @@ namespace appFoodDelivery.Controllers
             var listt = _productservices.GetAll().Where(x => x.storeid == id).Select(x => new productIndexViewModel
             {
                 id = x.id
-                   , storeid = x.storeid
-                   , productcuisineid = x.productcuisineid
-                   , productcuisinemaster = _productcuisinemasterservices.GetById(x.productcuisineid)
+                   ,
+                storeid = x.storeid
+                   ,
+                productcuisineid = x.productcuisineid
+                   ,
+                productcuisinemaster = _productcuisinemasterservices.GetById(x.productcuisineid)
                        ,
                 name = _menumasterservices.GetById(x.fkmenuid).name
                       ,
                 img = _menumasterservices.GetById(x.fkmenuid).img
-              //        ,
-              //name = x.name
-              //    ,
-              // img = x.img
-                   , foodtype = x.foodtype
-                   , amount = x.amount
-                   , description = x.description
-                   , discounttype = x.discounttype
-                   , discountamount = x.discountamount
+                   //        ,
+                   //name = x.name
+                   //    ,
+                   // img = x.img
+                   ,
+                foodtype = x.foodtype
+                   ,
+                amount = x.amount
+                   ,
+                description = x.description
+                   ,
+                discounttype = x.discounttype
+                   ,
+                discountamount = x.discountamount
 
-            }).ToList(); 
+            }).ToList();
             //  return View(storeList);
 
 
@@ -112,23 +120,27 @@ namespace appFoodDelivery.Controllers
                     //id, productcuisineid, name, img, foodtype, amount, description, discounttype, discountamount,
                     //createddate, isdeleted, isactive, storeid
                     id = model.id,
-                    productcuisineid=model.productcuisineid,
-                    name=model.fkmenuid.ToString(),
-                     fkmenuid=model.fkmenuid,
-                    foodtype=model.foodtype,
-                    amount=model.amount,
-                    description=model.description,
-                    discounttype=model.discounttype,
-                    discountamount=model.discountamount,
-                    createddate=model.createddate
-                    , isdeleted=false 
-                    , isactive= false
-                    , storeid=id
-                    ,status=model.status
+                    productcuisineid = model.productcuisineid,
+                    name = model.fkmenuid.ToString(),
+                    fkmenuid = model.fkmenuid,
+                    foodtype = model.foodtype,
+                    amount = model.amount,
+                    description = model.description,
+                    discounttype = model.discounttype,
+                    discountamount = model.discountamount,
+                    createddate = model.createddate
+                    ,
+                    isdeleted = false
+                    ,
+                    isactive = false
+                    ,
+                    storeid = id
+                    ,
+                    status = model.status
 
 
                 };
-                if (model.img  != null && model.img.Length > 0)
+                if (model.img != null && model.img.Length > 0)
                 {
                     var uploadDir = @"uploads/product";
                     var fileName = Path.GetFileNameWithoutExtension(model.img.FileName);
@@ -137,7 +149,7 @@ namespace appFoodDelivery.Controllers
                     fileName = DateTime.UtcNow.ToString("yymmssfff") + fileName + extesion;
                     var path = Path.Combine(webRootPath, uploadDir, fileName);
                     await model.img.CopyToAsync(new FileStream(path, FileMode.Create));
-                    store .img = '/' + uploadDir + '/' + fileName;
+                    store.img = '/' + uploadDir + '/' + fileName;
 
                 }
                 await _productservices.CreateAsync(store);
@@ -166,15 +178,15 @@ namespace appFoodDelivery.Controllers
             var model = new productEditViewModel()
             {
                 id = prod.id,
-                name = prod.name,                
-                productcuisineid= prod.productcuisineid,      
-                foodtype= prod.foodtype,
-                amount= prod.amount,
-                description= prod.description,
-                discounttype= prod.discounttype,
-                discountamount= prod.discountamount,
+                name = prod.name,
+                productcuisineid = prod.productcuisineid,
+                foodtype = prod.foodtype,
+                amount = prod.amount,
+                description = prod.description,
+                discounttype = prod.discounttype,
+                discountamount = prod.discountamount,
                 status = prod.status,
-                fkmenuid=prod.fkmenuid
+                fkmenuid = prod.fkmenuid
 
             };
             ViewBag.Menus = _menumasterservices.GetAllMenuList(model.productcuisineid);
@@ -201,7 +213,7 @@ namespace appFoodDelivery.Controllers
                 storeobj.description = model.description;
                 storeobj.discounttype = model.discounttype;
                 storeobj.discountamount = model.discountamount;
-                storeobj.status = model.status ;
+                storeobj.status = model.status;
                 storeobj.fkmenuid = model.fkmenuid;
 
                 if (model.img != null && model.img.Length > 0)
@@ -216,7 +228,7 @@ namespace appFoodDelivery.Controllers
                     storeobj.img = '/' + uploadDir + '/' + fileName;
 
                 }
-                await _productservices .UpdateAsync(storeobj);
+                await _productservices.UpdateAsync(storeobj);
                 return RedirectToAction(nameof(Index));
             }
             else

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using appFoodDelivery.Models;
+﻿using appFoodDelivery.Models;
 using appFoodDelivery.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,8 +30,8 @@ namespace appFoodDelivery.Controllers
             var model = new distanceEditViewModel()
             {
                 id = storeowner.id,
-                range  = storeowner.range 
-                
+                range = storeowner.range
+
             };
             return View(model);
         }
@@ -48,8 +48,8 @@ namespace appFoodDelivery.Controllers
                     return NotFound();
                 }
                 storeobj.id = model.id;
-                storeobj.range = model.range ;
-              await  _distanceServices.UpdateAsync(storeobj);
+                storeobj.range = model.range;
+                await _distanceServices.UpdateAsync(storeobj);
                 TempData["success"] = "Record Update successfully";
                 return RedirectToAction(nameof(Index));
             }

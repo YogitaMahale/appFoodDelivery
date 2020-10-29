@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using appFoodDelivery;
 using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
+using appFoodDelivery.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using plathora.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using appFoodDelivery.Services;
-using Microsoft.AspNetCore.Authorization;
-using appFoodDelivery;
 
 namespace plathora.Controllers
 {
@@ -31,8 +31,8 @@ namespace plathora.Controllers
             {
                 id = x.id,
                 countryid = x.countryid,
-                StateName = x.StateName,                
-                CountryRegistration= _CountryRegistrationservices.GetById(x.countryid)
+                StateName = x.StateName,
+                CountryRegistration = _CountryRegistrationservices.GetById(x.countryid)
 
             }).ToList();
             return View(statedetails);
@@ -57,7 +57,7 @@ namespace plathora.Controllers
                 {
                     id = model.id,
                     countryid = model.countryid,
-                    StateName  = model.StateName,
+                    StateName = model.StateName,
                     isdeleted = false,
                     isactive = false
                 };
@@ -80,11 +80,11 @@ namespace plathora.Controllers
             {
                 return NotFound();
             }
-            var model = new StateEditViewModel 
+            var model = new StateEditViewModel
             {
                 id = objcountry.id,
-               countryid  = objcountry.countryid,
-                StateName=objcountry.StateName
+                countryid = objcountry.countryid,
+                StateName = objcountry.StateName
 
             };
             return View(model);
@@ -103,8 +103,8 @@ namespace plathora.Controllers
                     return NotFound();
                 }
                 objcountry.id = model.id;
-               objcountry.countryid  = model.countryid;
-                objcountry.StateName  = model.StateName;
+                objcountry.countryid = model.countryid;
+                objcountry.StateName = model.StateName;
 
 
                 await _StateRegistrationService.UpdateAsync(objcountry);

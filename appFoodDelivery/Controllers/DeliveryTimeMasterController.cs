@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using appFoodDelivery.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
-using appFoodDelivery.Entity;
-using System.IO;
+using appFoodDelivery.pagination;
+using appFoodDelivery.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 //using plathora.pagination;
 using System.Runtime.Serialization;
-using appFoodDelivery.pagination;
-using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 namespace appFoodDelivery.Controllers
 {
     // [Authorize(Roles = "Admin")]
-    [Authorize(Roles = SD.Role_Admin )]
+    [Authorize(Roles = SD.Role_Admin)]
     public class DeliveryTimeMasterController : Controller
     {
         private readonly IDeliveryTimeMasterServices _DeliveryTimeMasterServices;
@@ -27,10 +27,10 @@ namespace appFoodDelivery.Controllers
         }
         public IActionResult Index()
         {
-            var listt = _DeliveryTimeMasterServices .GetAll().Select(x => new DeliveryTimeIndexViewModel
+            var listt = _DeliveryTimeMasterServices.GetAll().Select(x => new DeliveryTimeIndexViewModel
             {
                 id = x.id
-                ,
+               ,
                 name = x.name
 
             }).ToList();

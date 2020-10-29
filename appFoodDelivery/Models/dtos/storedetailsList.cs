@@ -17,7 +17,7 @@ namespace appFoodDelivery.Models.dtos
         public string ownername { get; set; }
         public string storestatus { get; set; }
 
-        
+
         //        Id
         //,Email
         //            ,storeName

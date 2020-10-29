@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 namespace appFoodDelivery.Models
 {
     public class CustomerRegistrationOTPViewModel
     {
         public int? id { get; set; } = null;
-        
+
         public string name { get; set; } = null;
-        public string  profilephoto { get; set; } = null;
+        public string profilephoto { get; set; } = null;
         public string address { get; set; } = null;
 
 
@@ -27,7 +27,7 @@ namespace appFoodDelivery.Models
         public string longitude { get; set; } = null;
 
 
-        public string password { get; set; }= null;
+        public string password { get; set; } = null;
         public string gender { get; set; } = null;
 
         public DateTime? DOB { get; set; } = null;

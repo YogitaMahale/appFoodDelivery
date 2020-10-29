@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using appFoodDelivery.Models;
+﻿using appFoodDelivery.Models;
 using appFoodDelivery.Notification;
 using appFoodDelivery.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,7 +24,7 @@ namespace appFoodDelivery.Controllers
 
         public IActionResult Index()
         {
-           
+
             var obj = new CustomerNotification();
             return View(obj);
         }
@@ -36,7 +36,7 @@ namespace appFoodDelivery.Controllers
             {
                 try
                 {
-                    var storeobj = _customerRegistrationservices.GetAll().Where(x=>x.isdeleted==false&&x.deviceid!=null).ToList();
+                    var storeobj = _customerRegistrationservices.GetAll().Where(x => x.isdeleted == false && x.deviceid != null).ToList();
                     foreach (var item in storeobj)
                     {
                         if (item.deviceid.Trim() == "" || item.deviceid == null)
@@ -55,8 +55,8 @@ namespace appFoodDelivery.Controllers
                     }
 
                 }
-                catch {  }
-              
+                catch { }
+
                 TempData["success"] = "Notification Sent Successfully";
                 return RedirectToAction(nameof(Index));
             }

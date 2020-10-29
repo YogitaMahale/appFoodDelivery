@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using appFoodDelivery.Entity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using System.Security.Policy;
-using System.Net.Mail;
-using System.Text;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using appFoodDelivery.Services;
-using appFoodDelivery.pagination;
 using appFoodDelivery.Models.dtos;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using appFoodDelivery.pagination;
+using appFoodDelivery.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Mail;
+using System.Security.Policy;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace appFoodDelivery.Controllers
 {
-   
+
     public class AccountController : Controller
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -40,7 +40,7 @@ namespace appFoodDelivery.Controllers
         private readonly ISP_Call _sP_Call;
 
 
-    
+
 
 
         public AccountController(UserManager<ApplicationUser> usermanager,
@@ -49,7 +49,7 @@ namespace appFoodDelivery.Controllers
                                     , IWebHostEnvironment hostingEnvironment
                                     , IstoredetailsServices storedetailsServices
                                     , IRadiusMasterServices RadiusMasterServices
-                                    ,IDeliveryTimeMasterServices DeliveryTimeMasterServices
+                                    , IDeliveryTimeMasterServices DeliveryTimeMasterServices
                                     , ICountryRegistrationservices CountryRegistrationservices
                                      , IStateRegistrationService StateRegistrationService
                                     , ICityRegistrationservices cityRegistrationservices
@@ -66,9 +66,9 @@ namespace appFoodDelivery.Controllers
             _RadiusMasterServices = RadiusMasterServices;
             _DeliveryTimeMasterServices = DeliveryTimeMasterServices;
             _productservices = productservices;
-            _CountryRegistrationservices  = CountryRegistrationservices;
+            _CountryRegistrationservices = CountryRegistrationservices;
             _StateRegistrationService = StateRegistrationService;
-            _cityRegistrationservices  = cityRegistrationservices;
+            _cityRegistrationservices = cityRegistrationservices;
             _productcuisinemasterservices = productcuisinemasterservices;
             _sP_Call = sP_Call;
         }
@@ -93,7 +93,7 @@ namespace appFoodDelivery.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     name = model.name,
-                    mobileno = model.mobileno                    
+                    mobileno = model.mobileno
                 };
                 var result = await usermanager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -121,7 +121,7 @@ namespace appFoodDelivery.Controllers
                     }
                     else
                     {
-                       
+
                         await usermanager.AddToRoleAsync(user, model.Role);
                     }
 
@@ -377,7 +377,7 @@ namespace appFoodDelivery.Controllers
             }
             return View();
         }
-        private bool SendConfirmationMail(string email,string link,string token)
+        private bool SendConfirmationMail(string email, string link, string token)
         {
             //----  msg--
             string oSB = string.Empty;
@@ -394,11 +394,11 @@ namespace appFoodDelivery.Controllers
             oSB += "<div>Thank you,</div>";
             oSB += "<div>Food Delivery- Support Team.</div>";
             //----------------
-           // common ocommon = new common();
+            // common ocommon = new common();
             //   string oSB = string.Empty;
             bool send = false;
             MailMessage mail = new MailMessage();
-            
+
             if (email.ToString().Trim() == "".Trim())
             {
             }
@@ -410,8 +410,8 @@ namespace appFoodDelivery.Controllers
 
 
 
-             
-                  mail.From = new MailAddress("support@picindia.in", "Food Delivery");
+
+            mail.From = new MailAddress("support@picindia.in", "Food Delivery");
             //mail.From = new MailAddress("info@all-stationery.com", "Stationery Registration");
 
             mail.Subject = "Registration Done Successfully";
@@ -440,7 +440,7 @@ namespace appFoodDelivery.Controllers
             catch (Exception ex)
             {
                 send = false;
-               // ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "", "alert('" + ex.Message + "," + ex.StackTrace + "')", true);
+                // ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "", "alert('" + ex.Message + "," + ex.StackTrace + "')", true);
                 // ErrHandler.writeError(ex.Message, ex.StackTrace);
             }
             return send;
@@ -629,21 +629,21 @@ namespace appFoodDelivery.Controllers
                 return View("NotFound");
             }
             var model = new StoreShowDetailsViewModel()
-            {                
+            {
 
-             storeid = users.Id,
-                storeownerName = users.name ,
-                mobileno = users.mobileno ,
-                ownergender = users.gender ,
+                storeid = users.Id,
+                storeownerName = users.name,
+                mobileno = users.mobileno,
+                ownergender = users.gender,
                 profilephoto = users.profilephoto,
-                Email = users.Email                
+                Email = users.Email
             };
             //byte[] decodedHashedPassword = Convert.FromBase64String(users.PasswordHash);
             //    string pass = base64Decode(users.PasswordHash);
-            if (model.storeid!=null)
+            if (model.storeid != null)
             {
                 var storedetails = _storedetailsServices.GetAll().Where(x => x.storeid == model.storeid).FirstOrDefault();
-                
+
                 if (storedetails != null)
                 {
                     model.contactpersonname = storedetails.contactpersonname;
@@ -663,19 +663,19 @@ namespace appFoodDelivery.Controllers
                     model.licPhoto = storedetails.licPhoto;
                     model.latitude = storedetails.latitude;
                     model.longitude = storedetails.longitude;
-                    if(storedetails.radiusid!=null)
+                    if (storedetails.radiusid != null)
                     {
                         int cityidd = Convert.ToInt32(storedetails.radiusid);
                         int stateid = _cityRegistrationservices.GetById(cityidd).stateid;
                         int countryid = _StateRegistrationService.GetById(stateid).countryid;
 
                         model.country = _CountryRegistrationservices.GetById(countryid).countryname;
-                        model.state  = _StateRegistrationService .GetById(countryid).StateName;
+                        model.state = _StateRegistrationService.GetById(countryid).StateName;
                         model.cityid = _cityRegistrationservices.GetById(cityidd).cityName;
 
                     }
-                     
-                   
+
+
                 }
             }
             return View(model);
@@ -717,8 +717,7 @@ namespace appFoodDelivery.Controllers
         }
 
 
-    
+
     }
 }
 
- 

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace appFoodDelivery.Models
 {
@@ -29,12 +29,12 @@ namespace appFoodDelivery.Models
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Use letters only please")]
         public string name { get; set; }
 
-       
+
         public string profilephoto { get; set; } = "";
 
         public string mobileno { get; set; } = "";
 
-         
+
         public string gender { get; set; } = "";
 
         public string latitude { get; set; } = "";

@@ -1,20 +1,20 @@
-﻿using System;
+﻿using appFoodDelivery.Entity;
+using appFoodDelivery.Models;
+using appFoodDelivery.Services;
+using appFoodDelivery.Services.Implementation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.Web.CodeGeneration;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using appFoodDelivery.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using appFoodDelivery.Entity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using appFoodDelivery.Services;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using appFoodDelivery.Services.Implementation;
-using Microsoft.VisualStudio.Web.CodeGeneration;
-using Microsoft.AspNetCore.Authorization;
 //using AspNetCore;
 
 namespace appFoodDelivery.Controllers
@@ -83,7 +83,7 @@ namespace appFoodDelivery.Controllers
                 model.gender = store.gender;
                 model.emailaddress = store.emailaddress;
                 model.contactno = store.contactno;
-                
+
             }
 
 
@@ -114,8 +114,8 @@ namespace appFoodDelivery.Controllers
                         gender = model.gender,
                         contactno = model.contactno,
                         isdeleted = false
-                       // cityid=0
-                        
+                        // cityid=0
+
                         // deliverytimeid = 0,
                         // radiusid = 0
 
@@ -220,15 +220,15 @@ namespace appFoodDelivery.Controllers
         {
 
             IList<CityRegistration> obj = _CityRegistrationservices.GetAll().Where(x => x.stateid == stateid).ToList();
-            if(obj==null||obj.Count==0)
+            if (obj == null || obj.Count == 0)
             {
 
             }
             else
             {
-              //  obj.Insert(0, new CityRegistration { id = 0, cityName = "select", isactive = false, isdeleted = false });
+                //  obj.Insert(0, new CityRegistration { id = 0, cityName = "select", isactive = false, isdeleted = false });
             }
-         
+
             return Json(new SelectList(obj, "id", "cityName"));
         }
 
@@ -255,17 +255,17 @@ namespace appFoodDelivery.Controllers
                 int stateid = 0;
                 int countryid = 0;
                 int cityyid = 0;
-                if (store.cityid==null)
+                if (store.cityid == null)
                 {
 
                 }
                 else
                 {
-                      cityyid = Convert.ToInt32(store.cityid);
-                      stateid = _CityRegistrationservices.GetById(cityyid).stateid;
-                      countryid = _StateRegistrationService.GetById(stateid).countryid;
+                    cityyid = Convert.ToInt32(store.cityid);
+                    stateid = _CityRegistrationservices.GetById(cityyid).stateid;
+                    countryid = _StateRegistrationService.GetById(stateid).countryid;
                 }
-                
+
 
                 model.id = store.id;
                 model.storename = store.storename;
@@ -287,14 +287,14 @@ namespace appFoodDelivery.Controllers
                     model.deliverytimeid = Convert.ToInt32(store.deliverytimeid.ToString());
 
                 }
-               
+
                 model.orderMinAmount = store.orderMinAmount;
                 model.packagingCharges = store.packagingCharges;
                 model.address = store.address;
                 model.description = store.description;
                 // model.storetime = store.storetime;
 
-                if(store.storetime==null|| store.storetime.ToString().Trim()=="".Trim())
+                if (store.storetime == null || store.storetime.ToString().Trim() == "".Trim())
                 {
                     model.FromTime = "";
                     model.ToTime = "";
@@ -309,14 +309,14 @@ namespace appFoodDelivery.Controllers
                     }
                     else
                     {
-                        
+
                     }
                 }
-               
-              
+
+
 
                 model.promocode = store.promocode;
-                model.discount  = store.discount;
+                model.discount = store.discount;
 
                 model.adminCommissionPer = store.adminCommissionPer;
                 model.taxstatus = store.taxstatus;
@@ -337,9 +337,9 @@ namespace appFoodDelivery.Controllers
 
 
                 model.accountno = store.accountno;
-                model.bankname  = store.bankname;
+                model.bankname = store.bankname;
                 model.banklocation = store.banklocation;
-                model.ifsccode  = store.ifsccode;
+                model.ifsccode = store.ifsccode;
                 model.status = store.status;
                 ViewBag.States = _StateRegistrationService.GetAllState(model.countryid);
                 ViewBag.Cities = _CityRegistrationservices.GetAllCity(model.stateid);
@@ -380,20 +380,20 @@ namespace appFoodDelivery.Controllers
                         description = model.description,
                         //storetime = model.storetime,
                         storetime = model.FromTime + " - " + model.ToTime,
-                        latitude =model.latitude,
-                        longitude=model.longitude,
-                        cityid=model.cityid,
-                        promocode=model.promocode,
-                        discount=model.discount,
+                        latitude = model.latitude,
+                        longitude = model.longitude,
+                        cityid = model.cityid,
+                        promocode = model.promocode,
+                        discount = model.discount,
 
-                         accountno = model.longitude,
-                        banklocation  = model.banklocation,
+                        accountno = model.longitude,
+                        banklocation = model.banklocation,
                         bankname = model.bankname,
                         ifsccode = model.ifsccode,
                         status = model.status,
-                        adminCommissionPer=model.adminCommissionPer,
-                        taxstatus=model.taxstatus,
-                        taxstatusPer=model.taxstatusPer
+                        adminCommissionPer = model.adminCommissionPer,
+                        taxstatus = model.taxstatus,
+                        taxstatusPer = model.taxstatusPer
                         // deliverytimeid = 0,
                         // radiusid = 0
                     };
@@ -430,14 +430,14 @@ namespace appFoodDelivery.Controllers
                     store.longitude = model.longitude;
                     store.cityid = model.cityid;
                     store.promocode = model.promocode;
-                    store.discount  = model.discount;
+                    store.discount = model.discount;
 
                     store.bankname = model.bankname;
                     store.banklocation = model.banklocation;
                     store.accountno = model.accountno;
                     store.ifsccode = model.ifsccode;
                     store.status = model.status;
-                    store.adminCommissionPer  = model.adminCommissionPer;
+                    store.adminCommissionPer = model.adminCommissionPer;
                     store.taxstatus = model.taxstatus;
                     store.taxstatusPer = model.taxstatusPer;
                     if (model.storeBannerPhoto != null && model.storeBannerPhoto.Length > 0)
@@ -624,7 +624,7 @@ namespace appFoodDelivery.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("","Duplicate User Name");
+                    ModelState.AddModelError("", "Duplicate User Name");
 
                 }
             }
@@ -633,26 +633,26 @@ namespace appFoodDelivery.Controllers
         [HttpGet]
         [Authorize(Roles = SD.Role_Store)]
         public async Task<IActionResult> ChangePassword()
-        { 
+        {
             return View();
         }
         [HttpPost]
         [Authorize(Roles = SD.Role_Store)]
         public async Task<IActionResult> ChangePassword(StoreDetailsChangePasswordViewModel model)
         {
-           if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-               var user = await usermanager.GetUserAsync(User);
-                if(user==null)
+                var user = await usermanager.GetUserAsync(User);
+                if (user == null)
                 {
                     return RedirectToAction("Login");
                 }
                 else
                 {
                     var result = await usermanager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-                    if(!result.Succeeded)
+                    if (!result.Succeeded)
                     {
-                        foreach(var error in result.Errors)
+                        foreach (var error in result.Errors)
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
 
@@ -662,7 +662,7 @@ namespace appFoodDelivery.Controllers
                     return View("ChangePasswordConfirmationView");
                 }
             }
-            return View(model );
+            return View(model);
         }
     }
 }

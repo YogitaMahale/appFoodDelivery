@@ -1,20 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-//using System.Web.Http;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using appFoodDelivery.Entity;
-//using appFoodDelivery.Models.Dtos;
-using appFoodDelivery.Services;
-using System.Net.Mail;
-using Dapper;
-using Nancy.Json;
-using System.Text;
+﻿using appFoodDelivery.Entity;
 using appFoodDelivery.Models;
 //using HttpDeleteAttribute = Microsoft.AspNetCore.Mvc.HttpDeleteAttribute;
 //using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
@@ -22,6 +6,22 @@ using appFoodDelivery.Models;
 //using HttpPutAttribute = Microsoft.AspNetCore.Mvc.HttpPutAttribute;
 //using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 using appFoodDelivery.Notification;
+//using appFoodDelivery.Models.Dtos;
+using appFoodDelivery.Services;
+using Dapper;
+//using System.Web.Http;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Nancy.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
 namespace appFoodDelivery.API
 {
     [Route("customer")]
@@ -36,7 +36,7 @@ namespace appFoodDelivery.API
         public customerController(ICustomerRegistrationservices _CustomerRegistrationservices, IWebHostEnvironment hostingEnvironment, IsliderServices sliderServices, ISP_Call ISP_Call, IordersServices ordersServices, IcustomerfeedbackServices customerfeedbackServices)
         {
             CustomerRegistrationservices = _CustomerRegistrationservices;
-            _sliderServices=sliderServices;
+            _sliderServices = sliderServices;
             _hostingEnvironment = hostingEnvironment;
             _ISP_Call = ISP_Call;
             _ordersServices = ordersServices;
@@ -65,7 +65,7 @@ namespace appFoodDelivery.API
                     string OPTINS = "STRLIT";
                     //  string Password = "9359848251";
                     string Password = "959595";
-                    
+
                     string type = "3";
                     // string strUrl = "https://www.bulksmsgateway.in/sendmessage.php?user=ezacus&password=" + "ezacus@2020" + "&message=" + Msg.ToString() + "&sender=" + OPTINS + "&mobile=" + mobileno + "&type=" + 3;
                     //string strUrl = "https://www.bulksmsgateway.in/sendmessage.php?user=ezacus&password=" + "ezacus@2020" + "&message=" + Msg.ToString() + "&sender=" + OPTINS + "&mobile=" + mobileno + "&type=" + 3;
@@ -97,7 +97,7 @@ namespace appFoodDelivery.API
 
                     //string myJson = "{'otpno': "+ no + "}";
                     //return Ok(myJson);
-                //    objCustomerRegistrationOTPViewModel.id = obj.id;
+                    //    objCustomerRegistrationOTPViewModel.id = obj.id;
                     //objCustomerRegistrationOTPViewModel.name = "";
                     //objCustomerRegistrationOTPViewModel.profilephoto = ""; 
                     //objCustomerRegistrationOTPViewModel.address = ""; 
@@ -109,18 +109,18 @@ namespace appFoodDelivery.API
                     //objCustomerRegistrationOTPViewModel.password = "";
                     //objCustomerRegistrationOTPViewModel.mobileno2 = "";
                     //objCustomerRegistrationOTPViewModel.gender = "";
-                 //   objCustomerRegistrationOTPViewModel.DOB = obj.DOB;
-                  //  objCustomerRegistrationOTPViewModel.createddate = obj.createddate;
+                    //   objCustomerRegistrationOTPViewModel.DOB = obj.DOB;
+                    //  objCustomerRegistrationOTPViewModel.createddate = obj.createddate;
 
 
-                   // objCustomerRegistrationOTPViewModel.isdeleted = obj.isdeleted;
-                  //  objCustomerRegistrationOTPViewModel.isactive = obj.isactive;
+                    // objCustomerRegistrationOTPViewModel.isdeleted = obj.isdeleted;
+                    //  objCustomerRegistrationOTPViewModel.isactive = obj.isactive;
                     objCustomerRegistrationOTPViewModel.otpno = no;
                     return Ok(objCustomerRegistrationOTPViewModel);
                 }
                 else
                 {
-                    
+
                     objCustomerRegistrationOTPViewModel.id = obj.id;
                     objCustomerRegistrationOTPViewModel.name = obj.name;
                     objCustomerRegistrationOTPViewModel.profilephoto = obj.profilephoto;
@@ -141,13 +141,13 @@ namespace appFoodDelivery.API
                     objCustomerRegistrationOTPViewModel.isactive = obj.isactive;
                     objCustomerRegistrationOTPViewModel.otpno = no;
 
-                                       
 
-         
+
+
                     return Ok(objCustomerRegistrationOTPViewModel);
                 }
 
-                
+
             }
             catch (Exception obj)
             {
@@ -178,7 +178,7 @@ namespace appFoodDelivery.API
         }
         [HttpPost]
         [Route("CustomerInsert")]
-        public async Task<IActionResult> CustomerInsert(string name, string email,string mobileno,string password)
+        public async Task<IActionResult> CustomerInsert(string name, string email, string mobileno, string password)
         {
             try
             {
@@ -215,16 +215,16 @@ namespace appFoodDelivery.API
                     obj.gender = "select";
                     obj.createddate = DateTime.UtcNow;
 
-                    int id=  await CustomerRegistrationservices.CreateAsync(obj);
+                    int id = await CustomerRegistrationservices.CreateAsync(obj);
                     CustomerRegistration obj1 = new CustomerRegistration();
-                    obj1 =  CustomerRegistrationservices.GetById(id);
+                    obj1 = CustomerRegistrationservices.GetById(id);
                     return Ok(obj1);
                 }
                 else
                 {
                     return BadRequest("duplicate Mobile No");
                 }
-                 
+
             }
             catch (Exception obj)
             {
@@ -245,20 +245,20 @@ namespace appFoodDelivery.API
                 {
                     string myJson = "{\"Message\": " + "\"Not Found\"" + "}";
                     return NotFound(myJson);
-                  
+
                 }
                 else
                 {
                     customer.deviceid = deviceId;
                     await CustomerRegistrationservices.UpdateAsync(customer);
 
-                   return Ok(customer);
+                    return Ok(customer);
                 }
                 //return BadRequest();
             }
-            catch(Exception obj)
+            catch (Exception obj)
             {
-                return Ok(obj.Message );
+                return Ok(obj.Message);
             }
         }
 
@@ -303,7 +303,7 @@ namespace appFoodDelivery.API
 
         [HttpPut]
         [Route("updateCustomerProfile")]
-        public async Task<IActionResult> updateCustomerProfile(string name,string email, int id)
+        public async Task<IActionResult> updateCustomerProfile(string name, string email, int id)
         {
             try
             {
@@ -317,7 +317,7 @@ namespace appFoodDelivery.API
                 else
                 {
                     customer.name = name;
-                    customer.emailid1=email;
+                    customer.emailid1 = email;
                     await CustomerRegistrationservices.UpdateAsync(customer);
 
                     return Ok(customer);
@@ -332,7 +332,7 @@ namespace appFoodDelivery.API
 
         [HttpPut]
         [Route("updateLocation")]
-        public async Task<IActionResult> updateLocation(string address,string latitude,string longitude, int id)
+        public async Task<IActionResult> updateLocation(string address, string latitude, string longitude, int id)
         {
             try
             {
@@ -346,9 +346,9 @@ namespace appFoodDelivery.API
                 }
                 else
                 {
-                    customer.address  = address ;
+                    customer.address = address;
                     customer.longitude = longitude;
-                    customer.latitude  = latitude;
+                    customer.latitude = latitude;
                     await CustomerRegistrationservices.UpdateAsync(customer);
 
                     return Ok(customer);
@@ -366,7 +366,7 @@ namespace appFoodDelivery.API
         {
             try
             {
-                var sliderlist = _sliderServices.GetAll().Where( x=>x.isdeleted == false).ToList();
+                var sliderlist = _sliderServices.GetAll().Where(x => x.isdeleted == false).ToList();
                 //  var categories = await _context.CustomerRegistration.ToListAsync(); 
                 if (sliderlist == null)
                 {
@@ -387,18 +387,18 @@ namespace appFoodDelivery.API
         public async Task<IActionResult> forgetpassword(string mobileno)
         {
             try
-            {               
-                
+            {
+
                 CustomerRegistration obj = CustomerRegistrationservices.GetAll().Where(x => x.mobileno1 == mobileno && x.isdeleted == false).FirstOrDefault();
                 //  var categories = await _context.CustomerRegistration.ToListAsync(); 
                 if (obj == null)
                 {
-                     
+
                     return NotFound();
                 }
                 else
                 {
-                    bool flg = SendConfirmationMail(obj.emailid1, obj.password,mobileno);
+                    bool flg = SendConfirmationMail(obj.emailid1, obj.password, mobileno);
                     return Ok("Password sent Your Register Email Id");
                 }
 
@@ -410,7 +410,7 @@ namespace appFoodDelivery.API
             }
 
         }
-        private bool SendConfirmationMail(string email, string password,string mobileno)
+        private bool SendConfirmationMail(string email, string password, string mobileno)
         {
             //----  msg--
             string oSB = string.Empty;
@@ -419,8 +419,8 @@ namespace appFoodDelivery.API
             oSB += "<br/>";
             oSB += "<div>Dear Member,  </div>";
             oSB += "<br/>";
-         //  oSB += "<div>As per your request, we have sent you the password reset link. Click on the following link to reset your password: </div>";
-           // oSB += "<br/>";
+            //  oSB += "<div>As per your request, we have sent you the password reset link. Click on the following link to reset your password: </div>";
+            // oSB += "<br/>";
             oSB += "<table><tr><td>Mobile No : </td><td>'" + mobileno + "'</td> </tr> <tr><td>Password : </td><td>'" + password + "'</td> </tr> </table>";
 
             oSB += "<hr/>";
@@ -480,7 +480,7 @@ namespace appFoodDelivery.API
         }
         [HttpPost]
         [Route("insertfeedbacktodeliveryboy")]
-        public async Task<IActionResult> insertfeedbacktodeliveryboy(int deliveryboyid,int customerid,string comment,string rating)
+        public async Task<IActionResult> insertfeedbacktodeliveryboy(int deliveryboyid, int customerid, string comment, string rating)
         {
             //var paramter = new DynamicParameters();
             //paramter.Add("@customerid", customerid);
@@ -498,7 +498,7 @@ namespace appFoodDelivery.API
             obj.rating = rating;
             obj.isdeleted = false;
             obj.isactive = false;
-           int id= await _customerfeedbackServices.CreateAsync(obj);
+            int id = await _customerfeedbackServices.CreateAsync(obj);
             if (id == null)
             {
                 string myJson = "{\"Message\": " + "\"NotFound\"" + "}";
@@ -508,7 +508,7 @@ namespace appFoodDelivery.API
             {
                 string myJson = "{\"Message\": " + "\"Feedback Insert Successfully\"" + "}";
                 return Ok(myJson);
-                
+
             }
             //return BadRequest();
         }
@@ -528,7 +528,7 @@ namespace appFoodDelivery.API
             customerfeedback obj = new customerfeedback();
             obj.id = 0;
             obj.fromcustomerid = customerid;
-            obj.toDeliveryboyid = null ;
+            obj.toDeliveryboyid = null;
             obj.toStoredid = storeid;
             obj.comment = comment;
             obj.rating = rating;
@@ -554,10 +554,10 @@ namespace appFoodDelivery.API
         public async Task<IActionResult> storeSendTestNotification(string DeviceId, string Message)
         {
             fcmNotification objfcmNotification = new fcmNotification();
-            objfcmNotification.storeNotification(DeviceId, Message,"","test");
+            objfcmNotification.storeNotification(DeviceId, Message, "", "test");
             string myJson = "{\"Message\": " + "\"Notification Sent Successfully\"" + "}";
-            return Ok(myJson);           
-             
+            return Ok(myJson);
+
         }
         [HttpGet]
         [Route("customerSendTestNotification")]
@@ -611,7 +611,7 @@ namespace appFoodDelivery.API
                 }
                 else
                 {
-                    
+
                     return Ok(obj);
                 }
 
@@ -621,7 +621,7 @@ namespace appFoodDelivery.API
             {
                 string myJson = "{\"Message\": " + "\"Bad Request\"" + "}";
                 return BadRequest(myJson);
-                
+
             }
 
         }
@@ -669,7 +669,7 @@ namespace appFoodDelivery.API
 
         [HttpGet]
         [Route("orderhistorybyCustomerId")]
-        public async Task<IActionResult> orderhistorybyCustomerId(int customerid )
+        public async Task<IActionResult> orderhistorybyCustomerId(int customerid)
         {
             try
             {
@@ -678,7 +678,7 @@ namespace appFoodDelivery.API
 
                 var parameter = new DynamicParameters();
                 parameter.Add("@customerid", customerid);
-                
+
                 var obj = _ISP_Call.List<orderselectallViewModel>("orderhistorybyCustomerId", parameter);
                 //  var categories = await _context.CustomerRegistration.ToListAsync(); 
                 if (obj == null)
@@ -704,4 +704,4 @@ namespace appFoodDelivery.API
 
         }
     }
-} 
+}
