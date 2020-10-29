@@ -474,6 +474,48 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.ToTable("customerfeedback");
                 });
 
+            modelBuilder.Entity("appFoodDelivery.Entity.deliveryboyPaidAmount", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("amount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<DateTime>("date1")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("deliveryboyid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("deliveryboyPaidAmount");
+                });
+
+            modelBuilder.Entity("appFoodDelivery.Entity.deliveryboyPendingAmt", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("amount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("deliveryboyid")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("modifydate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("id");
+
+                    b.ToTable("deliveryboyPendingAmt");
+                });
+
             modelBuilder.Entity("appFoodDelivery.Entity.deliverytimemaster", b =>
                 {
                     b.Property<int>("id")
@@ -1050,6 +1092,33 @@ namespace appFoodDelivery.Persistence.Migrations
                     b.HasIndex("radiusid");
 
                     b.ToTable("storedetails");
+                });
+
+            modelBuilder.Entity("appFoodDelivery.Entity.versions", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("customerVersion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("deliveryboyVersion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isactive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isdeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("storeVersion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("versions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

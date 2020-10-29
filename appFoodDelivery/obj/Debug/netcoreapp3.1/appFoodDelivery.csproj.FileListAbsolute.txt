@@ -2779,6 +2779,8 @@ E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoo
 E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\Razor\Views\CityRegistration\Edit.cshtml.g.cs
 E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\Razor\Views\CityRegistration\Index.cshtml.g.cs
 E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\Razor\Views\CityRegistration\test.cshtml.g.cs
+E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\Razor\Views\collection\collect.cshtml.g.cs
+E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\Razor\Views\collection\Index.cshtml.g.cs
 E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\Razor\Views\CountryRegistration\Create.cshtml.g.cs
 E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\Razor\Views\CountryRegistration\Edit.cshtml.g.cs
 E:\yogita 6.8.19\asp.net core\Final backup 4.9.20\pic usercode  25.9.2020\appFoodDelivery\21.10.20\appFoodDelivery\appFoodDelivery\obj\Debug\netcoreapp3.1\Razor\Views\CountryRegistration\Index.cshtml.g.cs

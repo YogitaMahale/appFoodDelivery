@@ -37,8 +37,9 @@ namespace appFoodDelivery.Controllers
         private readonly IdriverRegistrationServices _driverRegistrationServices;
         private readonly IstoredetailsServices _storedetailsServices;
         private readonly IdistanceServices _distanceServices;
+        private readonly IdeliveryboyPendingAmtServices _deliveryboyPendingAmtServices;
         public fcmNotification objfcmNotification = new fcmNotification();
-        public OrderController(UserManager<ApplicationUser> usermanager, ISP_Call ispcall, IordersServices ordersServices, ICustomerRegistrationservices CustomerRegistrationservices, ISP_Call ISP_Call, IdriverRegistrationServices driverRegistrationServices, IstoredetailsServices storedetailsServices, IdistanceServices distanceServices)
+        public OrderController(UserManager<ApplicationUser> usermanager, ISP_Call ispcall, IordersServices ordersServices, ICustomerRegistrationservices CustomerRegistrationservices, ISP_Call ISP_Call, IdriverRegistrationServices driverRegistrationServices, IstoredetailsServices storedetailsServices, IdistanceServices distanceServices, IdeliveryboyPendingAmtServices deliveryboyPendingAmtServices)
         {
             this._usermanager = usermanager;
             _ISP_Call = ispcall;
@@ -48,6 +49,7 @@ namespace appFoodDelivery.Controllers
             _driverRegistrationServices = driverRegistrationServices;
             _storedetailsServices = storedetailsServices;
             _distanceServices = distanceServices;
+            _deliveryboyPendingAmtServices = deliveryboyPendingAmtServices;
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _usermanager.GetUserAsync(HttpContext.User);
 
@@ -238,7 +240,13 @@ namespace appFoodDelivery.Controllers
             paramter.Add("@orderstatus", status);
             //storedetailsListViewmodel
             _ISP_Call.Execute("orderStatus_Update", paramter);
+
+
+           
+
+
             var orders = _ordersServices.GetById(id);
+           
             int customerid = orders.customerid;
             int deliveryboyid = 0;
             string deliveryboyDeviceId = "";
@@ -333,6 +341,37 @@ namespace appFoodDelivery.Controllers
             }
             else if (status == "completedorders")
             {
+
+                ////---------------------------
+
+                //if(orders.paymentstatus == "Cash on Delivery")
+                //{
+                //    var obj = _deliveryboyPendingAmtServices.GetAll().Where(x => x.deliveryboyid == orders.deliveryboyid).FirstOrDefault();
+                //    if (obj == null)
+                //    {
+                //        var obj1 = new deliveryboyPendingAmt
+                //        {
+                //            id = 0,
+                //            deliveryboyid =(int)orders.deliveryboyid,
+                //            amount = orders.amount,
+                //            modifydate = DateTime.Now
+
+                //        };
+                //        await _deliveryboyPendingAmtServices.CreateAsync(obj1);
+                //    }
+                //    else
+                //    {
+
+                //    }
+                //}
+                //else
+                //{
+
+                //}
+               
+
+
+            //----------------------
 
 
                 #region "customer"
