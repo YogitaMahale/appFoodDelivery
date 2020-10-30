@@ -43,6 +43,9 @@ namespace appFoodDelivery.Persistence
         public DbSet<deliveryboyPendingAmt> deliveryboyPendingAmt { get; set; }
         public DbSet<deliveryboyPaidAmount> deliveryboyPaidAmount { get; set; }
 
-        
+
+        public DbSet<tax> tax { get; set; }
+        public DbSet<deliveryboyAlertAmount> deliveryboyAlertAmount { get; set; }
+        public DbSet<status> status { get; set; }
     }
 }

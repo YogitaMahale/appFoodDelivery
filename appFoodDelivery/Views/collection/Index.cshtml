@@ -44,20 +44,23 @@
                                             <tr>
                                                 <td> @item.name       </td>
                                                 <td>
+
+                                                   
                                                     <img alt="image" src="@Url.Content(item.profilephoto)" />
                                                 </td>
                                                 <td>
                                                     @item.mobileno  
                                                 </td>
                                                 <td>
-                                                     @item.amount
+                                                   
+                                                        @item.amount
+                                                   
 
-                                                     
 
                                                 </td>
                                                 
                                                 <td>
-                                    <a class="text-success" asp-action="collect" asp-route-id="@item.id" asp-route-name="@item.name"  asp-route-from1="@ViewBag.from1" >
+                                    <a class="text-success" asp-action="collect" asp-route-id="@item.id" asp-route-name="@item.name"  asp-route-amount="@item.amount" >
                                         <i class="fas fa-edit"></i> Collect Amount
                                     </a>
 

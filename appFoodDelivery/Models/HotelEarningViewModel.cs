@@ -10,11 +10,11 @@ namespace appFoodDelivery.Models
 
 
 
-
         public string id { get; set; }
         public string storename { get; set; }
+        public string storetaxStatus { get; set; }
 
-
+        public string hotelamount { get; set; }
         public string customerName { get; set; }
 
         public decimal finalamt { get; set; }
@@ -34,6 +34,8 @@ namespace appFoodDelivery.Models
         public decimal storetax { get; set; }
         public string promocode { get; set; }
         public decimal tofozamt { get; set; }
+        public decimal servicetax { get; set; }
+        public decimal TCS { get; set; }
         public decimal netpayable { get; set; }
 
     }

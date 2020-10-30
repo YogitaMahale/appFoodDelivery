@@ -170,7 +170,7 @@ namespace appFoodDelivery.Controllers
 
         //}
         [HttpGet]
-        public async Task<IActionResult> collect(int id,string name)
+        public async Task<IActionResult> collect(int id,string name,decimal amount)
         {
             var model = new collectAmountViewModel
             {
@@ -179,8 +179,11 @@ namespace appFoodDelivery.Controllers
                 deliveryboyname =name 
                   ,
                 amount  = 0
-                  
-                 
+                  ,
+                finalamt= amount
+                  ,
+                remaining = amount
+
 
             };
             return View(model);
@@ -190,14 +193,23 @@ namespace appFoodDelivery.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(model.finalamt<model.amount)
+                {
 
-                var paramter = new DynamicParameters();
-                paramter.Add("@deliveryboyid", model.deliveryboyid);
-                paramter.Add("@amount", model.amount);
-                 _ISP_Call.Execute("insertdeliveryboyamt", paramter);
+                    ModelState.AddModelError("ModelOnly", "Please Collect Proper Amount");
+                    return View(model);
+                }
+                else
+                {
+                    var paramter = new DynamicParameters();
+                    paramter.Add("@deliveryboyid", model.deliveryboyid);
+                    paramter.Add("@amount", model.amount);
+                    _ISP_Call.Execute("insertdeliveryboyamt", paramter);
+
+                    TempData["success"] = "Amount Updated successfully";
+                    return RedirectToAction(nameof(Index));
+                }
                
-                TempData["success"] = "Amount Updated successfully";
-                return RedirectToAction(nameof(Index));
             }
             else
             {

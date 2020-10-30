@@ -54,7 +54,7 @@
                             <label>Status</label>
                         </div>
                         <div class="form-group col-md-2">
-                            <select name="status" class="form-control">
+                            <select name="status" class="form-control" >
 
                                 <option value="All" selected>-- All --</option>
                                 <option value="Placed">Pending</option>
@@ -97,18 +97,19 @@
                                     <thead>
                                         <tr>
                                             @*id, customerid, amount, placedate, deliveryboyid, paymentstatus, orderstatus,
-                            isdeleted, discount, storeid, deliveryaddress, paymenttype, promocode, transactionid*@
+        isdeleted, discount, storeid, deliveryaddress, paymenttype, promocode, transactionid*@
 
                                             <th>Order Id</th>
                                             <th>Date</th>
                                             <th>Store</th>
-                                            <th>Customer Name</th>
+                                            <th style="display:none;">Customer Name</th>
                                             <th>Amount</th>
                                             <th>Hotel Amount</th>
                                             <th>Customer Delivery Charges</th>
                                             <th>Deliveryboy Earning</th>
                                             <th>Status</th>
-                                            <th>Deliveryboy</th>
+                                            <th style="display:none;">Deliveryboy</th>
+                                            <th>Payment Method</th>
                                             @*<th class="text-warning">Actions</th>*@
                                         </tr>
                                     </thead>
@@ -116,28 +117,29 @@
                                         @foreach (var item in Model)
                                         {
 
-                                            <tr>
-                                                <td> @item.id     </td>
-                                                <td>@item.placedate</td>
-                                                <td>
-                                                    @item.storename
-                                                </td>
-                                                <td>
-                                                    @item.customerName
-                                                </td>
-                                                <td>@item.finalamt    </td>
-                                                <td>@item.customeramt    </td>
-                                                <td>@item.customerdeliverycharges    </td>
-                                                <td>@item.deliveryboycharges    </td>
-                                                <td>@item.orderstatus  </td>
-                                                <td>@item.deliveryboyName    </td>
-                                                @*<td>
-                                    <a class="text-success" asp-action="Edit" asp-route-id="@item.id">
-                                        <i class="fas fa-edit"></i> Details
-                                    </a>
+                                        <tr>
+                                            <td> @item.id     </td>
+                                            <td>@item.placedate</td>
+                                            <td>
+                                                @item.storename
+                                            </td>
+                                            <td  style="display:none;">
+                                                @item.customerName
+                                            </td>
+                                            <td>@item.finalamt    </td>
+                                            <td>@item.customeramt    </td>
+                                            <td>@item.customerdeliverycharges    </td>
+                                            <td>@item.deliveryboycharges    </td>
+                                            <td>@item.orderstatus  </td>
+                                            <td style="display:none;" >@item.deliveryboyName    </td>
+                                            <td>@item.paymentstatus    </td>
+                                            @*<td>
+            <a class="text-success" asp-action="Edit" asp-route-id="@item.id">
+                <i class="fas fa-edit"></i> Details
+            </a>
 
-                                </td>*@
-                                            </tr>
+        </td>*@
+                                        </tr>
                                         }
                                     </tbody>
                                 </table><br />

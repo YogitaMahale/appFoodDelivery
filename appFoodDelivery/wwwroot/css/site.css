@@ -84,3 +84,11 @@ input#datepicker2 {
     font-size: 12px;
     width: 100px;
 }
+
+.amtshow
+{
+    display:block ;
+}
+.amtnotshow {
+    display: none ;
+}
