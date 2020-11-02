@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj": {}
+    "F:\\GitRepos\\AppTofoz\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj": {}
   },
   "projects": {
-    "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj": {
+    "F:\\GitRepos\\AppTofoz\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj",
+        "projectUniqueName": "F:\\GitRepos\\AppTofoz\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj",
         "projectName": "appFoodDelivery.Entity",
-        "projectPath": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Entity\\obj\\",
+        "projectPath": "F:\\GitRepos\\AppTofoz\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj",
+        "packagesPath": "C:\\Users\\Umakant\\.nuget\\packages\\",
+        "outputPath": "F:\\GitRepos\\AppTofoz\\appFoodDelivery.Entity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Umakant\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +25,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://www.nuget.org/api/v2": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.1": {

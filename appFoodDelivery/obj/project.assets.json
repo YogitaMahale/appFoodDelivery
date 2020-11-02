@@ -5407,7 +5407,7 @@
       ]
     },
     "NETStandard.Library/1.6.1": {
-      "sha512": "tve3LOQNMIQXeJyjhEa1hRJUN23dTbZusQl40mjbXCXjQLiittcyaKPZsRjqYaDSX+FENVi0mDnQzz9iSEZSSg==",
+      "sha512": "WcSp3+vP+yHNgS8EV5J7pZ9IRpeDuARBPN28by8zqff1wJQXm26PVU8L3/fYLBJVU7BtDyqNVWq2KlCVvSSR4A==",
       "type": "package",
       "path": "netstandard.library/1.6.1",
       "files": [
@@ -5639,7 +5639,7 @@
       ]
     },
     "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "GNmyVHIQnxDGvYyAHVlvhwOuxABEvTxMrQaQJvLMbrGsMNXh4xe4d+7ItpVc89MEW+kA5CCw4XpN6t7zddUhmw==",
+      "sha512": "X7IdhILzr4ROXd8mI1BUCQMSHSQwelUlBjF1JyTKCjXaOGn2fB4EKBxQbCK2VjO3WaWIdlXZL3W6TiIVnrhX4g==",
       "type": "package",
       "path": "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
@@ -5652,12 +5652,11 @@
       ]
     },
     "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "4tR7aHIhsOoocXw7YLn/cXLJblu3LjTvON+JdbIQpaI/pcN4MTDZpvMbo29/+ORSGbtRE5O7zltrd0dtu1DjOQ==",
+      "sha512": "nyFNiCk/r+VOiIqreLix8yN+q3Wga9+SE8BCgkf+2BwEKiNx6DyvFjCgkfV743/grxv8jHJ8gUK4XEQw7yzRYg==",
       "type": "package",
       "path": "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -5666,12 +5665,11 @@
       ]
     },
     "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "3NxqjvhNV3lXfjiqdXgxFFQfFs+ZPLWMQRQzkJnXFIHzjLw3vcY9J8WpcktYIkyG7/H/l2CDS08uDbNXPN3SrQ==",
+      "sha512": "ytoewC6wGorL7KoCAvRfsgoJPJbNq+64k2SqW6JcOAebWsFUvCCYgfzQMrnpvPiEl4OrblUlhF2ji+Q1+SVLrQ==",
       "type": "package",
       "path": "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -5680,12 +5678,11 @@
       ]
     },
     "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "U4NQjI1OscCj/eC8ptSDBXyvmsQ/i1jmCEpLGlVnf7w+pIJfx86c6bUngC8Wt2TfrcmPh0h+mTbMDQB/1OjjUA==",
+      "sha512": "I8bKw2I8k58Wx7fMKQJn2R8lamboCAiHfHeV/pS65ScKWMMI0+wJkLYlEKvgW1D/XvSl/221clBoR2q9QNNM7A==",
       "type": "package",
       "path": "runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -5694,12 +5691,11 @@
       ]
     },
     "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "WHl6lo6j5sHNpKIDfo21Ra4mGv4bmkb66Hq4SFmn/OLF6biphmEBJbXF1AnrXv34PrVs6NDhDmRx4muMivtVOw==",
+      "sha512": "VB5cn/7OzUfzdnC8tqAIMQciVLiq2epm2NrAm1E9OjNRyG4lVhfR61SMcLizejzQP8R8Uf/0l5qOIbUEi+RdEg==",
       "type": "package",
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -6034,7 +6030,7 @@
       ]
     },
     "System.Collections.Specialized/4.3.0": {
-      "sha512": "R59cA6Eps2pVuvYhsJFagxkmvKcEEFI3R06JbLF1xc+3uAlypbgXNl1ChxiYfB8nizaA0cQU2evMgc5jfdSiCw==",
+      "sha512": "Epx8PoVZR0iuOnJJDzp7pWvdfMMOAvpUo95pC4ScH2mJuXkKA2Y4aR3cG9qt2klHgSons1WFh4kcGW7cSXvrxg==",
       "type": "package",
       "path": "system.collections.specialized/4.3.0",
       "files": [
@@ -6219,7 +6215,7 @@
       ]
     },
     "System.ComponentModel.Primitives/4.3.0": {
-      "sha512": "u49fT84FDpFj8EMG8uDs1F1Oz9D+f7r3TCjyxF85u8HFpE2U5M56LkyLNBauLifIHqCQaw6jYvNAE6kpNoHlXQ==",
+      "sha512": "j8GUkCpM8V4d4vhLIIoBLGey2Z5bCkMVNjEZseyAlm4n5arcsJOeI3zkUP+zvZgzsbLTYh4lYeP/ZD/gdIAPrw==",
       "type": "package",
       "path": "system.componentmodel.primitives/4.3.0",
       "files": [
@@ -8502,7 +8498,7 @@
       ]
     },
     "System.Runtime.Serialization.Formatters/4.3.0": {
-      "sha512": "gi911wH1hbCBLiIsayMMWSBXxh2m+dAoIFjmIiVTDM9UDQJcKM+1bNhrs18+t/OBkqCN5s6VDiobh9howUd5yw==",
+      "sha512": "KT591AkTNFOTbhZlaeMVvfax3RqhH1EJlcwF50Wm7sfnBLuHiOeZRRKrr1ns3NESkM20KPZ5Ol/ueMq5vg4QoQ==",
       "type": "package",
       "path": "system.runtime.serialization.formatters/4.3.0",
       "files": [
@@ -10071,23 +10067,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "C:\\Users\\Umakant\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.csproj",
+      "projectUniqueName": "F:\\GitRepos\\AppTofoz\\appFoodDelivery\\appFoodDelivery.csproj",
       "projectName": "appFoodDelivery",
-      "projectPath": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery\\appFoodDelivery.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery\\obj\\",
+      "projectPath": "F:\\GitRepos\\AppTofoz\\appFoodDelivery\\appFoodDelivery.csproj",
+      "packagesPath": "C:\\Users\\Umakant\\.nuget\\packages\\",
+      "outputPath": "F:\\GitRepos\\AppTofoz\\appFoodDelivery\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Umakant\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10095,19 +10091,19 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://www.nuget.org/api/v2": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj": {
-              "projectPath": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj"
+            "F:\\GitRepos\\AppTofoz\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj": {
+              "projectPath": "F:\\GitRepos\\AppTofoz\\appFoodDelivery.Entity\\appFoodDelivery.Entity.csproj"
             },
-            "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Persistence\\appFoodDelivery.Persistence.csproj": {
-              "projectPath": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Persistence\\appFoodDelivery.Persistence.csproj"
+            "F:\\GitRepos\\AppTofoz\\appFoodDelivery.Persistence\\appFoodDelivery.Persistence.csproj": {
+              "projectPath": "F:\\GitRepos\\AppTofoz\\appFoodDelivery.Persistence\\appFoodDelivery.Persistence.csproj"
             },
-            "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Services\\appFoodDelivery.Services.csproj": {
-              "projectPath": "E:\\yogita 6.8.19\\asp.net core\\Final backup 4.9.20\\pic usercode  25.9.2020\\appFoodDelivery\\21.10.20\\appFoodDelivery\\appFoodDelivery.Services\\appFoodDelivery.Services.csproj"
+            "F:\\GitRepos\\AppTofoz\\appFoodDelivery.Services\\appFoodDelivery.Services.csproj": {
+              "projectPath": "F:\\GitRepos\\AppTofoz\\appFoodDelivery.Services\\appFoodDelivery.Services.csproj"
             }
           }
         }
