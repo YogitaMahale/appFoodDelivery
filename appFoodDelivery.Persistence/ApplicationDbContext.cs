@@ -40,5 +40,12 @@ namespace appFoodDelivery.Persistence
         public DbSet<menumaster> menumasters { get; set; }
         public DbSet<denyOrders> denyOrders { get; set; }
         public DbSet<versions> versions { get; set; }
+        public DbSet<deliveryboyPendingAmt> deliveryboyPendingAmt { get; set; }
+        public DbSet<deliveryboyPaidAmount> deliveryboyPaidAmount { get; set; }
+
+
+        public DbSet<tax> tax { get; set; }
+        public DbSet<deliveryboyAlertAmount> deliveryboyAlertAmount { get; set; }
+        public DbSet<status> status { get; set; }
     }
 }

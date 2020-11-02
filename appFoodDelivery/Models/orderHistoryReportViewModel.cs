@@ -27,8 +27,8 @@ namespace appFoodDelivery.Models
         public string promocode { get; set; }
         public decimal tofozamt { get; set; }
         public decimal netpayable { get; set; }
+        public string paymentstatus { get; set; }
 
-
-
+        
     }
 }

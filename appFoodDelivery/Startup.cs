@@ -106,7 +106,7 @@ namespace appFoodDelivery
             services.AddScoped<IversionsServices, versionsServices>();
             //services.AddScoped<IEmailSender, EmailSender>();
 
-
+            services.AddScoped<IdeliveryboyPendingAmtServices, deliveryboyPendingAmtServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

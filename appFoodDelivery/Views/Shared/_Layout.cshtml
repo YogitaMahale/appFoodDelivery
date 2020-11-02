@@ -159,6 +159,20 @@
                             </div>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#Collection" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                                <span class="menu-title">Collection  </span>
+                                <i class="menu-arrow text-primary"></i>
+                            </a>
+                            <div class="collapse" id="Collection">
+                                <ul class="nav flex-column sub-menu">
+                                    @*<li class="nav-item"><a class="nav-link" asp-controller="order" asp-action="index"> orders details</a></li>*@
+                                    <li class="nav-item"><a class="nav-link" asp-controller="collection" asp-action="Index">Deliveryboy</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#Notification" aria-expanded="false" aria-controls="ui-basic">
                                 <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
                                 <span class="menu-title">Notification  </span>
@@ -182,10 +196,11 @@
                                 <ul class="nav flex-column sub-menu">
                                     @*<li class="nav-item"><a class="nav-link" asp-controller="order" asp-action="index"> orders details</a></li>*@
                                     <li class="nav-item"><a class="nav-link" asp-controller="Reportdetails" asp-action="Index">Order Details</a></li>
-                                    <li class="nav-item"><a class="nav-link" asp-controller="Reportdetails" asp-action="orderHistoryReport">Order History</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Reportdetails" asp-action="orderHistoryReport">Deliveryboy Details</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="Reportdetails" asp-action="HotelEarningReport">Hotel Earning</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Reportdetails" asp-action="collectionReport">Collection Details</a></li>
                                     @*<li class="nav-item"><a class="nav-link" asp-controller="Reportdetails" asp-action="orderHistoryReport1">Order History1</a></li>*@
-
+                                    
                                 </ul>
                             </div>
                         </li>
@@ -205,14 +220,14 @@
 
                                     <li class="nav-item"><a class="nav-link" asp-controller="product" asp-action="Index">Menu</a></li>
                                     @*<li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="ownerprofile">Owner Profile Details
-                                        </a></li>*@
+                        </a></li>*@
 
                                     <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="EditStoreProfile">Edit Owner Details</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="ChangePassword">Change Password</a></li>
 
                                     @*<li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Services"> Select Service</a></li>
-                                        <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="StoreDetails"> Store Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Documentation"> Documentation</a></li>*@
+                        <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="StoreDetails"> Store Details</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="storedetails" asp-action="Documentation"> Documentation</a></li>*@
                                 </ul>
                             </div>
                         </li>
@@ -254,18 +269,18 @@
 
 
                     @*<li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#store" aria-expanded="false" aria-controls="ui-basic">
-                                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
-                                <span class="menu-title">Store Owner  </span>
-                                <i class="menu-arrow text-primary"></i>
-                            </a>
-                            <div class="collapse" id="store">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" asp-controller="StoreOwner" asp-action="Create"> New Registration</a></li>
-                                    <li class="nav-item"><a class="nav-link" asp-controller="StoreOwner" asp-action="Index"> All Details</a></li>
-                                </ul>
-                            </div>
-                        </li>*@
+            <a class="nav-link" data-toggle="collapse" href="#store" aria-expanded="false" aria-controls="ui-basic">
+                <i class="fas fa-users fa-lg text-primary" style="margin-right:0.7em"></i>
+                <span class="menu-title">Store Owner  </span>
+                <i class="menu-arrow text-primary"></i>
+            </a>
+            <div class="collapse" id="store">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" asp-controller="StoreOwner" asp-action="Create"> New Registration</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="StoreOwner" asp-action="Index"> All Details</a></li>
+                </ul>
+            </div>
+        </li>*@
 
                 </ul>
             </nav>

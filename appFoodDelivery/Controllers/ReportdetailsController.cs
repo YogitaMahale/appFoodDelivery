@@ -297,6 +297,9 @@ namespace appFoodDelivery.Controllers
         [HttpGet]
         public async Task<IActionResult> orderHistoryReport(int? PageNumber, string from1, string to1, string status, string deliveryboyid)
         {
+            List<SelectList> cl = new List<SelectList>();
+            // cl = (from c in _auc.country select c).ToList();
+       
             //List<SelectListItem> mySkills = new List<SelectListItem>() {
 
             //ViewData["MySkills"] = mySkills;
@@ -412,7 +415,7 @@ namespace appFoodDelivery.Controllers
 
 
                 var builder = new StringBuilder();
-                builder.AppendLine("Order ID,Store ,Customer,Fianl Amount,Customer Amount,Customer Delivery Charges,Delivery boy Charges,Order Status,Deliveryboy ,Date");
+                builder.AppendLine("Order ID,Store ,Customer,Fianl Amount,Customer Amount,Customer Delivery Charges,Delivery boy Charges,Order Status,Deliveryboy ,Date,Payment Method");
                 decimal tot_finalamt = 0;
                 decimal tot_customeramt = 0;
                 decimal tot_customerdeliverycharges = 0;
@@ -423,7 +426,7 @@ namespace appFoodDelivery.Controllers
                     tot_customeramt += item.customeramt;
                     tot_customerdeliverycharges += item.customerdeliverycharges;
                     tot_deliveryboycharges += item.deliveryboycharges;
-                    builder.AppendLine($"{item.id},{item.storename},{item.customerName},{item.finalamt },{item.customeramt},{item.customerdeliverycharges},{item.deliveryboycharges},{item.orderstatus },{item.deliveryboyName},{item.placedate }");
+                    builder.AppendLine($"{item.id},{item.storename},{item.customerName},{item.finalamt },{item.customeramt},{item.customerdeliverycharges},{item.deliveryboycharges},{item.orderstatus },{item.deliveryboyName},{item.placedate },{item.paymentstatus}");
                 }
                 builder.AppendLine($"{""},{""},{"Total :"},{tot_finalamt },{tot_customeramt},{tot_customerdeliverycharges},{tot_deliveryboycharges},{"" },{""},{"" }");
                 string namee = deliveryname + "_OrderHistory.csv";
@@ -556,32 +559,34 @@ namespace appFoodDelivery.Controllers
                 var builder = new StringBuilder();
 
 
-                decimal tot_customeramt = 0;
+                decimal tot_hotelamt = 0;
                 decimal tot_packingcharges = 0;
                 decimal tot_subtotal1 = 0;
                 decimal tot_storecommission = 0;
                 decimal tot_tofozamt = 0;
                 decimal tot_netpayable = 0;
-                decimal tot_storetax = 0;
+                decimal tot_servicestax = 0;
+                decimal tot_TCStax = 0;
 
 
-                builder.AppendLine(" Order Id,Date,Store,Hotel Amount,Packing Charges,Subtotal,Commission,tofozamt,netpayable,storetax, promocode, Status, Deliveryboy");
+                builder.AppendLine(" Order Id ,Date ,Store  ,Hotel Amount ,Packing Charges ,Subtotal ,Commission (%) ,TOFOZ Amount , Service tax, TCS, Netpayable, Tax, Promo Code, Status, Deliveryboy");
                 foreach (var item in orderheaderList1)
                 {
 
 
-                    tot_customeramt += item.customeramt;
+                    tot_hotelamt += Convert.ToDecimal(item.hotelamount);
                     tot_packingcharges += item.packingcharges;
                     tot_subtotal1 += item.subtotal1;
                     tot_storecommission += item.storecommission;
                     tot_tofozamt += item.tofozamt;
                     tot_netpayable += item.netpayable;
-                    tot_storetax += item.storetax;
+                    tot_servicestax += item.storetax;
+                    tot_TCStax += item.TCS;
 
-                    builder.AppendLine($"{item.id},{item.placedate },{item.storename },{item.customeramt },{item.packingcharges},{item.subtotal1 },{item.storecommission},{item.tofozamt },{item.netpayable  },{item.storetax},{item.promocode  },{item.orderstatus},{item.deliveryboyName   }");
+                    builder.AppendLine($"{item.id},{item.placedate },{item.storename },{item.hotelamount  },{item.packingcharges },{item.subtotal1  },{item.storecommission},{item.tofozamt },{item.servicetax  },{item.TCS},{item.netpayable   },{item.promocode},{item.storetaxStatus},{item.deliveryboyName   }");
 
                 }
-                builder.AppendLine($"{""},{"" },{"Total :" },{tot_customeramt },{tot_packingcharges},{tot_subtotal1 },{tot_storecommission},{tot_tofozamt },{tot_netpayable  },{tot_storetax},{""  },{""},{""   }");
+                builder.AppendLine($"{""},{"" },{"Total :" },{tot_hotelamt },{tot_packingcharges},{tot_subtotal1 },{tot_storecommission},{tot_tofozamt },{tot_servicestax   },{tot_TCStax },{tot_netpayable   },{""},{""   },{""}");
                 string namee = _storedetailsServices.GetAll().Where(x => x.storeid == storeid).FirstOrDefault().storename;
                 string abc = namee + "_HotelEarning.csv";
                 return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", abc);
@@ -867,6 +872,119 @@ namespace appFoodDelivery.Controllers
                 }
 
                 return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "OrderHistory.csv");
+            }
+
+
+            else
+            {
+                return View();
+            }
+
+
+
+        }
+        //--------------------------------------------------
+        [HttpGet]
+        public async Task<IActionResult> collectionReport(int? PageNumber, string from1, string to1, string deliveryboyid)
+        {
+            List<SelectList> cl = new List<SelectList>();
+            // cl = (from c in _auc.country select c).ToList();
+
+            //List<SelectListItem> mySkills = new List<SelectListItem>() {
+
+            //ViewData["MySkills"] = mySkills;
+            IEnumerable<SelectListItem> obj = _driverRegistrationServices.GetAlldriver();
+            ViewData["deliveryboylist"] = obj;
+
+            ViewBag.deliveryboyid1 = deliveryboyid;
+
+            ViewBag.from1 = from1;
+            ViewBag.to1 = to1;
+           //ViewBag.status1 = status;
+            
+
+           
+            var paramter = new DynamicParameters();
+           
+            
+            paramter.Add("@from", from1);
+            paramter.Add("@to", to1);
+            paramter.Add("@deliveryboyid", deliveryboyid);
+
+            var orderheaderList1 = _ISP_Call.List<amtcollectionReportViewModel>("amtcollectionReport", paramter);
+
+
+            //  return View(orderheaderList1.ToList());
+            int PageSize = 10;
+            return View(OrderPagination<amtcollectionReportViewModel>.Create(orderheaderList1.ToList(), PageNumber ?? 1, PageSize));
+
+
+
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> collectionReport(int? PageNumber, string from1, string to1,  string search, string ExcelFileDownload, int deliveryboyid)
+        {
+            IEnumerable<SelectListItem> obj = _driverRegistrationServices.GetAlldriver();
+            ViewData["deliveryboylist"] = obj;
+            //---------------------------------------------
+            ViewBag.from1 = from1;
+            ViewBag.to1 = to1;
+             
+            ViewBag.deliveryboyid1 = deliveryboyid;
+
+            
+            if (search != null)
+            {
+
+                var paramter = new DynamicParameters();
+                 
+                DateTime l1 = DateTime.ParseExact(from1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime l2 = DateTime.ParseExact(to1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+               
+                paramter.Add("@from", l1);
+                paramter.Add("@to", l2);
+                paramter.Add("@deliveryboyid", deliveryboyid);
+                var orderheaderList1 = _ISP_Call.List<amtcollectionReportViewModel>("amtcollectionReport", paramter);
+
+                //  return View(orderheaderList1.ToList());
+                int PageSize = 10;
+
+                return View(OrderPagination<amtcollectionReportViewModel>.Create(orderheaderList1.ToList(), PageNumber ?? 1, PageSize));
+
+            }
+            else if (ExcelFileDownload != null)
+            {
+
+                var paramter = new DynamicParameters();
+                
+                DateTime l1 = DateTime.ParseExact(from1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime l2 = DateTime.ParseExact(to1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                
+                paramter.Add("@from", l1);
+                paramter.Add("@to", l2);
+                paramter.Add("@deliveryboyid", deliveryboyid);
+                var orderheaderList1 = _ISP_Call.List<amtcollectionReportViewModel>("amtcollectionReport", paramter);
+
+                string deliveryname = _driverRegistrationServices.GetById(deliveryboyid).name;
+
+
+                var builder = new StringBuilder();
+                builder.AppendLine("Date,Amount");
+                decimal tot_amt = 0;
+                 
+                foreach (var item in orderheaderList1)
+                {
+                    tot_amt += item.amount;
+                   
+                    builder.AppendLine($"{item.date1 },{item.amount}");
+                }
+                builder.AppendLine($" {"Total :"},{tot_amt }");
+                string namee = deliveryname + "_collectionReport.csv";
+                return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", namee);
             }
 
 

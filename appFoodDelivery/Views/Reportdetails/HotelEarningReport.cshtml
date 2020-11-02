@@ -78,9 +78,13 @@
                       
                     </div>
                     <div class="row" style="text-align:center;">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
+                        </div>
+                        <div class="form-group col-md-4">
                             <input type="submit" name="search" value="Search" class="btn btn-primary" />
                             <input type="submit" name="ExcelFileDownload" value="Excel Download" class="btn btn-primary" />
+                        </div>
+                        <div class="form-group col-md-4">
                         </div>
                     </div>
                         }
@@ -93,16 +97,20 @@
                                     <thead>
                                         <tr>
                                             @*id, storename, customerName, finalamt, orderstatus, deliveryboyName, customeramt, packingcharges,
-                                    subtotal1, storecommission, tofozamt, netpayable, storetax, promocode
-                                    ,  placedate*@
+                            subtotal1, storecommission, tofozamt, netpayable, storetax, promocode
+                            ,  placedate*@
                                             <th>Order Id</th>
                                             <th>Date</th>
                                             <th>Store</th>
                                             <th>Hotel Amount</th>
                                             <th>Packing Charges</th>
-                                            <th>Commissionable Amount</th>
+                                            <th>Subtotal</th>
                                             <th>Commission (%)</th>
                                             <th>TOFOZ Amount</th>
+                                            <th>Service tax</th>
+                                            <th>TCS</th>
+                                            @*<th>Service tax ( 18% on tofoz amount ) </th>
+                            <th>TCS ( 1 % on hotel amount) </th>*@
                                             <th>Netpayable</th>
                                             <th>Tax</th>
                                             <th>Promo Code</th>
@@ -119,15 +127,15 @@
                                                 <td> @item.id     </td>
                                                 <td>@item.placedate</td>
                                                 <td> @item.storename  </td>
-
-                                                <td>@item.customeramt    </td>
+                                                <td>@item.hotelamount    </td>
                                                 <td>@item.packingcharges    </td>
                                                 <td>@item.subtotal1    </td>
                                                 <td>@item.storecommission    </td>
                                                 <td>@item.tofozamt    </td>
-
+                                                <td>@item.servicetax    </td>
+                                                <td>@item.TCS      </td>
                                                 <td>@item.netpayable    </td>
-                                                <td>@item.storetax    </td>
+                                                <td>@item.storetaxStatus    </td>
                                                 <td>@item.promocode    </td>
                                                 <td>@item.orderstatus      </td>
                                                 <td>@item.deliveryboyName    </td>
@@ -141,17 +149,17 @@
                                     var disableNext = !Model.IsNextAvailable ? "disabled" : "";
                                 }
 
-                            <a asp-action="HotelEarningReport"
-                               asp-route-pageNumber="@(Model.PageIndex - 1)"
-                               asp-route-from1="@ViewBag.from1"
-                               asp-route-to1="@ViewBag.to1"
-                               asp-route-status="@ViewBag.status1"
-                                asp-route-storeid="@ViewBag.storeid1"
-                               class="btn btn-primary @disablePrevious">
+                                <a asp-action="HotelEarningReport"
+                                   asp-route-pageNumber="@(Model.PageIndex - 1)"
+                                   asp-route-from1="@ViewBag.from1"
+                                   asp-route-to1="@ViewBag.to1"
+                                   asp-route-status="@ViewBag.status1"
+                                   asp-route-storeid="@ViewBag.storeid1"
+                                   class="btn btn-primary @disablePrevious">
 
-                                
-                                Previous
-                            </a>
+
+                                    Previous
+                                </a>
                                 <a asp-action="HotelEarningReport"
                                    asp-route-pageNumber="@(Model.PageIndex + 1)"
                                    asp-route-from1="@ViewBag.from1"
